@@ -1,4 +1,9 @@
 from gestor.models import Project
 from django.contrib import admin
 
-admin.site.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+	
+	list_filter = ('status','manager','workers','start_date','end_date',)
+	search_fields = ['name','description']
+
+admin.site.register(Project,ProjectAdmin)
