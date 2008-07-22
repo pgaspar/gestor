@@ -8,4 +8,6 @@ urlpatterns = patterns('',
     (r'^admin/(.*)', admin.site.root),
 
     (r'^gestor/', include('jksite.gestor.urls')),
+
+    (r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/gestor/" }),
 )
