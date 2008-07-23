@@ -122,7 +122,7 @@ fieldset label{
 #menu li a {
 	display: block;
 	padding: 4px;
-	font-family: 'Lucida Grande';
+	font-family: 'Lucida Grande', Tahoma, sans-serif;
 	border-left: solid #086F9E 6px;
 	text-decoration: none;
 	color: #fff;
