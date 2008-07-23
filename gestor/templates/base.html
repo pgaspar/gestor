@@ -19,16 +19,17 @@
 			
 		</div>
 		
-		<div id="menu">
-			{% block menu %}
-				<ul>
-					<li><a href="?p=sobre" accesskey="1">Sobre</a></li>
-					<li><a href="?p=servicos" accesskey="2">Serviços</a></li>
-					<!--<li><a href="?p=portfolio">Portfolio</a></li>-->
-					<li><a href="?p=contactos" accesskey="3">Contactos</a></li>
-				</ul>
-			{% endblock %}
-		</div>
+		{% if user.is_anonymous %}
+		
+		{% else %}
+			<div id="menu">
+				{% block menu %}
+					<ul>
+						<li><a href="/accounts/logout">Logout</a></li>
+					</ul>
+				{% endblock %}
+			</div>
+		{% endif %}
 	</div>
 </body>
 </html>

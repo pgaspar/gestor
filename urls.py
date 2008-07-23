@@ -5,11 +5,12 @@ from django.conf import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
+	(r'^media/(.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+
 	(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
 
-	(r'^media/(.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-
+    (r'^accounts/', include('jksite.accounts.urls')),
     (r'^gestor/', include('jksite.gestor.urls')),
 
     (r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/gestor/" }),

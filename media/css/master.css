@@ -50,6 +50,36 @@ p {
 	padding: 10px;
 }
 
+fieldset {
+	border:0;
+}
+
+fieldset ul, fieldset li{
+	border:0;
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+fieldset li{
+	clear:both;
+	list-style:none;
+	padding-bottom:10px;
+}
+
+fieldset input{
+	float:left;
+}
+fieldset label{
+	width:140px;
+	float:left;
+}
+
+
+.clear {
+	clear: both;
+}
+
 #container {
 	width: 700px;
 	margin: auto;
@@ -58,6 +88,7 @@ p {
 #main {
     width: 500px;
     padding: 25px;
+
     background-color: #fff;
     border-bottom: solid 8px #086F9E;
 	float: left;
@@ -79,6 +110,7 @@ p {
 	background-color: #086F9E;
 	float: left;
 	border-left: solid #132938 2px;
+	color: #fff;
 }
 
 #menu ul {
@@ -99,3 +131,5 @@ p {
 #menu li a:hover {
 	border-left: solid #fff 6px;
 }
+
+

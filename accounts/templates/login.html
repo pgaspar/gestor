@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<h2>Login</h2>
+
+	<fieldset>
+		<form method="post" action=".">
+			{{ form.as_ul }}
+			<div class="clear"><input type="submit" value="login" /></div>
+			<input type="hidden" name="next" value="{{ next }}" />
+		</form>
+	</fieldset>
+
+
+{% endblock %}
