@@ -69,7 +69,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
-	'middleware.requirelogin.RequireLoginMiddleware',
+	#'middleware.requirelogin.RequireLoginMiddleware',
 )
 
 ROOT_URLCONF = 'jksite.urls'
@@ -88,6 +88,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
 	'django.contrib.admin',
+	'django.contrib.humanize',
 	'accounts',
 	'gestor',
 )

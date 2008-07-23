@@ -47,7 +47,7 @@ a img {
 
 p {
 	text-align: justify;
-	padding: 10px;
+	padding: 3px;
 }
 
 fieldset {
@@ -83,6 +83,11 @@ fieldset label{
 #container {
 	width: 700px;
 	margin: auto;
+}
+
+div {
+	margin: 0;
+	padding: 0;
 }
 
 #main {
@@ -132,4 +137,15 @@ fieldset label{
 	border-left: solid #fff 6px;
 }
 
+.label {
+	font-weight: bold;
+	font-size: 12px;
+}
 
+.text {
+	font-family: Georgia, serif;
+}
+
+.project_detail .status {
+	float: right;
+}
