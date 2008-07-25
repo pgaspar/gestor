@@ -10,9 +10,11 @@ urlpatterns = patterns('',
 	(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
 
-    (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/$', 'accounts.views.profile'),
-    (r'^accounts/', include('jksite.accounts.urls')),
     (r'^gestor/', include('jksite.gestor.urls')),
+
+
+    (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/$', 'accounts.views.profile'),
+    (r'^accounts', include('jksite.accounts.urls')),
 
     (r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/gestor/" }),
 )

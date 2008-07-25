@@ -1,4 +1,4 @@
-from gestor.models import Project
+from gestor.models import Project, ActionItem, Note
 from django.contrib import admin
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -7,3 +7,8 @@ class ProjectAdmin(admin.ModelAdmin):
 	search_fields = ['name','description']
 
 admin.site.register(Project,ProjectAdmin)
+
+
+admin.site.register(ActionItem)
+
+admin.site.register(Note)

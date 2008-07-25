@@ -16,12 +16,30 @@
 		<p class="description clear text">{{object.description}}</p>
 		<div>
 			<p><span class="label">Manager: </span> <span class="manager"><a href="{{object.manager.get_absolute_url}}">{{object.manager.get_full_name}}</a></span></p>
+		</div>	
+			
+		<div class="three_col">
 			<p><span class="label">Members: </span></p> <ul class="members">
 				{% for user in object.workers.all %}
 					<li><a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></li>
 				{% endfor %}
 			</ul>
 		</div>
+		<div class="three_col">
+			<p><span class="label">Action Items: </span></p> <ul class="action-items">
+				{% for item in object.actionitem_set.all %}
+					<li><a href="{{item.get_absolute_url}}">{{item.title}}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="three_col">
+			<p><span class="label">Notes: </span></p> <ul class="notes">
+				{% for note in object.note_set.all %}
+					<li><a href="{{note.get_absolute_url}}">{{note.title}}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="clear"></div>
 		
 		
 	</div>

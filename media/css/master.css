@@ -137,15 +137,28 @@ div {
 	border-left: solid #fff 6px;
 }
 
+
+.three_col {
+	float: left;
+	width: 29%;
+	margin-left: 0%;
+	padding: 0px;
+}
+
+
 .label {
 	font-weight: bold;
 	font-size: 12px;
+}
+
+.actions {
+	float: left;
 }
 
 .text {
 	font-family: Georgia, serif;
 }
 
-.project_detail .status {
+.project_detail .status, .note_detail .status {
 	float: right;
 }

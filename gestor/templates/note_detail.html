@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block content %}
+	<div class="note_detail">
+		<h1>{{ object.title }}</h1>
+		
+		<div class="status">
+			Added {{object.set_date|naturalday}}
+		</div>
+	
+		<p class="description clear text">{{object.description}}</p>	
+
+		<div class="actions">
+			<a href="{{object.get_absolute_url}}/edit"><img src="/media/icons/note_edit.png" alt="Edit Note"></a>
+			<a href="{{object.get_absolute_url}}/delete"><img src="/media/icons/note_delete.png" alt="Delete Note"></a>
+		</div>
+
+	</div>
+{% endblock %}

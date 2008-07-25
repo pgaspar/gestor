@@ -4,7 +4,7 @@
 
 	<h2>{{user.get_full_name}}</h2>
 	<ul>
-		{% for project in user.project__set.all %}
+		{% for project in user.id_worker.all %}
 			<li>{{project.name}}</li>
 		{% endfor %}
 	</ul>

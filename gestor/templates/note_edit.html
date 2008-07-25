@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+	<div class="note_form">
+		<fieldset>
+			<form action="" method="post">
+				{{ form.as_ul }}
+				<div class="clear"><input type="submit" value="Save" /></div>
+			</form>
+		</fieldset>
+	</div>
+{% endblock %}
