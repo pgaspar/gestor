@@ -32,7 +32,7 @@
 					<li><a href="{{item.get_absolute_url}}" class="{{item|colorstatus}}">{{item.title}}</a></li>
 				{% endfor %}
 			</ul>
-			<img src="/media/icons/cog_add.png" alt=""> <a href="/gestor/action/in/{{object.id}}">New ActionItem</a>
+			<img src="{{MEDIA_URL}}icons/cog_add.png" alt=""> <a href="/gestor/action/in/{{object.id}}">New ActionItem</a>
 		</div>
 		<div class="three_col">
 			<p><span class="label">Notes: </span></p> <ul class="notes">
@@ -40,7 +40,7 @@
 					<li><a href="{{note.get_absolute_url}}">{{note.title}}</a></li>
 				{% endfor %}
 			</ul>
-			<img src="/media/icons/note_add.png" alt=""> <a href="/gestor/note/in/{{object.id}}">New Note</a>
+			<img src="{{MEDIA_URL}}icons/note_add.png" alt=""> <a href="/gestor/note/in/{{object.id}}">New Note</a>
 		</div>
 		<div class="clear"></div>
 		

@@ -118,10 +118,23 @@ div {
 	color: #fff;
 }
 
+#menu h3 {
+	color: #fff;
+	margin-left: 7px;
+}
+
 #menu ul {
-	margin: 20px;
+	font-weight: none;
+	margin: 10px;
+	margin-left: 5px;
 	padding: 0px;
 	list-style: none;
+}
+
+#menu li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 #menu li a {
@@ -151,12 +164,21 @@ div {
 	font-size: 12px;
 }
 
+.description {
+	border: solid #666666 1px;
+	font-size: 10px;
+	font-weight: none;
+	color: #666666;
+	padding: 4px;
+	margin: 5px;
+}
+
 .actions {
 	float: left;
 }
 
-.text {
-	font-family: Georgia, serif;
+.text, .description {
+	font-family: Verdana, Tahoma, sans-serif;
 }
 
 .status, .actions{

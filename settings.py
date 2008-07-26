@@ -82,6 +82,12 @@ TEMPLATE_DIRS = (
 
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+	"django.core.context_processors.auth",
+	"django.core.context_processors.media",
+	"django.core.context_processors.request",
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -92,3 +98,5 @@ INSTALLED_APPS = (
 	'accounts',
 	'gestor',
 )
+
+DATE_FORMAT = "d/F/Y"

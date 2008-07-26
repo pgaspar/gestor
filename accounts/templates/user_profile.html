@@ -2,20 +2,20 @@
 {% load humanize %}
 
 {% block content %}
-	<div class="user_profile">
+	<div class="u_profile">
 		<div class="status">
-			{% if user.is_staff %}
+			{% if u.is_staff %}
 				<b>Admin</b>
 			{% endif %}
 		</div>
 		
-		<h2>{{user.get_full_name}}</h2>
+		<h2>{{u.get_full_name}}</h2>
 
 		<h3>Personal info</h3>
 		<div class="personal-info">
-			<p><b class="label">E-mail:</b> <a href="mailto:{{user.email}}">{{user.email}}</a></p>
-			<p><b class="label">Last Visit:</b> {{user.last_login|naturalday}}</p>
-			<p><b class="label">User Since:</b> {{user.date_joined|naturalday}}</p>
+			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}">{{u.email}}</a></p>
+			<p><b class="label">Last Visit:</b> {{u.last_login|naturalday}}</p>
+			<p><b class="label">User Since:</b> {{u.date_joined|naturalday}}</p>
 		</div>
 		
 		{% if current_projects %}
@@ -23,7 +23,7 @@
 			<ul>
 				{% for project in current_projects %}
 					<li><a href="{{project.get_absolute_url}}">{{project.name}}</a>
-					{% ifequal project.manager user  %}
+					{% ifequal project.manager u  %}
 						(Manager)
 					{% endifequal %}
 					</li> 
@@ -37,7 +37,7 @@
 			<ul>
 				{% for project in past_projects %}
 					<li><a href="{{project.get_absolute_url}}">{{project.name}}</a>
-					{% ifequal project.manager user  %}
+					{% ifequal project.manager u  %}
 						(Manager)
 					{% endifequal %}
 					</li> 

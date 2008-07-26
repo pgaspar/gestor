@@ -27,10 +27,10 @@
 		
 		<div class="actions">
 			{% if not object.done %}
-			<a href="{{object.get_absolute_url}}/finish"><img src="/media/icons/accept.png" alt="Finish ActionItem"></a>
+			<a href="{{object.get_absolute_url}}/finish"><img src="{{MEDIA_URL}}icons/accept.png" alt="Finish ActionItem"></a>
 			{% endif %}
-			<a href="{{object.get_absolute_url}}/edit"><img src="/media/icons/cog_edit.png" alt="Edit ActionItem"></a>
-			<a href="{{object.get_absolute_url}}/delete"><img src="/media/icons/cog_delete.png" alt="Delete ActionItem"></a>
+			<a href="{{object.get_absolute_url}}/edit"><img src="{{MEDIA_URL}}icons/cog_edit.png" alt="Edit ActionItem"></a>
+			<a href="{{object.get_absolute_url}}/delete"><img src="{{MEDIA_URL}}icons/cog_delete.png" alt="Delete ActionItem"></a>
 		</div>
 
 	</div>
