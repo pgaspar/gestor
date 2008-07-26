@@ -14,7 +14,7 @@ urlpatterns = patterns('',
 
 
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/$', 'accounts.views.profile'),
-    (r'^accounts', include('jksite.accounts.urls')),
+    (r'^accounts/', include('jksite.accounts.urls')),
 
     (r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/gestor/" }),
 )
