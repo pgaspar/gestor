@@ -1,12 +1,27 @@
 {% extends "base.html" %}
+{% load humanize %}
 
 {% block content %}
-
-	<h2>{{user.get_full_name}}</h2>
-	<ul>
-		{% for project in user.id_worker.all %}
-			<li>{{project.name}}</li>
-		{% endfor %}
-	</ul>
-
+	<div class="user_profile">
+		<div class="status">
+			{% if user.is_staff %}
+				<b>Admin</b>
+			{% endif %}
+		</div>
+		
+		<h2>{{user.get_full_name}}</h2>
+		
+		
+		<h3>Personal info</h3>
+		<p>E-mail: {{user.email}}</p>
+		<p>Last Visit: {{user.last_login|naturalday}}</p>
+		<p>User Since: {{user.date_joined|naturalday}}</p>
+		
+		<h3>Current Projects</h3>
+		<ul>
+			{% for project in user.id_worker.all %}
+				<li>{{project.name}}</li>
+			{% endfor %}
+		</ul>
+	</div>
 {% endblock %}
