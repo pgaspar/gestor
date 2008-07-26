@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load humanize %}
+{% load datecolor %}
 
 {% block content %}
 	<div class="project_detail">
@@ -27,17 +28,19 @@
 		</div>
 		<div class="three_col">
 			<p><span class="label">Action Items: </span></p> <ul class="action-items">
-				{% for item in object.actionitem_set.all %}
-					<li><a href="{{item.get_absolute_url}}">{{item.title}}</a></li>
+				{% for item in actionitems %}
+					<li><a href="{{item.get_absolute_url}}" class="{{item|colorstatus}}">{{item.title}}</a></li>
 				{% endfor %}
 			</ul>
+			<img src="/media/icons/cog_add.png" alt=""> <a href="/gestor/action/in/{{object.id}}">New ActionItem</a>
 		</div>
 		<div class="three_col">
 			<p><span class="label">Notes: </span></p> <ul class="notes">
-				{% for note in object.note_set.all %}
+				{% for note in notes %}
 					<li><a href="{{note.get_absolute_url}}">{{note.title}}</a></li>
 				{% endfor %}
 			</ul>
+			<img src="/media/icons/note_add.png" alt=""> <a href="/gestor/note/in/{{object.id}}">New Note</a>
 		</div>
 		<div class="clear"></div>
 		

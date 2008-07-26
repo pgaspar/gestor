@@ -1,4 +1,13 @@
-from django.forms import form_for_model, form_for_instance, save_instance, BaseForm, Form, CharField
-from gestor.models import Note
+from django.forms import *
+from gestor.models import Note, ActionItem
+from django.contrib.admin.widgets import AdminDateWidget
 
-NoteForm = form_for_model(Note)
+class NoteForm(ModelForm):
+	class Meta:
+		model = Note
+		
+		
+class ActionForm(ModelForm):
+	due_date = DateTimeField(widget=AdminDateWidget())
+	class Meta:
+		model = ActionItem

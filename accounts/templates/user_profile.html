@@ -10,18 +10,42 @@
 		</div>
 		
 		<h2>{{user.get_full_name}}</h2>
-		
-		
+
 		<h3>Personal info</h3>
-		<p>E-mail: {{user.email}}</p>
-		<p>Last Visit: {{user.last_login|naturalday}}</p>
-		<p>User Since: {{user.date_joined|naturalday}}</p>
+		<div class="personal-info">
+			<p><b class="label">E-mail:</b> <a href="mailto:{{user.email}}">{{user.email}}</a></p>
+			<p><b class="label">Last Visit:</b> {{user.last_login|naturalday}}</p>
+			<p><b class="label">User Since:</b> {{user.date_joined|naturalday}}</p>
+		</div>
 		
-		<h3>Current Projects</h3>
-		<ul>
-			{% for project in user.id_worker.all %}
-				<li>{{project.name}}</li>
-			{% endfor %}
-		</ul>
+		{% if current_projects %}
+			<h3>Current Projects</h3>
+			<ul>
+				{% for project in current_projects %}
+					<li><a href="{{project.get_absolute_url}}">{{project.name}}</a>
+					{% ifequal project.manager user  %}
+						(Manager)
+					{% endifequal %}
+					</li> 
+				{% endfor %}
+			</ul>
+		{% endif %}
+		
+		
+		{% if past_projects %}
+			<h3>Past Projects</h3>
+			<ul>
+				{% for project in past_projects %}
+					<li><a href="{{project.get_absolute_url}}">{{project.name}}</a>
+					{% ifequal project.manager user  %}
+						(Manager)
+					{% endifequal %}
+					</li> 
+				{% endfor %}
+			</ul>
+		{% endif %}
+		
+		
+		
 	</div>
 {% endblock %}

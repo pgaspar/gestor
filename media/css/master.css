@@ -1,7 +1,7 @@
 body {
 	margin: 20px;
 	margin-top: 0;
-	font: Normal 13px Arial, Helvetica, sans-serif;
+	font: Normal 11px Arial, Helvetica, sans-serif;
 	color: #555;
 	background: url(/media/images/background.gif);
 	line-height: 150%;
@@ -159,6 +159,24 @@ div {
 	font-family: Georgia, serif;
 }
 
-.project_detail .status, .note_detail .status, .user_profile .status{
+.status, .actions{
 	float: right;
+}
+
+.personal-info p {
+	margin: 0;
+}
+
+
+.red, .green, .yellow {
+	color: #000000;
+}
+.red {
+	background-color: #FF0000;
+}
+.green {
+	background-color: #00FF00;
+}
+.yellow {
+	background-color: #FFFF66;
 }
