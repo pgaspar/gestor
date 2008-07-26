@@ -159,6 +159,6 @@ div {
 	font-family: Georgia, serif;
 }
 
-.project_detail .status, .note_detail .status {
+.project_detail .status, .note_detail .status, .user_profile .status{
 	float: right;
 }
