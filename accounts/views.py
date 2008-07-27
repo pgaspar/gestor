@@ -8,6 +8,6 @@ def render(request,template,context={}):
 
 def profile(request,username):
 	u = get_object_or_404(User, username = username)
-	current_projects = u.id_worker.filter(status=True)
-	past_projects = u.id_worker.filter(status=False)
+	current_projects = u.projects_working.filter(status=True)
+	past_projects = u.projects_working.filter(status=False)
 	return render(request,'user_profile.html',{'u':u,'current_projects':current_projects,'past_projects':past_projects})

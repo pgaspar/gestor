@@ -59,7 +59,7 @@ def delete_view(request,object_id,model):
 
 @login_required
 def project_list(request):
-	p = request.user.id_worker.all()
+	p = request.user.projects_working.all()
 	return render(request,'project_list.html',{'object_list':p})
 	
 	

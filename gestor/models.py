@@ -5,9 +5,9 @@ from datetime import datetime
 class Project(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.TextField(blank=True)
-	status = models.BooleanField(default=True)
-	manager = models.ForeignKey(User, related_name='id_manager')
-	workers = models.ManyToManyField(User, related_name = 'id_worker')
+	active = models.BooleanField(default=True)
+	manager = models.ForeignKey(User, related_name='projects_managed')
+	team = models.ManyToManyField(User, related_name = 'projects_working')
 	start_date = models.DateField()
 	end_date = models.DateField()
 	
@@ -23,9 +23,9 @@ class ActionItem(models.Model):
 	project = models.ForeignKey(Project)
 	title = models.CharField(max_length=100)
 	description = models.TextField(blank=True, null=True)
-	author = models.ForeignKey(User, related_name='id_author')
-	targets = models.ManyToManyField(User, related_name = 'id_target')
-	set_date = models.DateField(auto_now=True)
+	author = models.ForeignKey(User, related_name='actionitem_set')
+	targets = models.ManyToManyField(User, related_name = 'actionitem_todo')
+	set_date = models.DateField(auto_now_add=True)
 	due_date = models.DateField(blank=True, null=True)
 	done = models.BooleanField(default=False)
 
@@ -41,7 +41,7 @@ class Note(models.Model):
 	title = models.CharField(max_length=100)
 	description = models.TextField(blank=True, null=True)
 	author = models.ForeignKey(User)
-	set_date = models.DateField(auto_now=True)
+	set_date = models.DateField(auto_now_add=True)
 
 	def __unicode__(self):
 		return u"%s" % self.title

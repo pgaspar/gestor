@@ -3,7 +3,7 @@ from django.contrib import admin
 
 class ProjectAdmin(admin.ModelAdmin):
 	
-	list_filter = ('status','manager','workers','start_date','end_date',)
+	list_filter = ('active','manager','team','start_date','end_date',)
 	search_fields = ['name','description']
 
 admin.site.register(Project,ProjectAdmin)

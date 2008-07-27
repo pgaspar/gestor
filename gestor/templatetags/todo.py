@@ -11,4 +11,4 @@ def dist(d):
 
 @register.filter
 def todo(value):
-	return "<ul>" + "\n".join([ ("<li><a href='%s' title='%s days left'>%s</a></li>" % ( obj.get_absolute_url(),dist(obj.due_date),obj.title) ) for obj in User.objects.get(username=value).id_target.filter(done=False).order_by("due_date") ]) + "</ul>"
+	return "<ul>" + "\n".join([ ("<li><a href='%s' title='%s days left'>%s</a></li>" % ( obj.get_absolute_url(),dist(obj.due_date),obj.title) ) for obj in User.objects.get(username=value).actionitem_todo.filter(done=False).order_by("due_date") ]) + "</ul>"

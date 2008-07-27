@@ -7,7 +7,7 @@
 		<h1>{{ object.name }}</h1>
 	
 		<div class="status">
-			{% if object.status %}
+			{% if object.active %}
 				<b>Active</b> since {{object.start_date|naturalday}}
 			{% else %}
 				<b>Finished</b> ( from {{object.start_date|naturalday}} to {{object.end_date|naturalday}})
@@ -21,7 +21,7 @@
 			
 		<div class="three_col">
 			<p><span class="label">Members: </span></p> <ul class="members">
-				{% for user in object.workers.all %}
+				{% for user in object.team.all %}
 					<li><a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></li>
 				{% endfor %}
 			</ul>
