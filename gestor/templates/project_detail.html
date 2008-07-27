@@ -20,7 +20,7 @@
 		</div>	
 			
 		<div class="three_col">
-			<p><span class="label">Members: </span></p> <ul class="members">
+			<p><span class="label">Team: </span></p> <ul class="members">
 				{% for user in object.team.all %}
 					<li><a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></li>
 				{% endfor %}
