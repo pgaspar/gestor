@@ -46,7 +46,7 @@ def edit_view(request,object_id,form_class,template_name):
 	else:
 		form = form_class(instance=obj)
 	if model == ActionItem:
-		form.base_fields['targets'] = ModelMultipleChoiceField(queryset=obj.project.team.all())
+		form.fields['targets'] = ModelMultipleChoiceField(queryset=obj.project.team.all())
 	return render(request,template_name,{'form':form})
 
 def delete_view(request,object_id,model):
