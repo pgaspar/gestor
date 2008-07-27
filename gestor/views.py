@@ -7,6 +7,7 @@ from django.views.generic.create_update import *
 from gestor.models import Project, ActionItem, Note
 from django.contrib.auth.models import User
 
+from django.forms import *
 from gestor.forms import NoteForm, ActionForm
 
 def render(request,template,context={}):
@@ -44,7 +45,8 @@ def edit_view(request,object_id,form_class,template_name):
 			return HttpResponseRedirect(obj.get_absolute_url())
 	else:
 		form = form_class(instance=obj)
-
+	if model == ActionItem:
+		form.targets = ModelMultipleChoiceField(queryset=obj.project.team.all())
 	return render(request,template_name,{'form':form})
 
 def delete_view(request,object_id,model):
