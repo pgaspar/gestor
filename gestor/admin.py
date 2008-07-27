@@ -8,7 +8,7 @@ class ProjectAdmin(admin.ModelAdmin):
 admin.site.register(Project,ProjectAdmin)
 
 class ActionItemAdmin(admin.ModelAdmin):	
-	list_filter = ('targets','due_date','done','project',)
+	list_filter = ('project','done','targets',)
 	search_fields = ['title','description','project']
 
 
