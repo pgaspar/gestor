@@ -95,6 +95,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 	'django.contrib.admin',
 	'django.contrib.humanize',
+	'django.contrib.markup',
 	'accounts',
 	'gestor',
 )
