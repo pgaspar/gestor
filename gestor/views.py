@@ -29,6 +29,8 @@ def create_view(request,object_id,form_class,template_name):
 	else:
 		form = form_class(initial={'author':request.user.id,'project':object_id })
 
+	if model == ActionItem:
+		form.fields['targets'] = ModelMultipleChoiceField(queryset=Project.object.get(id=object_id).team.all())
 	return render(request,template_name,{'form':form})
 
 
