@@ -2,18 +2,18 @@
 {% load humanize %}
 
 {% block content %}
-	<div class="u_profile">
+	<div class="u_profile vcard">
 		<div class="status">
 			{% if u.is_staff %}
 				<b>Admin</b>
 			{% endif %}
 		</div>
 		
-		<h2>{{u.get_full_name}}</h2>
+		<h2 class="fn">{{u.get_full_name}}</h2>
 
 		<h3>Personal info</h3>
 		<div class="personal-info">
-			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}">{{u.email}}</a></p>
+			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="mail">{{u.email}}</a></p>
 			<p><b class="label">Last Visit:</b> {{u.last_login|naturalday}}</p>
 			<p><b class="label">User Since:</b> {{u.date_joined|naturalday}}</p>
 		</div>
