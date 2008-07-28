@@ -12,6 +12,10 @@
 	<script src="/admin/media/js/timeparse.js"></script>
 	<script src="/admin/media/js/calendar.js"></script>
 	<script src="/admin/media/js/admin/DateTimeShortcuts.js" type="text/javascript"></script>
+	
+	{% block feeds %}
+	<link rel="alternate" type="application/rss+xml" title="User Feeds" href="/feeds/ActionItems/{{user.username}}" />
+	{%endblock feeds%}
 
 	<link rel="stylesheet" href="{{MEDIA_URL}}css/master.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<title>Gestor jeKnowledge</title>
