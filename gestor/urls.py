@@ -3,10 +3,19 @@ from gestor.models import Project, Note, ActionItem
 
 from gestor.forms import NoteForm, ActionForm
 
+from gestor.feeds import ActionItemFeed
+
+feeds = {
+    'ActionItems': ActionItemFeed,
+}
+
 
 urlpatterns = patterns('',
     (r'^$', 'gestor.views.project_list',),
 	(r'^project/(?P<object_id>\d+)/$', 'gestor.views.project_detail', ),
+	
+	
+    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
 	
 	(r'^action/(?P<object_id>\d+)/$', 'gestor.views.action_detail', ),
 	(r'^action/in/(?P<object_id>\d+)/$', 'gestor.views.action_create', ),
