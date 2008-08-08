@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 
+from django.core.exceptions import PermissionDenied
+
+
 class Project(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.TextField(blank=True)
@@ -17,6 +20,16 @@ class Project(models.Model):
 		
 	def get_absolute_url(self):
 		return "/gestor/project/%d" % self.id
+		
+	def has_user(self,user):
+		if user in self.team.all() or user == self.manager:
+			return True
+		return False
+		
+	def check_user(self,user):
+		if not self.has_user(user):
+			raise PermissionDenied()
+			
 
 
 class ActionItem(models.Model):

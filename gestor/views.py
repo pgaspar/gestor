@@ -15,6 +15,7 @@ def render(request,template,context={}):
 
 
 
+
 # General Views
 
 def create_view(request,object_id,form_class,template_name):
@@ -37,6 +38,7 @@ def create_view(request,object_id,form_class,template_name):
 def edit_view(request,object_id,form_class,template_name):
 	model = form_class.Meta.model
 	obj = get_object_or_404(model,id=object_id)
+	obj.project.check_user(request.user)
 	if request.method == 'POST':
 		form = form_class(request.POST, request.FILES, instance=obj)
 		if form.is_valid():
@@ -53,6 +55,7 @@ def edit_view(request,object_id,form_class,template_name):
 
 def delete_view(request,object_id,model):
 	obj = get_object_or_404(model,id=object_id)
+	obj.project.check_user(request.user)
 	obj.delete()
 	request.user.message_set.create(message='The %s was deleted' % model._meta.verbose_name )
 	return HttpResponseRedirect(obj.project.get_absolute_url())
@@ -70,6 +73,8 @@ def project_list(request):
 @login_required
 def project_detail(request,object_id):
 	p = Project.objects.get(id=object_id)
+	p.check_user(request.user)
+	
 	return render(request,'project_detail.html',{
 		'object':p,
 		'notes': p.note_set.order_by("-set_date"),
@@ -82,6 +87,7 @@ def project_detail(request,object_id):
 @login_required
 def note_detail(request,object_id):
 	p = Note.objects.get(id=object_id)
+	p.project.check_user(request.user)
 	return render(request,'note_detail.html',{'object':p})
 	
 @login_required
@@ -103,6 +109,7 @@ def note_edit(request,object_id):
 @login_required
 def action_detail(request,object_id):
 	p = ActionItem.objects.get(id=object_id)
+	p.project.check_user(request.user)
 	return render(request,'action_detail.html',{'object':p})
 
 @login_required
