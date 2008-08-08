@@ -1,30 +1,41 @@
+* {
+	border: 0;
+	padding: 0;
+}
+
 body {
-	margin: 20px;
-	margin-top: 0;
-	font: Normal 11px Arial, Helvetica, sans-serif;
+	font-family: 'Lucida Grande', Tahoma, sans-serif;
 	color: #555;
-	background: url(/media/images/background.gif);
 	line-height: 150%;
 }
 
-
-h1 {
-    color: #666;
-    margin: 0px 0px 20px 0px;
-    font-weight: normal;
-    font-size: 40px;
-    letter-spacing: -1px;
+#container {
+	margin: auto;
+	width: 95%;
+	background-color: #FFFFFF;
 }
 
-h1 a {
-	color: #666;
-	text-decoration: none;
+#header {
+	width: 100%;
+	background-color: #FFFFFF;
+	margin-bottom: 10px;
+}
+
+#sidebar {
+	width: 20%;
+	float: left;
+}
+
+#main {
+	width: 80%;
+	float: left;
+}
+
+#content {
+	margin: 10px;
 }
 
 
-h1 a:hover {
-	text-decoration: underline;
-}
 
 h2 {
     font-size: 16px;
@@ -48,6 +59,10 @@ a img {
 p {
 	text-align: justify;
 	padding: 3px;
+}
+
+ul, li {
+	list-style-position: inside;
 }
 
 fieldset {
@@ -80,51 +95,16 @@ fieldset label{
 	clear: both;
 }
 
-#container {
-	width: 700px;
-	margin: auto;
-}
-
 div {
 	margin: 0;
 	padding: 0;
 }
 
-#main {
-    width: 500px;
-    padding: 25px;
-
-    background-color: #fff;
-    border-bottom: solid 8px #086F9E;
-	float: left;
-}
-
-
-#main div {
-	margin: 10px;
-}
-
-#content {
-	margin-right: 10px;
-	margin-left: 10px;
-}
-
-#menu {
-	margin-top: 100px;
-	width: 140px;
-	background-color: #086F9E;
-	float: left;
-	border-left: solid #132938 2px;
-	color: #fff;
-}
-
 #menu h3 {
-	color: #fff;
 	margin-left: 7px;
 }
 
 #menu ul {
-	font-weight: none;
 	margin: 10px;
 	margin-left: 5px;
 	padding: 0px;
@@ -140,16 +120,16 @@ div {
 #menu li a {
 	display: block;
 	padding: 4px;
-	font-family: 'Lucida Grande', Tahoma, sans-serif;
-	border-left: solid #086F9E 6px;
 	text-decoration: none;
-	color: #fff;
 }
 
-#menu li a:hover {
-	border-left: solid #fff 6px;
-}
 
+#content h1 {
+	background-color: #086F9E;
+	color: #FFFFFF;
+	padding: 6px;
+	font-weight: none;
+}
 
 .three_col {
 	float: left;
@@ -167,7 +147,6 @@ div {
 .description {
 	border: solid #666666 1px;
 	font-size: 10px;
-	font-weight: none;
 	color: #666666;
 	padding: 4px;
 	margin: 5px;
@@ -178,7 +157,8 @@ div {
 }
 
 .text, .description {
-	font-family: Verdana, Tahoma, sans-serif;
+	font-family: 'Courier New', Verdana, Tahoma, sans-serif;
+	font-size: 14px;
 }
 
 .status, .actions{
@@ -189,16 +169,31 @@ div {
 	margin: 0;
 }
 
+.raw li {
+	list-style: none;
+}
 
-.red, .green, .yellow {
+#main .red, #main .green, #main .yellow {
 	color: #000000;
 }
-.red {
+#main .red {
 	background-color: #FF0000;
 }
-.green {
+#main .green {
 	background-color: #00FF00;
 }
-.yellow {
+#main .yellow {
 	background-color: #FFFF66;
+}
+
+#sidebar .red {
+	list-style: inside url(/media/icons/flag_red.png);
+} 
+
+#sidebar .green {
+	list-style: inside url(/media/icons/flag_green.png);
+}
+
+#sidebar .yellow {
+	list-style: inside url(/media/icons/flag_yellow.png);
 }

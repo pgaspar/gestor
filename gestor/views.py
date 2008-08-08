@@ -73,7 +73,7 @@ def project_detail(request,object_id):
 	return render(request,'project_detail.html',{
 		'object':p,
 		'notes': p.note_set.order_by("-set_date"),
-		'actionitems': p.actionitem_set.order_by("due_date")
+		'actionitems': p.actionitem_set.order_by("done","due_date")
 		})
 
 

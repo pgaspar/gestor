@@ -22,10 +22,28 @@
 </head>
 <body>
 	<div id="container">
+		
+		<div id="header">
+			<h1><a href="/"><img src="{{MEDIA_URL}}images/logo.gif" alt="jeKnowledge"></a></h1>			
+		</div>
+		
+		<div id="sidebar">
+			{% if not user.is_anonymous %}
+				<div id="menu">
+					{% block menu %}
+						{% load todo %}
+
+						<h3>Todo  List</h3>
+							{{request.user.username|todo|safe}}
+						<ul>
+							<li><a href="/accounts/logout">Logout</a></li>
+						</ul>
+					{% endblock %}
+				</div>
+			{% endif %}
+		</div>
+		
 		<div id="main">
-			
-			<h1><a href="/"><img src="{{MEDIA_URL}}images/logo.gif" alt="jeKnowledge"></a></h1>
-			
 			<div id="messages">
 				{% if messages %}
 				<ul>
@@ -35,25 +53,14 @@
 				</ul>
 				{% endif %}
 			</div>
-			
-			{% block content %}
-			{% endblock %}
+			<div id="content">
+				{% block content %}
+				{% endblock %}
+			</div>
 			
 		</div>
 		
-		{% if not user.is_anonymous %}
-			<div id="menu">
-				{% block menu %}
-					{% load todo %}
-				
-					<h3>Todo  List</h3>
-						{{request.user.username|todo|safe}}
-					<ul>
-						<li><a href="/accounts/logout">Logout</a></li>
-					</ul>
-				{% endblock %}
-			</div>
-		{% endif %}
+		
 	</div>
 </body>
 </html>
