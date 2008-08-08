@@ -10,7 +10,8 @@
 			Added {{object.set_date|naturalday}}
 		</div>
 	
-		<p>Project: <a href="{{object.project.get_absolute_url}}">{{object.project.name}}</a></p>
+		<p><b class="label">Project:</b> <a href="{{object.project.get_absolute_url}}">{{object.project.name}}</a></p>
+		<p><b class="label">Author:</b> <a href="{{object.author.get_absolute_url}}">{{object.author.get_full_name}}</a></p>
 		<div class="description clear text">{{object.description|textile}}</div>	
 
 		<div class="actions">
