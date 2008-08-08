@@ -31,6 +31,7 @@
 			{% if not object.done %}
 			<li><a href="{{object.get_absolute_url}}/finish"><img src="{{MEDIA_URL}}icons/accept.png" alt="Finish ActionItem"> Mark as Done</a> </li>
 			{% endif %}
+			<li><a href="/gestor/note/in/{{object.project.id}}"><img src="{{MEDIA_URL}}icons/note_add.png" alt="Add Note"> Add Note to Project</a> </li>
 			<li><a href="{{object.get_absolute_url}}/edit"><img src="{{MEDIA_URL}}icons/cog_edit.png" alt="Edit ActionItem"> Edit ActionItem</a> </li>
 			<li><a href="{{object.get_absolute_url}}/delete" onclick="return confirm('Are you sure you want to delete?')"><img src="{{MEDIA_URL}}icons/cog_delete.png" alt="Delete ActionItem"> Delete ActionItem</a></li>
 			</ul>
