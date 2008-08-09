@@ -112,17 +112,19 @@ div {
 }
 
 #menu li {
-	list-style: none;
+	list-style: inside square;
 	margin: 0;
 	padding: 0;
 }
 
 #menu li a {
 	display: block;
-	padding: 4px;
 	text-decoration: none;
 }
 
+#menu #project_list li {
+	list-style: inside url(/media/icons/box.png);
+}
 
 #content h1 {
 	background-color: #086F9E;

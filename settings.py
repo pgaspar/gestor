@@ -1,10 +1,14 @@
 # Django settings for jksite project.
 
-DEBUG = True
+import os
+if os.uname()[1] == "geyser":
+	DEBUG = False
+else:
+	DEBUG = True
+	
 TEMPLATE_DEBUG = DEBUG
 
 # nmariz hacking:
-import os
 ROOT_PATH = os.path.realpath(os.path.dirname(__file__))
 
 
