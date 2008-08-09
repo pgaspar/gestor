@@ -28,4 +28,10 @@ urlpatterns = patterns('',
 	(r'^note/in/(?P<object_id>\d+)/$', 'gestor.views.note_create', ),
 	(r'^note/(?P<object_id>\d+)/edit/$', 'gestor.views.note_edit',),
 	(r'^note/(?P<object_id>\d+)/delete/$', 'gestor.views.note_delete',),
+
+	(r'^file/(?P<object_id>\d+)/$', 'gestor.views.file_detail', ),
+	(r'^file/in/(?P<object_id>\d+)/$', 'gestor.views.file_create', ),
+	(r'^file/(?P<object_id>\d+)/edit/$', 'gestor.views.file_edit',),
+	(r'^file/(?P<object_id>\d+)/delete/$', 'gestor.views.file_delete',),
+
 )

@@ -20,14 +20,14 @@
 			<p><span class="label">Manager: </span> <span class="manager"><a href="{{object.manager.get_absolute_url}}">{{object.manager.get_full_name}}</a></span></p>
 		</div>	
 			
-		<div class="three_col">
+		<div class="four_col">
 			<p><span class="label">Team: </span></p> <ul class="members">
 				{% for user in object.team.all %}
 					<li><a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></li>
 				{% endfor %}
 			</ul>
 		</div>
-		<div class="three_col">
+		<div class="four_col">
 			<p><span class="label">Action Items: </span></p> <ul class="action-items">
 				{% for item in actionitems %}
 					<li><a href="{{item.get_absolute_url}}" class="{{item|colorstatus}}">{{item.title}}</a></li>
@@ -35,13 +35,21 @@
 			</ul>
 			<img src="{{MEDIA_URL}}icons/cog_add.png" alt=""> <a href="/gestor/action/in/{{object.id}}">New ActionItem</a>
 		</div>
-		<div class="three_col">
+		<div class="four_col">
 			<p><span class="label">Notes: </span></p> <ul class="notes">
 				{% for note in notes %}
 					<li><a href="{{note.get_absolute_url}}">{{note.title}}</a></li>
 				{% endfor %}
 			</ul>
 			<img src="{{MEDIA_URL}}icons/note_add.png" alt=""> <a href="/gestor/note/in/{{object.id}}">New Note</a>
+		</div>
+		<div class="four_col">
+			<p><span class="label">Files: </span></p> <ul class="files">
+				{% for file in files %}
+					<li><a href="{{file.get_absolute_url}}">{{file.title}}</a></li>
+				{% endfor %}
+			</ul>
+			<img src="{{MEDIA_URL}}icons/page_add.png" alt=""> <a href="/gestor/file/in/{{object.id}}">New File</a>
 		</div>
 		<div class="clear"></div>
 		

@@ -4,11 +4,11 @@ from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.views.generic.create_update import *
 
-from gestor.models import Project, ActionItem, Note
+from gestor.models import Project, ActionItem, Note, File
 from django.contrib.auth.models import User
 
 from django.forms import *
-from gestor.forms import NoteForm, ActionForm
+from gestor.forms import NoteForm, ActionForm, FileForm
 
 def render(request,template,context={}):
 	return render_to_response(template,context,context_instance=RequestContext(request))
@@ -78,6 +78,7 @@ def project_detail(request,object_id):
 	return render(request,'project_detail.html',{
 		'object':p,
 		'notes': p.note_set.order_by("-set_date"),
+		'files': p.file_set.order_by("-set_date"),
 		'actionitems': p.actionitem_set.order_by("done","due_date")
 		})
 
@@ -102,6 +103,27 @@ def note_create(request,object_id):
 @login_required
 def note_edit(request,object_id):
 	return edit_view(request,object_id,NoteForm,"note_edit.html")
+
+# File Views
+
+@login_required
+def file_detail(request,object_id):
+	p = File.objects.get(id=object_id)
+	p.project.check_user(request.user)
+	return render(request,'file_detail.html',{'object':p})
+
+@login_required
+def file_delete(request,object_id):
+	return delete_view(request,object_id,File)
+
+@login_required
+def file_create(request,object_id):
+	return create_view(request,object_id,FileForm,"file_edit.html")
+
+
+@login_required
+def file_edit(request,object_id):
+	return edit_view(request,object_id,FileForm,"file_edit.html")
 
 
 # ActionItem Views

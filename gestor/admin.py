@@ -1,4 +1,4 @@
-from gestor.models import Project, ActionItem, Note
+from gestor.models import Project, ActionItem, Note, File
 from django.contrib import admin
 
 class ProjectAdmin(admin.ModelAdmin):	
@@ -20,3 +20,10 @@ class NoteAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Note,NoteAdmin)
+
+class FileAdmin(admin.ModelAdmin):	
+	list_filter = ('project','author',)
+	search_fields = ['title','project']
+
+
+admin.site.register(File,FileAdmin)

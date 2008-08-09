@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+
+{% block content %}
+	<div class="file_detail">
+		<h1>{{ object.title }}</h1>
+		
+		<div class="status">
+			Added {{object.set_date|naturalday}}
+		</div>
+	
+		<p><b class="label">Project:</b> <a href="{{object.project.get_absolute_url}}">{{object.project.name}}</a></p>
+		<p><b class="label">Author:</b> <a href="{{object.author.get_absolute_url}}">{{object.author.get_full_name}}</a></p>
+		<p><b class="label">Download:</b> <a href="{{object.get_content_url}}">{{object.title}}</a></p>
+
+		<div class="actions">
+			<ul class="raw">
+			<li><a href="{{object.get_absolute_url}}/edit"><img src="{{MEDIA_URL}}icons/page_edit.png" alt="Edit File"> Edit File</a></li>
+			<li><a href="{{object.get_absolute_url}}/delete"  onclick="return confirm('Are you sure you want to delete?')"><img src="{{MEDIA_URL}}icons/page_delete.png" alt="Delete File"> Delete File</a></li>
+			</ul>
+		</div>
+
+	</div>
+{% endblock %}
