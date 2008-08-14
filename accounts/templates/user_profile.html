@@ -3,13 +3,14 @@
 
 {% block content %}
 	<div class="u_profile vcard">
+		
+		<h1 class="fn">{{u.get_full_name}}</h1>
+
 		<div class="status">
 			{% if u.is_staff %}
 				<b>Admin</b>
 			{% endif %}
 		</div>
-		
-		<h2 class="fn">{{u.get_full_name}}</h2>
 
 		<h3>Personal info</h3>
 		<div class="personal-info">

@@ -22,7 +22,8 @@ body {
 }
 
 #sidebar {
-	width: 20%;
+	margin-right: 2%;
+	width: 18%;
 	float: left;
 }
 
@@ -32,9 +33,8 @@ body {
 }
 
 #content {
-	margin: 10px;
+	margin: 0px;
 }
-
 
 
 h2 {
@@ -126,6 +126,15 @@ div {
 	list-style: inside url(/media/icons/box.png);
 }
 
+#menu h3 {
+	background-color:#333333;
+	color: #FFFFFF;
+	width: 96%;
+	padding: 2%;
+	font-weight: normal;
+	margin: 0;
+}
+
 #content h1 {
 	background-color: #086F9E;
 	color: #FFFFFF;
@@ -167,7 +176,7 @@ div {
 
 .text, .description {
 	font-family: 'Courier New', Verdana, Tahoma, sans-serif;
-	font-size: 14px;
+	font-size: 10pt;
 }
 
 .status, .actions{
