@@ -156,7 +156,7 @@ def action_finish(request, object_id):
 	
 def action_ical(request,username):
 	user = get_object_or_404(User,username=username)
-	todos = user.actionitem_todo.all()
+	todos = user.actionitem_todo.filter(done=False)
 	filename = "JK_Gestor_ActionItems.ics"
 	
 	import vobject
@@ -172,9 +172,6 @@ def action_ical(request,username):
 		vtodo.add('due;value=date').value = actionitem.due_date.strftime("%Y%m%d")
 		vtodo.add('priority').value = "0"
 		
-		if actionitem.done:
-			vtodo.add('status').value = "COMPLETED"
-			vtodo.add('completed').value = datetime.datetime(2000,1,1).now() # we actually don't record the due time
 	
 	icalstream = cal.serialize()
 	response = HttpResponse(icalstream, mimetype='text/calendar')
