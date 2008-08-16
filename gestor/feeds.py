@@ -26,4 +26,4 @@ class ActionItemFeed(Feed):
         return "Action Items from all %s's projects" % obj.get_full_name()
     
     def items(self, obj):
-        return obj.actionitem_todo.all().order_by('due_date')[:10]
+        return obj.actionitem_todo.all().order_by('-set_date')[:10]

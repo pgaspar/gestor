@@ -37,7 +37,7 @@ class ActionItem(models.Model):
 	description = models.TextField(blank=True, null=True)
 	author = models.ForeignKey(User, related_name='actionitem_set')
 	targets = models.ManyToManyField(User, related_name = 'actionitem_todo')
-	set_date = models.DateField(auto_now_add=True)
+	set_date = models.DateField(auto_now=True)
 	due_date = models.DateField(blank=True, null=True)
 	done = models.BooleanField(default=False)
 
@@ -53,7 +53,7 @@ class Note(models.Model):
 	title = models.CharField(max_length=100)
 	description = models.TextField(blank=True, null=True)
 	author = models.ForeignKey(User)
-	set_date = models.DateField(auto_now_add=True)
+	set_date = models.DateField(auto_now=True)
 
 	def __unicode__(self):
 		return u"%s" % self.title
@@ -68,7 +68,7 @@ class File(models.Model):
 	title = models.CharField(max_length=100)
 	content = models.FileField(upload_to="files")
 	author = models.ForeignKey(User)
-	set_date = models.DateField(auto_now_add=True)
+	set_date = models.DateField(auto_now=True)
 
 	def __unicode__(self):
 		return u"%s" % self.title
