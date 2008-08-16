@@ -147,9 +147,37 @@ def action_create(request,object_id):
 def action_edit(request,object_id):
 	return edit_view(request,object_id,ActionForm,"action_edit.html")
 	
-
+@login_required
 def action_finish(request, object_id):
 	obj = get_object_or_404(ActionItem,id=object_id)
 	obj.done = True
 	obj.save()
 	return action_detail(request,object_id)
+	
+def action_ical(request,username):
+	user = get_object_or_404(User,username=username)
+	todos = user.actionitem_todo.all()
+	filename = "JK_Gestor_ActionItems.ics"
+	
+	import vobject
+	import datetime
+	
+	cal = vobject.iCalendar()
+	cal.add('method').value = 'PUBLISH'  # IE/Outlook needs this
+	
+	for actionitem in todos:
+		vtodo = cal.add('vtodo')
+		vtodo.add('summary').value = actionitem.title
+		vtodo.add('description').value = actionitem.description
+		vtodo.add('due;value=date').value = actionitem.due_date.strftime("%Y%m%d")
+		vtodo.add('priority').value = "0"
+		
+		if actionitem.done:
+			vtodo.add('status').value = "COMPLETED"
+			vtodo.add('completed').value = datetime.datetime(2000,1,1).now() # we actually don't record the due time
+	
+	icalstream = cal.serialize()
+	response = HttpResponse(icalstream, mimetype='text/calendar')
+	response['Filename'] = filename  # IE needs this
+	response['Content-Disposition'] = 'attachment; filename='+filename
+	return response

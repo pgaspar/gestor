@@ -16,6 +16,7 @@ urlpatterns = patterns('',
 	
 	
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
+    (r'^ical/ActionItems/(?P<username>([A-z]|[0-9]|[_])+)/$', 'gestor.views.action_ical',),
 	
 	(r'^action/(?P<object_id>\d+)/$', 'gestor.views.action_detail', ),
 	(r'^action/in/(?P<object_id>\d+)/$', 'gestor.views.action_create', ),

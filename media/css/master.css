@@ -179,8 +179,14 @@ div {
 	font-size: 10pt;
 }
 
-.status, .actions{
+.status, .actions {
 	float: right;
+}
+
+.icons {
+	text-align: right;
+	margin-top: 0;
+	padding: 0;
 }
 
 .personal-info p {
