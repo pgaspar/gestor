@@ -175,8 +175,8 @@ div {
 }
 
 .text, .description {
-	font-family: 'Courier New', Verdana, Tahoma, sans-serif;
-	font-size: 10pt;
+	font-family: Helvetica,Arial,'Liberation Sans',FreeSans,sans-serif;
+	font-size: 13px;
 }
 
 .status, .actions {
