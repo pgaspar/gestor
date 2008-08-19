@@ -126,6 +126,10 @@ div {
 	list-style: inside url(/media/icons/box.png);
 }
 
+#menu #project_list .owner {
+	list-style: inside url(/media/icons/briefcase.png);
+}
+
 #menu h3 {
 	background-color:#333333;
 	color: #FFFFFF;
