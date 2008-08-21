@@ -102,6 +102,7 @@ INSTALLED_APPS = (
 	'django.contrib.markup',
 	'accounts',
 	'gestor',
+	'extensions',
 )
 
 DATE_FORMAT = "d/F/Y"
