@@ -21,7 +21,7 @@ class Project(models.Model):
 		return "/gestor/project/%d" % self.id
 		
 	def has_user(self,user):
-		if user in self.team.all() or user == self.manager:
+		if user in self.team.all() or user == self.manager or user.is_staff:
 			return True
 		return False
 		

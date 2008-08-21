@@ -61,10 +61,6 @@ p {
 	padding: 3px;
 }
 
-ul, li {
-	list-style-position: inside;
-}
-
 fieldset {
 	border:0;
 }
@@ -112,9 +108,9 @@ div {
 }
 
 #menu li {
-	list-style: inside square;
 	margin: 0;
-	padding: 0;
+	margin-left: 22px;
+	height: 18px;
 }
 
 #menu li a {
@@ -123,11 +119,11 @@ div {
 }
 
 #menu #project_list li {
-	list-style: inside url(/media/icons/box.png);
+	list-style: url(/media/icons/box.png);
 }
 
 #menu #project_list .owner {
-	list-style: inside url(/media/icons/briefcase.png);
+	list-style: url(/media/icons/briefcase.png);
 }
 
 #menu h3 {
@@ -197,31 +193,57 @@ div {
 	margin: 0;
 }
 
+#main li {
+	list-style-position: inside;
+}
+
 .raw li {
 	list-style: none;
+}
+
+#main .manager a {
+	padding-left: 18px;
+	background-image: url(/media/icons/user_suit.png);
+	background-repeat: no-repeat;
+	height: 18px;
+}
+
+#main .members li {
+	list-style: inside url(/media/icons/user.png);
+	height: 18px;
+}
+
+#main .notes li {
+	list-style: inside url(/media/icons/note.png);
+	height: 18px;
+}
+
+#main .files li {
+	list-style: inside url(/media/icons/page.png);
+	height: 18px;
 }
 
 #main .red, #main .green, #main .yellow {
 	color: #000000;
 }
-#main .red {
+#main div.red, #main span.red {
 	background-color: #FF0000;
 }
-#main .green {
+#main div.green, #main span.green {
 	background-color: #00FF00;
 }
-#main .yellow {
+#main div.yellow, #main span.yellow {
 	background-color: #FFFF66;
 }
 
-#sidebar .red {
-	list-style: inside url(/media/icons/flag_red.png);
+li.red {
+	list-style: url(/media/icons/flag_red.png);
 } 
 
-#sidebar .green {
-	list-style: inside url(/media/icons/flag_green.png);
+li.green {
+	list-style: url(/media/icons/flag_green.png);
 }
 
-#sidebar .yellow {
-	list-style: inside url(/media/icons/flag_yellow.png);
+li.yellow {
+	list-style: url(/media/icons/flag_yellow.png);
 }

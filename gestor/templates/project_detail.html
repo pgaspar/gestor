@@ -30,10 +30,12 @@
 		<div class="four_col">
 			<p><span class="label">Action Items: </span></p> <ul class="action-items">
 				{% for item in actionitems %}
-					<li><a href="{{item.get_absolute_url}}" class="{{item|colorstatus}}">{{item.title}}</a></li>
+					<li class="{{item|colorstatus}}"><a href="{{item.get_absolute_url}}">{{item.title}}</a></li>
 				{% endfor %}
 			</ul>
-			<img src="{{MEDIA_URL}}icons/cog_add.png" alt=""> <a href="/gestor/action/in/{{object.id}}">New ActionItem</a>
+			<img src="{{MEDIA_URL}}icons/cog_add.png" alt=""> <a href="/gestor/action/in/{{object.id}}">New ActionItem</a><br />
+			<img src="{{MEDIA_URL}}icons/cog_go.png" alt=""> <a href="#" id="toggle-history">Toggle History</a>
+			
 		</div>
 		<div class="four_col">
 			<p><span class="label">Notes: </span></p> <ul class="notes">
