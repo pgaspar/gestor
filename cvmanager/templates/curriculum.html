@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="u_cv">
+		
+		<h2 class="fn">{{u.get_full_name}}</h2>
+
+		<h3>Personal info</h3>
+		<div class="personal-info">
+			<p><b class="label">Adress:</b> {{cv.adress}}</p>
+			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="mail">{{u.email}}</a></p>
+			<p><b class="label">Homepage:</b> {{cv.homepage|urlize}}</p>
+		</div>
+		<h3>Summary</h3>
+		<div class="cv-summary">
+			<p>{{cv.summary}}</p>
+		</div>
+		<h3>Current Status</h3>
+		<div class="cv-current">
+			<p><b class="label">{{cv.set_date}}:</b></p>
+			<p>{{cv.current_status}}</p>
+		</div>
+		
+	</div>
+{% endblock %}

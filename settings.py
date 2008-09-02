@@ -100,10 +100,10 @@ INSTALLED_APPS = (
 	'django.contrib.admin',
 	'django.contrib.humanize',
 	'django.contrib.markup',
+	'extensions',
 	'accounts',
 	'gestor',
-	'extensions',
-	'curriculos',
+	'cvmanager',
 )
 
 DATE_FORMAT = "d/F/Y"
