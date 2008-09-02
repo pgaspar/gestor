@@ -103,6 +103,7 @@ INSTALLED_APPS = (
 	'accounts',
 	'gestor',
 	'extensions',
+	'curriculos',
 )
 
 DATE_FORMAT = "d/F/Y"

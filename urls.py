@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     (r'^gestor/', include('jksite.gestor.urls')),
 
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/$', 'accounts.views.profile'),
+    (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/$', 'curriculos.views.curriculum'),
     (r'^accounts/', include('jksite.accounts.urls')),
 
     (r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/gestor/" }),
