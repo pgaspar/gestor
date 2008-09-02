@@ -10,12 +10,12 @@ class CurriculumVitae(models.Model):
     course = models.CharField(max_length=40)
     coruse_year = models.IntegerField()
     
-    complements = models.Text(max_length=1000)
-    foreign_langs = models.Text(max_length=1000)
-    computer_skills = models.Text(max_length=1000)
-    other_skills = models.Text(max_length=1000)
-    interests = models.Text(max_length=1000)
-    proficient_areas = models.Text(max_length=1000)
+    complements = models.TextField(max_length=1000)
+    foreign_langs = models.TextField(max_length=1000)
+    computer_skills = models.TextField(max_length=1000)
+    other_skills = models.TextField(max_length=1000)
+    interests = models.TextField(max_length=1000)
+    proficient_areas = models.TextField(max_length=1000)
     
     set_date = models.DateField(auto_now_add=True)
     

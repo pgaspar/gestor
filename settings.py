@@ -107,3 +107,4 @@ INSTALLED_APPS = (
 )
 
 DATE_FORMAT = "d/F/Y"
+FIXTURE_DIRS = os.path.join(ROOT_PATH, 'fixtures'),
