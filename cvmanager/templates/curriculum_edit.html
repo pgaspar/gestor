@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+	<h1>Edit Curriculum</h1>
+	<div class="cv_form">
+		<fieldset>
+			<form action="" method="post">
+				{{ form.as_ul }}
+				<div class="clear"><input type="submit" value="Save" /></div>
+			</form>
+		</fieldset>
+	</div>
+{% endblock %}

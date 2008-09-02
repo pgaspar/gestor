@@ -14,6 +14,8 @@ urlpatterns = patterns('',
 
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/$', 'accounts.views.profile'),
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/$', 'cvmanager.views.curriculum'),
+    (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/create/$', 'cvmanager.views.curriculum_create'),
+    (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/edit/$', 'cvmanager.views.curriculum_edit'),
     (r'^accounts/', include('jksite.accounts.urls')),
 
     (r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/gestor/" }),

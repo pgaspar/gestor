@@ -11,14 +11,38 @@
 			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="mail">{{u.email}}</a></p>
 			<p><b class="label">Homepage:</b> {{cv.homepage|urlize}}</p>
 		</div>
-		<h3>Summary</h3>
-		<div class="cv-summary">
-			<p>{{cv.summary}}</p>
+		<h3>Course info</h3>
+		<div class="cv-course">
+			<p>{{Course: cv.course}}</p>
+			<p>{{Course Year: cv.course_year}}</p>
 		</div>
-		<h3>Current Status</h3>
-		<div class="cv-current">
-			<p><b class="label">{{cv.set_date}}:</b></p>
-			<p>{{cv.current_status}}</p>
+		<h3>Complements</h3>
+		<div class="cv-complements">
+			<p>{{cv.complements}}</p>
+		</div>
+		h3>Foreign Languages</h3>
+		<div class="cv-foreign_langs">
+			<p>{{cv.foreign_langs}}</p>
+		</div>
+		h3>Computer Skills</h3>
+		<div class="cv-computer_skills">
+			<p>{{cv.computer_skills}}</p>
+		</div>
+		h3>Other Skills</h3>
+		<div class="cv-other_skills">
+			<p>{{cv.other_skills}}</p>
+		</div>
+		h3>Interests</h3>
+		<div class="cv-interests">
+			<p>{{cv.interests}}</p>
+		</div>
+		h3>Proficient Areas</h3>
+		<div class="cv-proficient_areas">
+			<p>{{cv.proficient_areas}}</p>
+		</div>
+		<br />
+		<div class="cv-set_date">
+			<p><b class="label">Last Updated: {{cv.set_date}}:</b></p>
 		</div>
 		
 	</div>
