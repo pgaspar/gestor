@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load humanize %}
 
 {% block content %}
 	<div class="u_cv">
@@ -13,36 +14,36 @@
 		</div>
 		<h3>Course info</h3>
 		<div class="cv-course">
-			<p>{{Course: cv.course}}</p>
-			<p>{{Course Year: cv.course_year}}</p>
+			<p><b class="label">Course:</b> {{cv.course}}</p>
+			<p><b class="label">Course Year:</b> {{cv.course_year}}</p>
 		</div>
 		<h3>Complements</h3>
 		<div class="cv-complements">
 			<p>{{cv.complements}}</p>
 		</div>
-		h3>Foreign Languages</h3>
+		<h3>Foreign Languages</h3>
 		<div class="cv-foreign_langs">
 			<p>{{cv.foreign_langs}}</p>
 		</div>
-		h3>Computer Skills</h3>
+		<h3>Computer Skills</h3>
 		<div class="cv-computer_skills">
 			<p>{{cv.computer_skills}}</p>
 		</div>
-		h3>Other Skills</h3>
+		<h3>Other Skills</h3>
 		<div class="cv-other_skills">
 			<p>{{cv.other_skills}}</p>
 		</div>
-		h3>Interests</h3>
+		<h3>Interests</h3>
 		<div class="cv-interests">
 			<p>{{cv.interests}}</p>
 		</div>
-		h3>Proficient Areas</h3>
+		<h3>Proficient Areas</h3>
 		<div class="cv-proficient_areas">
 			<p>{{cv.proficient_areas}}</p>
 		</div>
 		<br />
 		<div class="cv-set_date">
-			<p><b class="label">Last Updated: {{cv.set_date}}:</b></p>
+			<p><b class="label">Last Updated: </b>{{cv.set_date|naturalday}}</b></p>
 		</div>
 		
 	</div>

@@ -189,7 +189,7 @@ div {
 	padding: 0;
 }
 
-.personal-info p {
+.personal-info, .cv-course p {
 	margin: 0;
 }
 

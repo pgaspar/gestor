@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from cvmanager.fields import PTPhoneNumberField
 
+from django.core.exceptions import PermissionDenied
+
 class CurriculumVitae(models.Model):
     owner = models.OneToOneField(User)
     address = models.TextField()
@@ -26,3 +28,7 @@ class CurriculumVitae(models.Model):
     
     def get_absolute_url(self):
         return "/users/%s/curriculum" % self.owner.username
+    
+    def check_user(self,user):
+        if not user is self.owner:
+            raise PermissionDenied()
