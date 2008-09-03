@@ -37,6 +37,7 @@ TIME_ZONE = 'Europe/Lisbon'
 LANGUAGE_CODE = 'pt-pt'
 
 SITE_ID = 1
+BASE_DOMAIN = "http://gestor.jeknowledge.com"
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -107,4 +108,11 @@ INSTALLED_APPS = (
 )
 
 DATE_FORMAT = "d/F/Y"
-FIXTURE_DIRS = os.path.join(ROOT_PATH, 'fixtures'),
+
+FIXTURE_DIRS = os.path.join(ROOT_PATH, 'fixtures')
+
+# SMTP
+EMAIL_HOST = 'mail.jeknowledge.com'
+EMAIL_HOST_USER = 'gestor@jeknowledge.com'
+EMAIL_HOST_PASSWORD = 'jotakapa'
+EMAIL_FROM = 'gestor@jeknowledge.com'

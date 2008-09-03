@@ -10,6 +10,10 @@ from django.contrib.auth.models import User
 from django.forms import *
 from gestor.forms import NoteForm, ActionForm, FileForm
 
+from django.core.mail import send_mail
+
+from settings import *
+
 def render(request,template,context={}):
 	return render_to_response(template,context,context_instance=RequestContext(request))
 
@@ -25,7 +29,11 @@ def create_view(request,object_id,form_class,template_name):
 		if form.is_valid():
 			obj = form.save()
 			if request.user.is_authenticated():
-				request.user.message_set.create(message="The %s was updated" % model._meta.verbose_name )
+				request.user.message_set.create(message="The %s was created" % model._meta.verbose_name )
+			send_mail( "[%s] New %s: %s" % (obj.project.name,model._meta.verbose_name,obj.title),
+				'%s created a new %s in project %s entitled "%s" \n\n Link: %s' % (obj.author.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url()), 
+				EMAIL_FROM,
+				[ user.email for user in obj.project.team.all() ])
 			return HttpResponseRedirect(obj.get_absolute_url())
 	else:
 		form = form_class(initial={'author':request.user.id,'project':object_id })
@@ -46,6 +54,10 @@ def edit_view(request,object_id,form_class,template_name):
 			obj = form.save()
 			if request.user.is_authenticated():
 				request.user.message_set.create(message="The %s was updated" % model._meta.verbose_name )
+			send_mail( "[%s] %s edited: %s" % (obj.project.name,model._meta.verbose_name,obj.title),
+				'%s edited a %s in project %s entitled "%s" \n\n Link: %s' % (obj.author.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url()), 
+				EMAIL_FROM,
+				[ user.email for user in obj.project.team.all() ])
 			return HttpResponseRedirect(obj.get_absolute_url())
 	else:
 		form = form_class(instance=obj)
