@@ -1,0 +1,10 @@
+# Information System of jeKnowledge
+# http://gestor.jeknowledge.com
+
+
+# On local copies of the repo run:
+
+svn -R propset svn:ignore -F svn-ignores.txt .
+
+
+# Manager: Alcides Fonseca (me@alcidesfonseca)
