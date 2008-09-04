@@ -3,6 +3,7 @@ from gestor.models import Note, ActionItem, Project, File
 from django.contrib.auth.models import User
 from django.contrib.admin.widgets import AdminDateWidget, AdminFileWidget
 
+import datetime
 
 class NoteForm(ModelForm):
 	author = ModelChoiceField(queryset=User.objects.all(),widget=HiddenInput())
@@ -18,7 +19,7 @@ class FileForm(ModelForm):
 		model = File	
 		
 class ActionForm(ModelForm):
-	due_date = DateTimeField(widget=AdminDateWidget())
+	due_date = DateTimeField(widget=AdminDateWidget(),initial=datetime.date.today())
 	author = ModelChoiceField(queryset=User.objects.all(),widget=HiddenInput())
 	project = ModelChoiceField(queryset=Project.objects.all(),widget=HiddenInput())
 	class Meta:
