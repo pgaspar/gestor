@@ -8,6 +8,7 @@ import datetime
 class NoteForm(ModelForm):
 	author = ModelChoiceField(queryset=User.objects.all(),widget=HiddenInput())
 	project = ModelChoiceField(queryset=Project.objects.all(),widget=HiddenInput())
+	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")
 	class Meta:
 		model = Note
 
@@ -22,5 +23,6 @@ class ActionForm(ModelForm):
 	due_date = DateTimeField(widget=AdminDateWidget(),initial=datetime.date.today())
 	author = ModelChoiceField(queryset=User.objects.all(),widget=HiddenInput())
 	project = ModelChoiceField(queryset=Project.objects.all(),widget=HiddenInput())
+	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")
 	class Meta:
 		model = ActionItem
