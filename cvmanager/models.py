@@ -1,22 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
-from cvmanager.fields import PTPhoneNumberField
-
 from django.core.exceptions import PermissionDenied
 
 class CurriculumVitae(models.Model):
     owner = models.OneToOneField(User)
     address = models.TextField()
-    homepage = models.CharField(max_length=40)
-    phone = PTPhoneNumberField()
+    phone = models.CharField("PhoneNumber",max_length=100)
+    homepage = models.CharField("Webpage",max_length=40)
     
     course = models.CharField(max_length=40)
-    course_year = models.IntegerField()
+    course_year = models.IntegerField(choices=[ (n,str(n)) for n in range(1,7) ] )
     
     complements = models.TextField()
-    foreign_langs = models.TextField()
-    computer_skills = models.TextField()
-    other_skills = models.TextField()
+    foreign_langs = models.TextField("Foreign Languages")
+    computer_skills = models.TextField("Computer Skills")
+    other_skills = models.TextField("Other Skills")
     interests = models.TextField()
     proficient_areas = models.TextField()
     
