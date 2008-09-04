@@ -6,12 +6,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" type="text/css" href="/admin/media/css/forms.css" />
 	<link rel="stylesheet" type="text/css" href="/admin/media/css/widgets.css" />
-	<script type="text/javascript" src="/admin/jsi18n/"></script>
-	<script src="/admin/media/js/core.js"></script>
-	<script src="/admin/media/js/dateparse.js"></script>
-	<script src="/admin/media/js/timeparse.js"></script>
-	<script src="/admin/media/js/calendar.js"></script>
-	<script src="/admin/media/js/admin/DateTimeShortcuts.js" type="text/javascript"></script>
+	<!--<script src="/admin/media/js/dateparse.js"></script>
+	<script src="/admin/media/js/timeparse.js"></script>-->
+
+	<script type="text/javascript" src="/admin/media/js/core.js"></script>
+	<script type="text/javascript" src="/admin/media/js/admin/RelatedObjectLookups.js"></script>
+	<!-- <script type="text/javascript" src="/admin/media/js/SelectBox.js"></script> 
+	<script type="text/javascript" src="/admin/media/js/SelectFilter2.js"></script> -->
+	<script type="text/javascript" src="/admin/media/js/calendar.js"></script>
+	<script type="text/javascript" src="/admin/media/js/admin/DateTimeShortcuts.js"></script>
 	
 	{% block feeds %}
 		<link rel="alternate" type="application/rss+xml" title="User Feeds" href="/gestor/feeds/ActionItems/{{user.username}}" />
