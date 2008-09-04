@@ -77,6 +77,11 @@ MIDDLEWARE_CLASSES = (
 	#'middleware.requirelogin.RequireLoginMiddleware',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'accounts.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend'
+)
+
 ROOT_URLCONF = 'jksite.urls'
 
 TEMPLATE_DIRS = (
