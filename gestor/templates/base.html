@@ -56,6 +56,9 @@
 							
 						<h3>Account</h3>
 						<ul>
+							{% if request.user.is_staff  %}
+								<li><a href="/admin">Administration</a></li>
+							{% endif %}
 							<li><a href="/users/{{request.user.username}}">My Profile</a></li>
 							<li><a href="/accounts/password_change">Change Password</a></li>
 							<li><a href="/accounts/logout">Logout</a></li>
