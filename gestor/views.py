@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseForbidden
-from django.template.context import RequestContext
+
 from django.contrib.auth.decorators import login_required
 from django.views.generic.create_update import *
 
@@ -13,11 +13,7 @@ from gestor.forms import NoteForm, ActionForm, FileForm
 from django.core.mail import send_mail
 
 from settings import *
-
-def render(request,template,context={}):
-	return render_to_response(template,context,context_instance=RequestContext(request))
-
-
+from common.utils import render
 
 
 # General Views
