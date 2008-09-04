@@ -176,7 +176,15 @@ div {
 
 .text, .description {
 	font-family: Helvetica,Arial,'Liberation Sans',FreeSans,sans-serif;
-	font-size: 13px;
+	font-size: 12px;
+}
+
+.text li, .description li {
+	font-size: 12px;
+}
+
+.footnote {
+	font-size: 10px;
 }
 
 .status, .actions {
