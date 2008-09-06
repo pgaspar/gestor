@@ -18,7 +18,7 @@ class Project(models.Model):
 		
 		
 	def get_absolute_url(self):
-		return "/gestor/project/%d" % self.id
+		return "/gestor/project/%d/" % self.id
 		
 	def has_user(self,user):
 		if user in self.team.all() or user == self.manager or user.is_staff:
@@ -46,7 +46,7 @@ class ActionItem(models.Model):
 		return u"%s" % self.title
 	
 	def get_absolute_url(self):
-		return "/gestor/action/%s" % self.id 
+		return "/gestor/action/%s/" % self.id 
 
 class Note(models.Model):
 	project = models.ForeignKey(Project)
@@ -59,7 +59,7 @@ class Note(models.Model):
 		return u"%s" % self.title
 	
 	def get_absolute_url(self):
-		return "/gestor/note/%s" % self.id
+		return "/gestor/note/%s/" % self.id
 		
 		
 
@@ -74,4 +74,4 @@ class File(models.Model):
 		return u"%s" % self.title
 
 	def get_absolute_url(self):
-		return "/gestor/file/%s" % self.id
+		return "/gestor/file/%s/" % self.id
