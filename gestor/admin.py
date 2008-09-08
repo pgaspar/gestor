@@ -2,7 +2,7 @@ from gestor.models import Project, ActionItem, Note, File
 from django.contrib import admin
 
 class ProjectAdmin(admin.ModelAdmin):	
-	list_display = ('name','manager','active','start_date',)	
+	list_display = ('name','manager','active','start_date','end_date',)	
 	list_filter = ('active','manager','team','start_date','end_date',)
 	search_fields = ['name','description']
 
