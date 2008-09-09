@@ -26,10 +26,11 @@ def create_view(request,object_id,form_class,template_name):
 			obj = form.save()
 			if request.user.is_authenticated():
 				request.user.message_set.create(message="The %s was created" % model._meta.verbose_name )
-			send_mail( "[%s] New %s: %s" % (obj.project.name,model._meta.verbose_name,obj.title),
-				'%s created a new %s in project %s entitled "%s" \n\n Link: %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url()), 
-				EMAIL_FROM,
-				[ user.email for user in obj.project.team.all() ])
+			if form.cleaned_data['notification']:
+				send_mail( "[%s] New %s: %s" % (obj.project.name,model._meta.verbose_name,obj.title),
+					'%s created a new %s in project %s entitled "%s" \n\n Link: %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url()), 
+					EMAIL_FROM,
+					[ user.email for user in obj.project.team.all() ])
 			return HttpResponseRedirect(obj.get_absolute_url())
 	else:
 		form = form_class(initial={'author':request.user.id,'project':object_id })
@@ -40,7 +41,7 @@ def create_view(request,object_id,form_class,template_name):
 
 
 def edit_view(request,object_id,form_class,template_name):
-	model = form_class.Meta.model
+	model = form_class.Meta.model	
 	obj = get_object_or_404(model,id=object_id)
 	obj.project.check_user(request.user)
 	if request.method == 'POST':
@@ -50,10 +51,11 @@ def edit_view(request,object_id,form_class,template_name):
 			obj = form.save()
 			if request.user.is_authenticated():
 				request.user.message_set.create(message="The %s was updated" % model._meta.verbose_name )
-			send_mail( "[%s] %s edited: %s" % (obj.project.name,model._meta.verbose_name,obj.title),
-				'%s edited a %s in project %s entitled "%s" \n\n Link: %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url()), 
-				EMAIL_FROM,
-				[ user.email for user in obj.project.team.all() ])
+			if form.cleaned_data['notification']:
+				send_mail( "[%s] %s edited: %s" % (obj.project.name,model._meta.verbose_name,obj.title),
+					'%s edited a %s in project %s entitled "%s" \n\n Link: %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url()), 
+					EMAIL_FROM,
+					[ user.email for user in obj.project.team.all() ])
 			return HttpResponseRedirect(obj.get_absolute_url())
 	else:
 		form = form_class(instance=obj)

@@ -5,24 +5,24 @@ from django.contrib.admin.widgets import AdminDateWidget, AdminFileWidget
 
 import datetime
 
-class NoteForm(ModelForm):
+
+class CommonForm(ModelForm):
 	author = ModelChoiceField(queryset=User.objects.all(),widget=HiddenInput())
 	project = ModelChoiceField(queryset=Project.objects.all(),widget=HiddenInput())
-	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")
+	notification = BooleanField(help_text=" (Sends email to project members)",required=False)
+
+class NoteForm(CommonForm):
+	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")	
 	class Meta:
 		model = Note
 
-class FileForm(ModelForm):
-	author = ModelChoiceField(queryset=User.objects.all(),widget=HiddenInput())
-	project = ModelChoiceField(queryset=Project.objects.all(),widget=HiddenInput())
+class FileForm(CommonForm):
 	content = FileField(widget=AdminFileWidget)
 	class Meta:
 		model = File	
 		
-class ActionForm(ModelForm):
+class ActionForm(CommonForm):
 	due_date = DateTimeField(widget=AdminDateWidget(),initial=datetime.date.today())
-	author = ModelChoiceField(queryset=User.objects.all(),widget=HiddenInput())
-	project = ModelChoiceField(queryset=Project.objects.all(),widget=HiddenInput())
 	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")
 	class Meta:
 		model = ActionItem
