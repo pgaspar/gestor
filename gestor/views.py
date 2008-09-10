@@ -52,8 +52,16 @@ def edit_view(request,object_id,form_class,template_name):
 			if request.user.is_authenticated():
 				request.user.message_set.create(message="The %s was updated" % model._meta.verbose_name )
 			if form.cleaned_data['notification']:
+				
+				if model == ActionItem:
+					full_desc = "For: %s\n\n%s" % (", ".join([ e.get_full_name() for e in obj.targets.all() ]), obj.description)
+				elif model == Note:
+					full_desc = "%s" % obj.description
+				else:
+					full_desc = ""
+				
 				send_mail( "[%s] %s edited: %s" % (obj.project.name,model._meta.verbose_name,obj.title),
-					'%s edited a %s in project %s entitled "%s" \n\n Link: %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url()), 
+					'%s edited a %s in project %s entitled "%s" \n\n Link: %s\n\n %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url(),full_desc), 
 					EMAIL_FROM,
 					[ user.email for user in obj.project.team.all() if not user == request.user ])
 			return HttpResponseRedirect(obj.get_absolute_url())
