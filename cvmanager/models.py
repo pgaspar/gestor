@@ -6,7 +6,7 @@ class CurriculumVitae(models.Model):
     owner = models.OneToOneField(User)
     address = models.TextField()
     phone = models.CharField("PhoneNumber",max_length=100)
-    homepage = models.CharField("Webpage",max_length=40)
+    homepage = models.CharField("Webpage",max_length=40,black=True,null=True)
     
     course = models.CharField(max_length=40)
     course_year = models.IntegerField(choices=[ (n,str(n)) for n in range(1,7) ] )
