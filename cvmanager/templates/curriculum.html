@@ -2,49 +2,69 @@
 {% load humanize %}
 
 {% block content %}
-	<div class="u_cv">
+	<div class="cv">
 		
-		<h2 class="fn">{{u.get_full_name}}</h2>
+		<h1 class="fn">{{u.get_full_name}}'s curriculum</h1>
+		<div class="cv-set_date status">
+			<p><b class="label">Last Updated: </b>{{cv.set_date|naturalday}}</b></p>
+		</div>
 
-		<h3>Personal info</h3>
+
+		<h2>Personal info</h2>
 		<div class="personal-info">
-			<p><b class="label">Adress:</b> {{cv.adress}}</p>
+			<p><b class="label">Address:</b> <div clasS="address">{{cv.address|linebreaksbr}}</div></p>
 			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="mail">{{u.email}}</a></p>
 			<p><b class="label">Homepage:</b> {{cv.homepage|urlize}}</p>
 		</div>
-		<h3>Course info</h3>
+		<h2>Course info</h2>
 		<div class="cv-course">
 			<p><b class="label">Course:</b> {{cv.course}}</p>
 			<p><b class="label">Course Year:</b> {{cv.course_year}}</p>
 		</div>
-		<h3>Complements</h3>
+		
+		{% if cv.complements %}
+		<h2>Complements</h2>
 		<div class="cv-complements">
 			<p>{{cv.complements}}</p>
 		</div>
-		<h3>Foreign Languages</h3>
-		<div class="cv-foreign_langs">
-			<p>{{cv.foreign_langs}}</p>
-		</div>
-		<h3>Computer Skills</h3>
-		<div class="cv-computer_skills">
-			<p>{{cv.computer_skills}}</p>
-		</div>
-		<h3>Other Skills</h3>
-		<div class="cv-other_skills">
-			<p>{{cv.other_skills}}</p>
-		</div>
-		<h3>Interests</h3>
-		<div class="cv-interests">
-			<p>{{cv.interests}}</p>
-		</div>
-		<h3>Proficient Areas</h3>
+		{% endif %}
+		
+		{% if cv.proficient_areas %}
+		<h2>Proficient Areas</h2>
 		<div class="cv-proficient_areas">
 			<p>{{cv.proficient_areas}}</p>
 		</div>
-		<br />
-		<div class="cv-set_date">
-			<p><b class="label">Last Updated: </b>{{cv.set_date|naturalday}}</b></p>
+		{% endif %}
+		
+		{% if cv.foreign_langs %}
+		<h2>Foreign Languages</h2>
+		<div class="cv-foreign_langs">
+			<p>{{cv.foreign_langs}}</p>
 		</div>
+		{% endif %}
+		
+		{% if cv.computer_skills %}
+		<h2>Computer Skills</h2>
+		<div class="cv-computer_skills">
+			<p>{{cv.computer_skills}}</p>
+		</div>
+		{% endif %}
+		
+		{% if cv.other_skills %}
+		<h2>Other Skills</h2>
+		<div class="cv-other_skills">
+			<p>{{cv.other_skills}}</p>
+		</div>
+		{% endif %}
+		
+		{% if cv.interests %}
+		<h2>Interests</h2>
+		<div class="cv-interests">
+			<p>{{cv.interests}}</p>
+		</div>
+		{% endif %}
+		
+
 		
 	</div>
 {% endblock %}

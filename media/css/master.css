@@ -162,6 +162,10 @@ div {
 	font-size: 12px;
 }
 
+.address {
+	margin-left: 20px;
+}
+
 .description {
 	border: solid #666666 1px;
 	font-size: 10px;
@@ -254,4 +258,16 @@ li.green {
 
 li.yellow {
 	list-style: url(/media/icons/flag_yellow.png);
+}
+
+.cv p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.cv h2 {
+	margin-top: 10px;
+} 
+
+.cv div {
+	margin-left: 10px;
 }

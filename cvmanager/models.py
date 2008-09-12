@@ -11,12 +11,12 @@ class CurriculumVitae(models.Model):
     course = models.CharField(max_length=40)
     course_year = models.IntegerField(choices=[ (n,str(n)) for n in range(1,7) ] )
     
-    complements = models.TextField()
-    foreign_langs = models.TextField("Foreign Languages")
-    computer_skills = models.TextField("Computer Skills")
-    other_skills = models.TextField("Other Skills")
-    interests = models.TextField()
-    proficient_areas = models.TextField()
+    complements = models.TextField(blank=True,null=True)
+    proficient_areas = models.TextField(blank=True,null=True)
+    foreign_langs = models.TextField("Foreign Languages",blank=True,null=True)
+    computer_skills = models.TextField("Computer Skills",blank=True,null=True)
+    other_skills = models.TextField("Other Skills",blank=True,null=True)
+    interests = models.TextField(blank=True,null=True)
     
     set_date = models.DateField(auto_now_add=True)
     
@@ -30,3 +30,6 @@ class CurriculumVitae(models.Model):
     def check_user(self,user):
         if not user is self.owner:
             raise PermissionDenied()
+
+    class Meta:
+        permissions = ( ('can_view_cv','Can view CVs'), )
