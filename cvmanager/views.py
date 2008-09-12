@@ -39,8 +39,12 @@ def edit_view(request,object_id,form_class,template_name):
     u = get_object_or_404(User, username = object_id)
     
     if not request.user.username == u.username: raise PermissionDenied()
+
+    try:
+        obj = model.objects.get(owner = u)
+    except:
+		return create_view(request,object_id,form_class,template_name)
     
-    obj = get_object_or_404(model, owner = u)
     if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=obj)
         if form.is_valid():
