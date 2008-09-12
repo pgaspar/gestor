@@ -44,7 +44,9 @@
 							</p>
 						<h3>Projects</h3>
 						<ul id="project_list">
-							{% for project in request.user.projects_working.all %}
+							{% load projecting %}
+							
+							{% for project in request.user.projects_working|workspace %}
 								{% ifequal project.manager request.user %}
 									<li class="owner">
 								{% else %}

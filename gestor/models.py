@@ -4,6 +4,11 @@ from datetime import datetime
 
 from django.core.exceptions import PermissionDenied
 
+class ProjectManager(models.Manager):
+	def get_query_set(self):
+		return super(ProjectManager,self).get_query_set().filter(active=True)
+
+
 class Project(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.TextField(blank=True)
@@ -12,6 +17,9 @@ class Project(models.Model):
 	team = models.ManyToManyField(User, related_name = 'projects_working')
 	start_date = models.DateField()
 	end_date = models.DateField()
+	
+	objects = models.Manager()
+	workspace = ProjectManager()
 	
 	def __unicode__(self):
 		return u"%s" % self.name

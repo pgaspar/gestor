@@ -85,9 +85,9 @@ def delete_view(request,object_id,model):
 @login_required
 def project_list(request):
 	if request.user.is_staff:
-		p = Project.objects.all()
+		p = Project.objects.filter(active=True)
 	else:
-		p = request.user.projects_working.all()
+		p = request.user.projects_working.filter(active=True)
 	return render(request,'project_list.html',{'object_list':p})
 	
 	
