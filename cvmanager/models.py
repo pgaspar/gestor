@@ -8,7 +8,7 @@ class CurriculumVitae(models.Model):
     phone = models.CharField("PhoneNumber",max_length=100)
     homepage = models.CharField("Webpage",max_length=40,blank=True,null=True)
     
-    course = models.CharField(max_length=40)
+    course = models.CharField(max_length=128)
     course_year = models.IntegerField(choices=[ (n,str(n)) for n in range(1,7) ] )
     
     complements = models.TextField(blank=True,null=True)
