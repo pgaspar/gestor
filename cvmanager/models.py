@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 
 class CurriculumVitae(models.Model):
-    owner = models.OneToOneField(User)
+    owner = models.ForeignKey(User, unique=True)
     address = models.TextField()
     phone = models.CharField("PhoneNumber",max_length=100)
     homepage = models.CharField("Webpage",max_length=40,blank=True,null=True)
