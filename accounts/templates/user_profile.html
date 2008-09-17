@@ -19,12 +19,12 @@
 			<p><b class="label">User Since:</b> {{u.date_joined|naturalday}}</p>
 		</div>
 		
-		<!--<h3>Curriculum Vitae</h3>
+		<h3>Curriculum Vitae</h3>
 		{% if perms.can_view_cv %}
 			<a href="{{u.get_absolute_url}}curriculum/">View {{i.get_full_name}}'s full CV</a>
 		{% else %}
 			Contact the administration to access the CV module.
-		{% endif %}-->
+		{% endif %}
 		
 		{% if current_projects %}
 			<h3>Current Projects</h3>
