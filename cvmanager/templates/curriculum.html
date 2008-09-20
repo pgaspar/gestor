@@ -2,25 +2,27 @@
 {% load humanize %}
 
 {% block content %}
-	<div class="cv">
+	<div class="hresume">
+		<div class="contact vcard">
 		
-		<h1 class="fn">{{u.get_full_name}}'s curriculum</h1>
-		<div class="cv-set_date status">
-			<p><b class="label">Last Updated: </b>{{cv.set_date|naturalday}}</b></p>
-		</div>
+			<h1><span class="fn">{{u.get_full_name}}</span>'s curriculum</h1>
+			<div class="cv-set_date status">
+				<p><b class="label">Last Updated: </b>{{cv.set_date|naturalday}}</b></p>
+			</div>
 
 
-		<h2>Personal info</h2>
-		<div class="personal-info">
-			<p><b class="label">Address:</b> <div class="address">{{cv.address|linebreaksbr}}</div></p>
-			<p><b class="label">Phone:</b> {{cv.phone}}</p>
-			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="mail">{{u.email}}</a></p>
-			<p><b class="label">Homepage:</b> {{cv.homepage|urlize}}</p>
+			<h2>Personal info</h2>
+			<div class="personal-info">
+				<p><b class="label adr">Address:</b> <span class="street-address">{{cv.address|linebreaksbr}}</span></p>
+				<p><b class="label">Phone:</b> <span class="tel">{{cv.phone}}</span></p>
+				<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="email">{{u.email}}</a></p>
+				<p><b class="label">Homepage:</b> <a href="{{cv.homepage}}" class="url">{{cv.homepage}}</a></p>
+			</div>
 		</div>
 		<h2>Course info</h2>
-		<div class="cv-course">
-			<p><b class="label">Course:</b> {{cv.course}}</p>
-			<p><b class="label">Course Year:</b> {{cv.course_year}}</p>
+		<div class="cv-course education vevent">
+			<p><b class="label">Course:</b> <span class="summary">{{cv.course}}</span></p>
+			<p><b class="label">Course Year:</b><span class="summary"> {{cv.course_year|ordinal}} year</span></p>
 		</div>
 		
 		{% if cv.complements %}
@@ -33,7 +35,7 @@
 		{% if cv.proficient_areas %}
 		<h2>Proficient Areas</h2>
 		<div class="cv-proficient_areas">
-			<p>{{cv.proficient_areas}}</p>
+			<p class="summary">{{cv.proficient_areas}}</p>
 		</div>
 		{% endif %}
 		

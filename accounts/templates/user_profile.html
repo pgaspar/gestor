@@ -14,14 +14,16 @@
 
 		<h3>Personal info</h3>
 		<div class="personal-info">
-			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="mail">{{u.email}}</a></p>
+			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="email">{{u.email}}</a></p>
 			<p><b class="label">Last Visit:</b> {{u.last_login|naturalday}}</p>
 			<p><b class="label">User Since:</b> {{u.date_joined|naturalday}}</p>
+			
+			<span class="org" style="display: none">jeKnowledge</span>
 		</div>
 		
 		<h3>Curriculum Vitae</h3>
 		{% if perms.can_view_cv %}
-			<a href="{{u.get_absolute_url}}curriculum/">View {{i.get_full_name}}'s full CV</a>
+			<a href="{{u.get_absolute_url}}curriculum/">View {{u.get_full_name}}'s full CV</a>
 		{% else %}
 			Contact the administration to access the CV module.
 		{% endif %}
