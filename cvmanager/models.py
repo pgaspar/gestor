@@ -2,13 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 
+from cvmanager.utils import COURSES_CHOICES
+
 class CurriculumVitae(models.Model):
     owner = models.ForeignKey(User, unique=True)
     address = models.TextField()
     phone = models.CharField("PhoneNumber",max_length=100)
     homepage = models.CharField("Webpage",max_length=40,blank=True,null=True)
     
-    course = models.CharField(max_length=128)
+    course = models.CharField(max_length=128,choices=[ (c,c) for c in COURSES_CHOICES ])
     course_year = models.IntegerField(choices=[ (n,str(n)) for n in range(1,7) ] )
     
     complements = models.TextField(blank=True,null=True)
