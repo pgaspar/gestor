@@ -142,6 +142,12 @@ div {
 	font-weight: none;
 }
 
+#content h2, h3 {
+	border-bottom: solid #666666 1px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
 .three_col {
 	float: left;
 	width: 29%;
