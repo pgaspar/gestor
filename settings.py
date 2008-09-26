@@ -87,6 +87,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
+	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 	#'middleware.requirelogin.RequireLoginMiddleware',
 )
 
@@ -119,10 +120,12 @@ INSTALLED_APPS = (
 	'django.contrib.admin',
 	'django.contrib.humanize',
 	'django.contrib.markup',
+	'django.contrib.flatpages',
 	'extensions',
 	'accounts',
 	'gestor',
 	'cvmanager',
+	'mainsite',
 )
 
 DATE_FORMAT = "d/F/Y"
