@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	{% block feeds %}
+		<link rel="alternate" type="application/rss+xml" title="Notícias jeKnowledge" href="/noticias/feed" />
+	{% endblock %}
+
+	<script src="{{MEDIA_URL}}js/prototype.js"></script>
+	<link rel="stylesheet" href="{{MEDIA_URL}}css/main.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<title>jeKnowledge - {% block title %} {% endblock %}</title>
+</head>
+
+<body>
+
+	<h1>jeKnowledge</h1>
+
+	{% block content %}
+	
+	{% endblock %}
+
+</body>
+</html>
