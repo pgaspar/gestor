@@ -34,9 +34,25 @@
 			<div class="clear"></div>
 		</div>
 		
-		<div id="content">
-			{% block content %}{% endblock %}
+		<div id="sidebar">
+			<div id="menu">
+				{% block menu %}
+					{% load news %}
+					
+						<h3>Notícias</h3>
+						{% latest_news %}
+					
+						<a href="/noticias">Arquivo</a>
+					
+				{% endblock %}
+			</div>
 		</div>
+		
+		<div id="main">
+			<div id="content">
+				{% block content %}{% endblock %}
+			</div>
+   		</div>
 		
 		<div id="footer">
 			&copy; 2008 jeKnowledge - Associação Conhecimento Prévio.

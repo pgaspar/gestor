@@ -4,13 +4,14 @@ from mainsite.models import News
 register = Library()
 
 @register.simple_tag
-def lastest_news():
+def latest_news():
 	
-	latest = News.objects.order_by('-date')[:5]
+	latest = News.objects.order_by('-date')[:10]
 	
-	b = "<ul class='news_block'>"
-	for n in latest:
-		b+= "<div class='news'></div>"
+	html = "<ul id='news_list'>\n"
+	for obj in latest:
+		html += """<li><a href='%s'>%s</a></li>\n""" %(obj.get_absolute_url(), obj.title)
 	
-	b+="</ul>"
-    return '<a href="mailto:%s">%s</a>' % (email, linktext)
+	html +="</ul>"
+	return html
+#register.tag('latest_news', latest_news)
