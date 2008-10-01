@@ -1,10 +1,10 @@
 {% extends "main.html" %}
-
+{% load markup %}
 
 {% block content %}
 	<h1>{{object.title}}</h1>
 	<div class="content">
-		{{object.body}}
+		{{object.body|textile}}
 	</div>
 	
 	

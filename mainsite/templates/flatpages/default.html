@@ -1,10 +1,10 @@
 {% extends "main.html" %}
-
+{% load markup %}
 
 {% block content %}
 	<h1>{{flatpage.title}}</h1>
 	<div class="content">
-		{{flatpage.content}}
+		{{flatpage.content|textile}}
 	</div>
 	
 	

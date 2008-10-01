@@ -9,17 +9,41 @@
 	{% endblock %}
 
 	<script src="{{MEDIA_URL}}js/prototype.js"></script>
+	<link rel="stylesheet" href="{{MEDIA_URL}}css/common.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="{{MEDIA_URL}}css/main.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<title>jeKnowledge - {% block title %} {% endblock %}</title>
 </head>
 
 <body>
-
-	<h1>jeKnowledge</h1>
-
-	{% block content %}
 	
-	{% endblock %}
+	<div id="container">
+		
+		<div id="header">
+			<a href="/"><img src="{{MEDIA_URL}}images/logo_big.gif" alt="jeKnowledge" /></a>
+		</div>
+		
+		<div id="nav">
+			<ul>
+				<li><a href="/apresentacao/">Apresentação</a></li>
+				<li><a href="/sobre/">Sobre</a></li>
+				<li><a href="/servicos/">Serviços</a></li>
+				<li><a href="/parceiros/">Parceiros</a></li>
+				<li><a href="/contactos/">Contactos</a></li>
+				<li class="right"><a href="/gestor/">Gestor</a></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		
+		<div id="content">
+			{% block content %}{% endblock %}
+		</div>
+		
+		<div id="footer">
+			&copy; 2008 jeKnowledge - Associação Conhecimento Prévio.
+		</div>
+		
+	</div>
+	
 
 </body>
 </html>

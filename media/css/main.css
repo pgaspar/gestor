@@ -1,0 +1,62 @@
+body {
+	background-image: url('/media/images/background_degrade.jpg');
+	background-repeat: repeat-x;
+	background-position: top;
+}
+
+#container {
+	width: 960px;
+	margin: auto;
+	margin-top: 50px;
+	background-color: #FFFFFF;
+	border: solid #CCCCCC 1px;
+}
+
+#header {
+	width: 600px;
+	margin: auto;
+	margin-top: 20px;
+}
+
+
+#nav {
+	background-image: url('/media/images/nav_degrade.jpg');
+}
+
+#nav ul li {
+	list-style: none;
+	float: left;
+	height: 32px;
+}
+
+#nav ul li.right {
+	float: right;
+	margin-right: 10px;
+}
+
+#nav a {
+	display: block;
+	height: 28px;
+	margin-left: 15px;
+	color: white;
+	font-weight: normal;
+	font-size: 16px;
+	padding: 4px;
+	padding-bottom: 0;
+	text-decoration: none;
+}
+
+#nav a:hover {
+	background-image: url('/media/images/nav_degrade_on.jpg');
+}
+
+#footer {
+	font-size: 11px;
+	padding: 0 10px 0 20px;
+}
+
+#content {
+	margin: 30px;
+	margin-top: 0px;
+	font-size: 12px;
+}
