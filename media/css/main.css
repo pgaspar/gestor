@@ -56,7 +56,21 @@ body {
 }
 
 #content {
-	margin: 30px;
+	margin: 2%;
 	margin-top: 0px;
 	font-size: 12px;
+	float: left;
+	width:70%;
+}
+
+#sidebar {
+	float: left;
+	width: 26%;
+	font-size: 12px;
+}
+
+#news_list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }

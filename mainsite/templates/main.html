@@ -34,6 +34,12 @@
 			<div class="clear"></div>
 		</div>
 		
+		<div id="main">
+			<div id="content">
+				{% block content %}{% endblock %}
+			</div>
+   		</div>
+
 		<div id="sidebar">
 			<div id="menu">
 				{% block menu %}
@@ -48,13 +54,7 @@
 			</div>
 		</div>
 		
-		<div id="main">
-			<div id="content">
-				{% block content %}{% endblock %}
-			</div>
-   		</div>
-		
-		<div id="footer">
+		<div id="footer" class="clear">
 			&copy; 2008 jeKnowledge - Associação Conhecimento Prévio.
 		</div>
 		

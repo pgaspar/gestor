@@ -10,7 +10,7 @@ def latest_news():
 	
 	html = "<ul id='news_list'>\n"
 	for obj in latest:
-		html += """<li><a href='%s'>%s - %s</a></li>\n""" %(obj.get_absolute_url(), obj.date.strftime('%d-%m-%y'), obj.title)
+		html += """<li>%s - <a href='%s'>%s</a></li>\n""" %(obj.date.strftime('%d-%m-%Y'), obj.get_absolute_url(), obj.title)
 	
 	html +="</ul>"
 	return html
