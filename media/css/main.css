@@ -60,16 +60,17 @@ body {
 	margin-top: 0px;
 	font-size: 12px;
 	float: left;
-	width:70%;
+	width:65%;
 }
 
 #content li {
 	list-style-position: inside;
+	margin-left: 5px;
 }
 
 #sidebar {
 	float: left;
-	width: 26%;
+	width: 31%;
 	font-size: 12px;
 }
 
