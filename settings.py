@@ -2,8 +2,11 @@
 import os
 
 ENV = "DEV"
-if os.uname()[1] == "geyser":
-	ENV = "PROD"
+try:
+	if os.uname()[1] == "geyser":
+		ENV = "PROD"
+except:
+	pass
 
 
 
@@ -121,7 +124,7 @@ INSTALLED_APPS = (
 	'django.contrib.humanize',
 	'django.contrib.markup',
 	'django.contrib.flatpages',
-	'extensions',
+	#'extensions',
 	'accounts',
 	'gestor',
 	'cvmanager',
