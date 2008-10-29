@@ -7,11 +7,18 @@ class NewsFeed(Feed):
     title_template = 'news_feed_title.html'
     description_template = "news_feed_description.html"
     
-    def get_object(self, bits):
-        return news.objects.order_by('-date')[:5]
-    
-    def title(self, obj):
+    def title(self):
         return u"jeKnowledge"
-    
-    def items(self, obj):
-        return obj.actionitem_todo.all().order_by('-set_date')[:10]
+        
+    def link(self):
+        return u"/noticias/"
+
+    def description(self):
+        return u"Feed das noticias da jeKnowledge"
+        
+    def author_link(self):
+        return u"http://jeknowledge.com/"
+        
+    def items(self):
+        return News.objects.order_by('-date')[:5]
+        

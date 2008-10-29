@@ -7,7 +7,7 @@ from mainsite.models import News
 from mainsite.feeds import NewsFeed
 
 feeds = {
-    'News': NewsFeed,
+    'noticias': NewsFeed,
 }
 
 info_dict = {
@@ -34,7 +34,7 @@ urlpatterns = patterns('',
 
 
 
-    (r'^noticias/feed/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
+    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
 	
 	(r'^noticias/$', 'django.views.generic.list_detail.object_list', {'template_name': 'news_list.html', 'queryset': News.objects.all()}),
 	(r'^noticias/(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', {'template_name': 'news_detail.html', 'queryset': News.objects.all()}),
