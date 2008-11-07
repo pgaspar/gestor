@@ -30,12 +30,12 @@ def create_view(request,object_id,form_class,template_name):
 				if model is ActionNote:
 					send_mail( "[%s] New %s: %s" % (obj.actionitem.title,model._meta.verbose_name,obj.title),
 						'%s created a new %s in action item %s entitled "%s" \n\n Link: %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.actionitem.title,obj.title,BASE_DOMAIN + obj.get_absolute_url()), 
-						EMAIL_FROM,
+						DEFAULT_FROM_EMAIL,
 						[ user.email for user in obj.actionitem.targets.all() if not user == request.user ])
 				else:
 					send_mail( "[%s] New %s: %s" % (obj.project.name,model._meta.verbose_name,obj.title),
 						'%s created a new %s in project %s entitled "%s" \n\n Link: %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url()), 
-						EMAIL_FROM,
+						DEFAULT_FROM_EMAIL,
 						[ user.email for user in obj.project.team.all() if not user == request.user ])
 			return HttpResponseRedirect(obj.get_absolute_url())
 	else:
@@ -77,12 +77,12 @@ def edit_view(request,object_id,form_class,template_name):
 				if model is ActionNote:
 					send_mail( "[%s] %s edited: %s" % (obj.actionitem.title,model._meta.verbose_name,obj.title),
 						'%s edited a %s in action item %s entitled "%s" \n\n Link: %s\n\n %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.actionitem.title,obj.title,BASE_DOMAIN + obj.get_absolute_url(),full_desc), 
-						EMAIL_FROM,
+						DEFAULT_FROM_EMAIL,
 						[ user.email for user in obj.actionitem.targets.all() if not user == request.user ])
 				else:
 					send_mail( "[%s] %s edited: %s" % (obj.project.name,model._meta.verbose_name,obj.title),
 						'%s edited a %s in project %s entitled "%s" \n\n Link: %s\n\n %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url(),full_desc), 
-						EMAIL_FROM,
+						DEFAULT_FROM_EMAIL,
 						[ user.email for user in obj.project.team.all() if not user == request.user ])
 			return HttpResponseRedirect(obj.get_absolute_url())
 	else:

@@ -3,14 +3,16 @@
 {% block content %}
 
 	<h1>Login</h1>
-
-	<fieldset>
-		<form method="post" action=".">
-			{{ form.as_ul }}
-			<div class="clear"><input type="submit" value="login" /></div>
-			<input type="hidden" name="next" value="{{ next }}" />
-		</form>
-	</fieldset>
-
+	
+	<div class="note_form">
+		<fieldset>
+			<form method="post" action=".">
+				{{ form.as_ul }}
+				<br /><a href="/accounts/password_reset"><small>Forgot your password?</small></a>
+				<div class="clear"><input type="submit" value="login" /></div>
+				<input type="hidden" name="next" value="{{ next }}" />
+			</form>
+		</fieldset>
+	</div>
 
 {% endblock %}

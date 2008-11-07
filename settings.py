@@ -139,4 +139,5 @@ FIXTURE_DIRS = os.path.join(ROOT_PATH, 'fixtures')
 EMAIL_HOST = 'mail.jeknowledge.com'
 EMAIL_HOST_USER = 'gestor@jeknowledge.com'
 EMAIL_HOST_PASSWORD = 'jotakapa'
-EMAIL_FROM = 'gestor@jeknowledge.com'
+DEFAULT_FROM_EMAIL = 'gestor@jeknowledge.com'
+
