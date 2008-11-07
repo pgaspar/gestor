@@ -1,5 +1,5 @@
 from django.forms import *
-from gestor.models import Note, ActionItem, Project, File
+from gestor.models import Note, ActionItem, Project, ActionNote, File
 from django.contrib.auth.models import User
 from django.contrib.admin.widgets import AdminDateWidget, AdminFileWidget
 
@@ -16,6 +16,15 @@ class NoteForm(CommonForm):
 	class Meta:
 		model = Note
 
+class ActionNoteForm(ModelForm):
+	author = ModelChoiceField(queryset=User.objects.all(),widget=HiddenInput())
+	actionitem = ModelChoiceField(queryset=ActionItem.objects.all(),widget=HiddenInput())
+	notification = BooleanField(help_text=" (Sends email to action item team)",required=False)
+	
+	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")	
+	class Meta:
+		model = ActionNote
+		
 class FileForm(CommonForm):
 	content = FileField(widget=AdminFileWidget)
 	class Meta:

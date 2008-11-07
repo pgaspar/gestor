@@ -69,7 +69,18 @@ class Note(models.Model):
 	def get_absolute_url(self):
 		return "/gestor/note/%s/" % self.id
 		
-		
+class ActionNote(models.Model):
+	actionitem = models.ForeignKey(ActionItem)
+	title = models.CharField(max_length=100)
+	description = models.TextField(blank=True, null=True)
+	author = models.ForeignKey(User)
+	set_date = models.DateField(auto_now=True)
+
+	def __unicode__(self):
+		return u"%s" % self.title
+
+	def get_absolute_url(self):
+		return "/gestor/actionnote/%s/" % self.id
 
 class File(models.Model):
 	project = models.ForeignKey(Project)

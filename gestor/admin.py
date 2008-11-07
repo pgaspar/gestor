@@ -1,4 +1,4 @@
-from gestor.models import Project, ActionItem, Note, File
+from gestor.models import Project, ActionItem, Note, File, ActionNote
 from django.contrib import admin
 
 class ProjectAdmin(admin.ModelAdmin):	
@@ -6,7 +6,8 @@ class ProjectAdmin(admin.ModelAdmin):
 	list_filter = ('active','manager','team','start_date','end_date',)
 	search_fields = ['name','description']
 
-admin.site.register(Project,ProjectAdmin)
+try: admin.site.register(Project,ProjectAdmin)
+except: pass
 
 class ActionItemAdmin(admin.ModelAdmin):	
 	list_display = ('title','project','done','due_date')
@@ -14,7 +15,8 @@ class ActionItemAdmin(admin.ModelAdmin):
 	search_fields = ['title','description','project']
 
 
-admin.site.register(ActionItem,ActionItemAdmin)
+try: admin.site.register(ActionItem,ActionItemAdmin)
+except: pass
 
 class NoteAdmin(admin.ModelAdmin):	
 	list_display = ('title','project','author',)
@@ -22,7 +24,17 @@ class NoteAdmin(admin.ModelAdmin):
 	search_fields = ['title','description','project']
 
 
-admin.site.register(Note,NoteAdmin)
+try: admin.site.register(Note,NoteAdmin)
+except: pass
+
+class ActionNoteAdmin(admin.ModelAdmin):	
+	list_display = ('title','actionitem','author',)
+	list_filter = ('actionitem','author',)
+	search_fields = ['title','description','actionitem']
+
+
+try: admin.site.register(ActionNote,ActionNoteAdmin)
+except: pass
 
 class FileAdmin(admin.ModelAdmin):	
 	list_display = ('title','project','author',)
@@ -30,4 +42,5 @@ class FileAdmin(admin.ModelAdmin):
 	search_fields = ['title','project']
 
 
-admin.site.register(File,FileAdmin)
+try: admin.site.register(File,FileAdmin)
+except: pass
