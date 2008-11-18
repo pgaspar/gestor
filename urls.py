@@ -16,7 +16,6 @@ info_dict = {
 }
 
 
-
 admin.autodiscover()
 
 urlpatterns = patterns('',

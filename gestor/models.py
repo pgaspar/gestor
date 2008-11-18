@@ -71,7 +71,6 @@ class Note(models.Model):
 		
 class ActionNote(models.Model):
 	actionitem = models.ForeignKey(ActionItem)
-	title = models.CharField(max_length=100)
 	description = models.TextField(blank=True, null=True)
 	author = models.ForeignKey(User)
 	set_date = models.DateField(auto_now=True)

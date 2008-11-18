@@ -19,18 +19,30 @@
 		<p><b class="label">Author:</b> <a href="{{object.author.get_absolute_url}}">{{object.author.get_full_name}}</a></p>
 		<div class="description clear text">{{object.description|textile}}</div>	
 
+		<h2>Notes</h2>
+		<div class="notes">
+			{% for note in notes %}
+				<div class="note">
+					<h3>{{note.author.get_full_name}}:</h3> 
+					<div class="actions">
+						<a href="{{note.get_absolute_url}}edit/"><img src="{{MEDIA_URL}}icons/note_edit.png" alt="Edit Note"></a>
+						<a href="{{note.get_absolute_url}}delete/"  onclick="return confirm('Are you sure you want to delete?')"><img src="{{MEDIA_URL}}icons/note_delete.png" alt="Delete Note"></a>
+					</div>
+					<div>{{note.description|textile}}</div>
+				</div>
+			{% endfor %}
+			
+			
+			
+			
+			
+		</div>
+
+
 		<h2>Team</h2>
 		<ul>
 			{% for user in object.targets.all %}
 				<li><a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></li>
-			{% endfor %}
-		</li>
-		</ul>
-		
-		<h2>Notes</h2>
-		<ul class="notes">
-			{% for note in notes %}
-				<li><a href="{{note.get_absolute_url}}">{{note.title}}</a></li>
 			{% endfor %}
 		</li>
 		</ul>

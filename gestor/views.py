@@ -37,7 +37,10 @@ def create_view(request,object_id,form_class,template_name):
 						'%s created a new %s in project %s entitled "%s" \n\n Link: %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url()), 
 						DEFAULT_FROM_EMAIL,
 						[ user.email for user in obj.project.team.all() if not user == request.user ])
-			return HttpResponseRedirect(obj.get_absolute_url())
+			if model is ActionNote:
+				return HttpResponseRedirect(obj.actionitem.get_absolute_url())
+			else:
+				return HttpResponseRedirect(obj.get_absolute_url())
 	else:
 		if model is ActionNote:
 			form = form_class(initial={'author':request.user.id,'actionitem':object_id })
@@ -84,7 +87,10 @@ def edit_view(request,object_id,form_class,template_name):
 						'%s edited a %s in project %s entitled "%s" \n\n Link: %s\n\n %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.project.name,obj.title,BASE_DOMAIN + obj.get_absolute_url(),full_desc), 
 						DEFAULT_FROM_EMAIL,
 						[ user.email for user in obj.project.team.all() if not user == request.user ])
-			return HttpResponseRedirect(obj.get_absolute_url())
+			if model is ActionNote:
+				return HttpResponseRedirect(obj.actionitem.get_absolute_url())
+			else:
+				return HttpResponseRedirect(obj.get_absolute_url())
 	else:
 		form = form_class(instance=obj)
 	if model == ActionItem:
@@ -153,12 +159,6 @@ def note_edit(request,object_id):
 
 
 # Action Item Note Views
-
-@login_required
-def actionnote_detail(request,object_id):
-	p = ActionNote.objects.get(id=object_id)
-	p.actionitem.project.check_user(request.user)
-	return render(request,'actionnote_detail.html',{'object':p})
 
 @login_required
 def actionnote_delete(request,object_id):
