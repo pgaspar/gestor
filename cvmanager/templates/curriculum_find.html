@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+	<h1>Find Users</h1>
+
+	<div class="cv_form">
+		<fieldset>
+			<form action="" method="post">
+				{{ form.as_ul }}
+				<div class="clear"><input type="submit" value="Find" /></div>
+			</form>
+		</fieldset>
+	</div>
+	<h2>Results</h2>
+	{% if results %}
+		<table>
+			<tr><th>Name</th><th>Year</th><th>Course</th><th>Email</th><th>Phone</th></tr>
+			{% for r in results %}
+				<tr><td><a href="{{ r.get_absolute_url }}">{{ r.owner.get_full_name }}</a></td><td>{{ r.course_year }}</td><td>{{ r.course }}</td><td>{{ r.owner.email }}</td><td>{{ r.phone }}</td></tr>
+			{% endfor %}	
+		</table>
+	{% else %}
+		<div>No results found</div>
+	{% endif %}
+	
+{% endblock %}
