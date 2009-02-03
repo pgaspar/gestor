@@ -36,8 +36,10 @@ class Project(models.Model):
 	def check_user(self,user):
 		if not self.has_user(user):
 			raise PermissionDenied()
-			
-
+	
+	def check_manager(self, user):
+		if user != self.manager:
+			raise PermissionDenied()
 
 class ActionItem(models.Model):
 	project = models.ForeignKey(Project)

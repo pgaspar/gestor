@@ -11,15 +11,28 @@
 			{% if object.active %}
 				<b>Active</b> since {{object.start_date|naturalday}}
 			{% else %}
-				<b>Finished</b> ( from {{object.start_date|naturalday}} to {{object.end_date|naturalday}})
+				<b>Finished</b> (from {{object.start_date|naturalday}} to {{object.end_date|naturalday}})
 			{% endif %}
 		</div>
 	
 		<div class="description clear text">{{object.description|textile}}</div>	
 		<div>
 			<p><span class="label">Manager: </span> <span class="manager"><a href="{{object.manager.get_absolute_url}}">{{object.manager.get_full_name}}</a></span></p>
-		</div>	
-			
+		</div>
+		
+		{% ifequal object.manager request.user %}
+		<div>
+			<hr />
+			<p><span class="label">Management Area:</span></p>
+			{% if object.active %}
+				<p><img src="{{MEDIA_URL}}icons/box.png" alt=""> <a href="/gestor/project/{{object.id}}/close">Close this Project</a></p>
+			{% else %}
+				<p><img src="{{MEDIA_URL}}icons/briefcase.png" alt=""> <a href="/gestor/project/{{object.id}}/re-open">Re-open this Project</a></p>
+			{% endif %}
+			<hr />
+		</div>
+		{% endifequal %}
+		
 		<div class="four_col">
 			<p><span class="label">Team: </span></p> <ul class="members">
 				{% for user in object.team.all %}

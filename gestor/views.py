@@ -15,6 +15,8 @@ from django.core.mail import send_mail
 from settings import *
 from common.utils import render
 
+from datetime import date
+
 
 # General Views
 
@@ -135,6 +137,29 @@ def project_detail(request,object_id):
 		'actionitems': p.actionitem_set.order_by("done","due_date")
 		})
 
+@login_required
+def project_reopen(request, object_id):
+	p = Project.objects.get(id=object_id)
+	p.check_manager(request.user)
+
+	p.active = True
+	p.save()
+	
+	return HttpResponseRedirect(p.get_absolute_url())
+
+@login_required
+def project_close(request, object_id):
+	p = Project.objects.get(id=object_id)
+	p.check_manager(request.user)
+	
+	p.active = False
+	p.save()
+	
+	for el in p.actionitem_set.filter(done=False):
+		el.done = True
+		el.save()
+	
+	return HttpResponseRedirect(p.get_absolute_url())
 
 # Note Views
 
