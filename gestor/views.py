@@ -30,8 +30,8 @@ def create_view(request,object_id,form_class,template_name):
 				request.user.message_set.create(message="The %s was created" % model._meta.verbose_name )
 			if form.cleaned_data['notification']:
 				if model is ActionNote:
-					send_mail( "[%s] New %s: %s" % (obj.actionitem.title,model._meta.verbose_name,obj.title),
-						'%s created a new %s in action item %s entitled "%s" \n\n Link: %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.actionitem.title,obj.title,BASE_DOMAIN + obj.get_absolute_url()), 
+					send_mail( "[%s] New %s by %s" % (obj.actionitem.title,model._meta.verbose_name,request.user.get_full_name()),
+						'%s created a new %s in action item %s whith the following description:\n\n "%s" \n\nLink: %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.actionitem.title,obj.description,BASE_DOMAIN + obj.actionitem.get_absolute_url()), 
 						DEFAULT_FROM_EMAIL,
 						[ user.email for user in obj.actionitem.targets.all() if not user == request.user ])
 				else:
@@ -57,31 +57,31 @@ def create_view(request,object_id,form_class,template_name):
 def edit_view(request,object_id,form_class,template_name):
 	model = form_class.Meta.model	
 	obj = get_object_or_404(model,id=object_id)
-	
+
 	if model is ActionNote:
 		obj.actionitem.project.check_user(request.user)
 	else:
 		obj.project.check_user(request.user)
-		
+
 	if request.method == 'POST':
 		form = form_class(request.POST, request.FILES, instance=obj)
 		if form.is_valid():
-			
+
 			obj = form.save()
 			if request.user.is_authenticated():
 				request.user.message_set.create(message="The %s was updated" % model._meta.verbose_name )
 			if form.cleaned_data['notification']:
-				
+
 				if model == ActionItem:
 					full_desc = "For: %s\n\n%s" % (", ".join([ e.get_full_name() for e in obj.targets.all() ]), obj.description)
 				elif model == Note:
 					full_desc = "%s" % obj.description
 				else:
 					full_desc = ""
-				
+
 				if model is ActionNote:
-					send_mail( "[%s] %s edited: %s" % (obj.actionitem.title,model._meta.verbose_name,obj.title),
-						'%s edited a %s in action item %s entitled "%s" \n\n Link: %s\n\n %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.actionitem.title,obj.title,BASE_DOMAIN + obj.get_absolute_url(),full_desc), 
+					send_mail( "[%s] %s edited by %s" % (obj.actionitem.title,model._meta.verbose_name,request.user.get_full_name()),
+						'%s edited a %s in action item %s whith the following description:\n\n "%s" \n\nLink: %s\n\n %s' % (request.user.get_full_name(), model._meta.verbose_name, obj.actionitem.title,obj.description,BASE_DOMAIN + obj.actionitem.get_absolute_url(),full_desc), 
 						DEFAULT_FROM_EMAIL,
 						[ user.email for user in obj.actionitem.targets.all() if not user == request.user ])
 				else:
@@ -184,6 +184,12 @@ def note_edit(request,object_id):
 
 
 # Action Item Note Views
+
+@login_required
+def actionnote_detail(request,object_id):
+	p = ActionNote.objects.get(id=object_id)
+	p.actionitem.project.check_user(request.user)
+	return render(request,'actionnote_detail.html',{'object':p})
 
 @login_required
 def actionnote_delete(request,object_id):
