@@ -14,8 +14,15 @@
 				<b>Finished</b> (from {{object.start_date|naturalday}} to {{object.end_date|naturalday}})
 			{% endif %}
 		</div>
-	
-		<div class="description clear text">{{object.description|textile}}</div>	
+		
+		{% ifequal object.manager request.user %}
+			<div class="description clear text">
+				<div id="editable_description">{{object.description|textile}}</div>
+			</div>
+		{% else %}
+			<div class="description clear text">{{object.description|textile}}</div>
+		{% endifequal %}
+		
 		<div>
 			<p><span class="label">Manager: </span> <span class="manager"><a href="{{object.manager.get_absolute_url}}">{{object.manager.get_full_name}}</a></span></p>
 		</div>

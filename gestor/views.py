@@ -117,6 +117,17 @@ def delete_view(request,object_id,model):
 # Project Views
 
 @login_required
+def project_fastedit(request, object_id):
+	if request.method == 'POST':
+		p = Project.objects.get(id=object_id)
+		p.check_user(request.user)
+		
+		p.description = request.POST['content']
+		p.save()
+		
+		return HttpResponse(p.description)
+
+@login_required
 def project_list(request):
 	if request.user.is_staff:
 		p = Project.objects.filter(active=True)
