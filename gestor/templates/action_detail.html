@@ -27,8 +27,8 @@
 					<div class="note">
 						<h3>{{note.author.get_full_name}}:</h3> 
 						<div class="actions">
-							<a href="{{note.get_absolute_url}}edit/"><img src="{{MEDIA_URL}}icons/note_edit.png" alt="Edit Note"></a>
-							<a href="{{note.get_absolute_url}}delete/"  onclick="return confirm('Are you sure you want to delete?')"><img src="{{MEDIA_URL}}icons/note_delete.png" alt="Delete Note"></a>
+							<a href="{{note.get_absolute_url}}edit/"><img src="/media/icons/note_edit.png" alt="Edit Note"></a>
+							<a href="{{note.get_absolute_url}}delete/"  onclick="return confirm('Are you sure you want to delete?')"><img src="/media/icons/note_delete.png" alt="Delete Note"></a>
 						</div>
 						<div>{{note.description|textile}}</div>
 					</div>
@@ -48,11 +48,11 @@
 		<div class="actions">
 			<ul class="raw">
 			{% if not object.done %}
-			<li><a href="{{object.get_absolute_url}}finish/"><img src="{{MEDIA_URL}}icons/accept.png" alt="Finish ActionItem"> Mark as Done</a> </li>
+			<li><a href="{{object.get_absolute_url}}finish/"><img src="/media/icons/accept.png" alt="Finish ActionItem"> Mark as Done</a> </li>
 			{% endif %}
-			<li><a href="/gestor/actionnote/in/{{object.id}}/"><img src="{{MEDIA_URL}}icons/note_add.png" alt="Add Note"> Add Note to ActionItem</a> </li>
-			<li><a href="{{object.get_absolute_url}}edit/"><img src="{{MEDIA_URL}}icons/cog_edit.png" alt="Edit ActionItem"> Edit ActionItem</a> </li>
-			<li><a href="{{object.get_absolute_url}}delete/" onclick="return confirm('Are you sure you want to delete?')"><img src="{{MEDIA_URL}}icons/cog_delete.png" alt="Delete ActionItem"> Delete ActionItem</a></li>
+			<li><a href="/gestor/actionnote/in/{{object.id}}/"><img src="/media/icons/note_add.png" alt="Add Note"> Add Note to ActionItem</a> </li>
+			<li><a href="{{object.get_absolute_url}}edit/"><img src="/media/icons/cog_edit.png" alt="Edit ActionItem"> Edit ActionItem</a> </li>
+			<li><a href="{{object.get_absolute_url}}delete/" onclick="return confirm('Are you sure you want to delete?')"><img src="/media/icons/cog_delete.png" alt="Delete ActionItem"> Delete ActionItem</a></li>
 			</ul>
 		</div>
 

@@ -18,17 +18,17 @@
 		<link rel="alternate" type="application/rss+xml" title="User Feeds" href="/gestor/feeds/ActionItems/{{user.username}}" />
 	{%endblock feeds%}
 
-	<script src="{{MEDIA_URL}}js/prototype.js"></script>
-	<script src="{{MEDIA_URL}}js/gestor.js"></script>
-	<link rel="stylesheet" href="{{MEDIA_URL}}css/common.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	<link rel="stylesheet" href="{{MEDIA_URL}}css/master.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<script src="/media/js/prototype.js"></script>
+	<script src="/media/js/gestor.js"></script>
+	<link rel="stylesheet" href="/media/css/common.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="/media/css/master.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<title>Gestor jeKnowledge</title>
 </head>
 <body>
 	<div id="container">
 		
 		<div id="header">
-			<h1><a href="/gestor/"><img src="{{MEDIA_URL}}images/logo.gif" alt="jeKnowledge"></a></h1>			
+			<h1><a href="/gestor/"><img src="/media/images/logo.gif" alt="jeKnowledge"></a></h1>			
 		</div>
 		
 		<div id="sidebar">
@@ -40,8 +40,8 @@
 						<h3>Todo  List</h3>
 							{{request.user.username|todo|safe}}
 							<p class="icons">
-								<a href="/gestor/feeds/ActionItems/{{request.user.username}}/"><img src="{{MEDIA_URL}}/icons/rss.png" alt="RSS"></a>
-								<a href="/gestor/ical/ActionItems/{{request.user.username}}/"><img src="{{MEDIA_URL}}/icons/calendar.png" alt="iCal"></a>
+								<a href="/gestor/feeds/ActionItems/{{request.user.username}}/"><img src="/media//icons/rss.png" alt="RSS"></a>
+								<a href="/gestor/ical/ActionItems/{{request.user.username}}/"><img src="/media//icons/calendar.png" alt="iCal"></a>
 							</p>
 						<h3>Projects</h3>
 						<ul id="project_list">

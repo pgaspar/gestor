@@ -124,7 +124,7 @@ INSTALLED_APPS = (
 	'django.contrib.humanize',
 	'django.contrib.markup',
 	'django.contrib.flatpages',
-	#'extensions',
+	'django_extensions',
 	'accounts',
 	'gestor',
 	'cvmanager',
