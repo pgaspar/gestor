@@ -117,17 +117,6 @@ def delete_view(request,object_id,model):
 # Project Views
 
 @login_required
-def project_fastedit(request, object_id):
-	if request.method == 'POST':
-		p = Project.objects.get(id=object_id)
-		p.check_manager(request.user)
-		
-		p.description = request.POST['content']
-		p.save()
-		
-		return HttpResponse(p.description)
-
-@login_required
 def project_list(request):
 	if request.user.is_staff:
 		p = Project.objects.filter(active=True)
@@ -135,7 +124,12 @@ def project_list(request):
 		p = request.user.projects_working.filter(active=True)
 	return render(request,'project_list.html',{'object_list':p})
 	
+@login_required
+def project_dashboard(request):
+	my_proj = request.user.projects_working.order_by("-active","end_date")
 	
+	return render(request,'project_dashboard.html',{'my_proj_list':my_proj})
+
 @login_required
 def project_detail(request,object_id):
 	p = Project.objects.get(id=object_id)
