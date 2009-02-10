@@ -213,3 +213,7 @@ li.yellow {
 	color: #000;
 	background-color: #ffffd3;
 }
+
+.indented{
+	margin-left: 10px;
+}

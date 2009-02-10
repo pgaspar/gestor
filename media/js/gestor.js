@@ -31,7 +31,22 @@
 
 			};
 		}
-			
+		
+		if ($('toggle-tasks')) {
+
+			$$('.tasks div.closed').each(function(i) {
+				i.hide();
+			});
+
+			$('toggle-tasks').onclick = function() {
+
+				$$('.tasks div.closed').each(function(i) {
+					i.toggle();
+				});
+
+			};
+		}
+		
 		if ($('editable_description')) {
 			makeEditable('editable_description');
 		}

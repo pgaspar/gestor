@@ -14,6 +14,7 @@ from django.core.mail import send_mail
 
 from settings import *
 from common.utils import render
+from gestor.utils import dist
 
 from datetime import date
 
@@ -139,7 +140,9 @@ def project_list(request):
 def project_dashboard(request):
 	my_proj = request.user.projects_working.order_by("-active","end_date")
 	
-	return render(request,'project_dashboard.html',{'my_proj_list':my_proj})
+	my_task = [ [item, dist(item.due_date)] for item in request.user.actionitem_todo.order_by("done","due_date") ]
+	
+	return render(request,'project_dashboard.html',{'my_proj_list':my_proj, 'my_task_list':my_task})
 
 @login_required
 def project_detail(request,object_id):

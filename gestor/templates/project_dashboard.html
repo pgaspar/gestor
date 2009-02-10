@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load datecolor %}
 
 {% block content %}
 	<div class="dashboard">
@@ -20,6 +21,35 @@
 				<span class="warning">No projects in list</span>
 			{% endif %}
 			
+		</div>
+		
+		<div class="my_tasks">
+
+			<h1>My Tasks</h1>
+			{% if my_task_list %}
+			<ul class="tasks">
+				{% for object, remaining in my_task_list %}
+					{% if object.done %}
+					<div class="task closed">
+					{% else %}
+					<div class="task open">
+					{% endif %}
+						<li class="{{object|colorstatus}}"><a href="{{object.get_absolute_url}}" title="{{remaining}} days left in {{object.project.name}}">{{object.title}}</a></li>
+						
+						<ul class="raw indented">
+							{% if not object.done %}
+							<li><a href="{{object.get_absolute_url}}finish/"><img src="{{MEDIA_URL}}icons/accept.png" alt="Finish ActionItem"> Mark as Done</a> </li>
+							{% endif %}
+							<li><a href="/gestor/actionnote/in/{{object.id}}/"><img src="{{MEDIA_URL}}icons/note_add.png" alt="Add Note"> Add Note to ActionItem</a> </li>
+						</ul>
+					</div>
+				{% endfor %}
+			</ul>
+			<a href="#" id="toggle-tasks">[See all]</a>
+			{% else %}
+				<span class="warning">You have no tasks! :)</span>
+			{% endif %}
+
 		</div>
 	</div>
 

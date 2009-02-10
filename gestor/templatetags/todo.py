@@ -1,16 +1,9 @@
 from django.template import Library
-from datetime import date
 from django.contrib.auth.models import User
 
-from gestor.utils import color_status
+from gestor.utils import color_status, dist
 
 register = Library()
-
-
-
-def dist(d):
-	dif =  d - date.today()
-	return str(dif.days)
 
 @register.filter
 def todo(value):
