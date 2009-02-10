@@ -217,3 +217,21 @@ li.yellow {
 .indented{
 	margin-left: 10px;
 }
+
+.task_info{
+	float: left;
+	width: 80%;
+}
+
+.task_actions{
+	float: left;
+	width: 20%;
+}
+
+#my_proj{
+	width: 30%;
+}
+
+#my_tasks{
+	width: 30%;
+}

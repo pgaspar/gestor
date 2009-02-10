@@ -3,7 +3,7 @@
 
 {% block content %}
 	<div class="dashboard">
-		<div class="my_proj">
+		<div id="my_proj">
 			
 			<h1>My Projects</h1>
 			{% if my_proj_list %}
@@ -23,7 +23,7 @@
 			
 		</div>
 		
-		<div class="my_tasks">
+		<div id="my_tasks">
 
 			<h1>My Tasks</h1>
 			{% if my_task_list %}
@@ -34,14 +34,21 @@
 					{% else %}
 					<div class="task open">
 					{% endif %}
-						<li class="{{object|colorstatus}}"><a href="{{object.get_absolute_url}}" title="{{remaining}} days left in {{object.project.name}}">{{object.title}}</a></li>
+					
+						<div class="task_info">
+							<li class="{{object|colorstatus}}">
+								<a href="{{object.get_absolute_url}}" title="{{remaining}} days left in {{object.project.name}}">{{object.title}}</a>
+							</li>
+						</div>
 						
-						<ul class="raw indented">
+						<div class="task_actions">
+							<a href="/gestor/actionnote/in/{{object.id}}/" title="Add Note to ActionItem"><img src="{{MEDIA_URL}}icons/note_add.png" alt="Add Note" /></a>
 							{% if not object.done %}
-							<li><a href="{{object.get_absolute_url}}finish/"><img src="{{MEDIA_URL}}icons/accept.png" alt="Finish ActionItem"> Mark as Done</a> </li>
+							<a href="{{object.get_absolute_url}}finish/" title="Finish ActionItem"><img src="{{MEDIA_URL}}icons/accept.png" alt="Finish ActionItem" /></a>
 							{% endif %}
-							<li><a href="/gestor/actionnote/in/{{object.id}}/"><img src="{{MEDIA_URL}}icons/note_add.png" alt="Add Note"> Add Note to ActionItem</a> </li>
-						</ul>
+						</div>
+						
+						<div class="clear"></div>
 					</div>
 				{% endfor %}
 			</ul>
@@ -51,6 +58,7 @@
 			{% endif %}
 
 		</div>
+		
 	</div>
 
 {% endblock %}
