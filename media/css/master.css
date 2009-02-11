@@ -235,3 +235,7 @@ li.yellow {
 #my_tasks{
 	width: 30%;
 }
+
+.widget{
+	margin: 0px 20px 20px 20px;		/* TRBL */
+}
