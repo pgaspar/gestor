@@ -3,6 +3,8 @@
 
 {% block content %}
 	<div class="dashboard">
+		<div id="left_col">
+		
 		<div id="my_proj" class="widget">
 			
 			<h1>My Projects</h1>
@@ -59,6 +61,29 @@
 
 		</div>
 		
+		</div>
+		
+		<div id="right_col">
+		
+		<div id="jk_projects" class="widget">
+			<h1>jeKnowledge's Projects</h1>
+			{% if jk_proj_list %}
+			<ul class="jk_projects">
+				{% for object in jk_proj_list %}
+					{% if object.active %}
+						<li class="open"><a href="{{object.get_absolute_url}}">{{object.name}}</a></li>
+					{% else %}
+						<li class="closed"><a href="{{object.get_absolute_url}}">{{object.name}}</a> [closed]</li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+			<a href="#" id="toggle-projects">[See all]</a>
+			{% else %}
+				<span class="warning">No projects in list</span>
+			{% endif %}
+		</div>
+		
+		</div>
 	</div>
 
 {% endblock %}
