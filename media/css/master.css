@@ -224,7 +224,7 @@ li.yellow {
 }
 
 .indented{
-	padding-left: 15px;
+	padding-left: 10px;
 }
 
 .task_info{
@@ -261,4 +261,14 @@ li.yellow {
 	width: 45%;
 	/*border: 1px solid #999;*/
 	padding: 0px 20px 0px 20px;		/* TRBL */
+}
+
+.proj_info_cl{
+	width: 15%;
+	float: left;
+}
+
+.proj_info_cr{
+	width: 70%;
+	float: left;
 }
