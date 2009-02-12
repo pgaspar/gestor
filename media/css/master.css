@@ -155,6 +155,15 @@
 	background-image: url(/media/icons/user_suit.png);
 	background-repeat: no-repeat;
 	height: 18px;
+	font-size: 11px;
+}
+
+#main .member a {
+	padding-left: 18px;
+	background-image: url(/media/icons/user.png);
+	background-repeat: no-repeat;
+	height: 18px;
+	font-size: 11px;
 }
 
 #main .members li {
@@ -212,6 +221,10 @@ li.yellow {
 .editable{
 	color: #000;
 	background-color: #ffffd3;
+}
+
+.indented{
+	padding-left: 15px;
 }
 
 .task_info{

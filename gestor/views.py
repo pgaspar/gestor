@@ -142,7 +142,9 @@ def project_dashboard(request):
 	
 	my_task = [ [item, dist(item.due_date)] for item in request.user.actionitem_todo.order_by("done","due_date") ]
 	
-	return render(request,'project_dashboard.html',{'my_proj_list':my_proj, 'my_task_list':my_task})
+	jk_proj = Project.objects.order_by("-active")
+	
+	return render(request,'project_dashboard.html',{'my_proj_list':my_proj, 'my_task_list':my_task, 'jk_proj_list':jk_proj})
 
 @login_required
 def project_detail(request,object_id):

@@ -71,10 +71,28 @@
 			<ul class="jk_projects">
 				{% for object in jk_proj_list %}
 					{% if object.active %}
-						<li class="open"><a href="{{object.get_absolute_url}}">{{object.name}}</a></li>
+					<div class="jk_proj open">
 					{% else %}
-						<li class="closed"><a href="{{object.get_absolute_url}}">{{object.name}}</a> [closed]</li>
+					<div class="jk_proj closed">
 					{% endif %}
+
+						<li><a href="{{object.get_absolute_url}}">{{object.name}}</a></li>
+						
+						<div class="proj_info indented">
+							<span class="label">Manager: </span> <span class="manager"><a href="{{object.manager.get_absolute_url}}">{{object.manager.get_full_name}}</a></span>
+							<br />
+							<span class="label">Team: </span>
+							{% for user in object.team.all|slice:":3" %}
+								<span class="member"><a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></span>{% if not forloop.last %},{% else %}
+									{% if not object.team.all|length_is:"1" and not object.team.all|length_is:"2" and not object.team.all|length_is:"3" %}...{% endif %}
+								{% endif %}
+							{% endfor %}
+							{#{% ifgreater object.team|length 3%}...{% endifgreater %}#}
+							
+						</div>
+
+						<div class="clear"></div>
+					</div>
 				{% endfor %}
 			</ul>
 			<a href="#" id="toggle-projects">[See all]</a>
