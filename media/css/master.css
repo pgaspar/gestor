@@ -245,20 +245,25 @@ li.yellow {
 	width: 100%;
 }
 
-.widget{
+#dashboard .widget{
 	padding-bottom: 20px;
 }
 
-#left_col{
-	float: left;
+#dashboard .widget .footer{
+	background-color: #333333; /* #086F9E */
+	color: #FFFFFF;
+	padding: 0px;
+	/* text-align: center; */
 }
 
-#right_col{
-	float: left;
+#dashboard .widget .footer a{
+	color: #FFFFFF;
+	text-decoration: none;
 }
 
-#right_col, #left_col{
+#dashboard #col{
 	width: 45%;
 	/*border: 1px solid #999;*/
 	padding: 0px 20px 0px 20px;		/* TRBL */
+	float: left;
 }

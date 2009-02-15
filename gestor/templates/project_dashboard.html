@@ -3,8 +3,8 @@
 {% load dashboard %}
 
 {% block content %}
-	<div class="dashboard">
-		<div id="left_col">
+	<div id="dashboard">
+		<div id="col">
 		
 		<div id="my_proj" class="widget">
 			
@@ -19,7 +19,9 @@
 					{% endif %}
 				{% endfor %}
 			</ul>
-			<a href="#" id="toggle-projects">[See all]</a>
+			<div class="footer">
+				<a href="#" id="toggle-projects">[See all]</a>
+			</div>
 			{% else %}
 				<span class="warning">No projects in list</span>
 			{% endif %}
@@ -55,7 +57,9 @@
 					</div>
 				{% endfor %}
 			</ul>
-			<a href="#" id="toggle-tasks">[See all]</a>
+			<div class="footer">
+				<a href="#" id="toggle-tasks">[See all]</a>
+			</div>
 			{% else %}
 				<span class="warning">You have no tasks! :)</span>
 			{% endif %}
@@ -64,7 +68,7 @@
 		
 		</div>
 		
-		<div id="right_col">
+		<div id="col">
 		
 		<div id="jk_projects" class="widget">
 			<h1>jeKnowledge's Projects</h1>
@@ -95,7 +99,9 @@
 					</div>
 				{% endfor %}
 			</ul>
-			<a href="#" id="toggle-jkprojs">[See all]</a>
+			<div class="footer">
+				<a href="#" id="toggle-jkprojs">[See all]</a>
+			</div>
 			{% else %}
 				<span class="warning">No projects in list</span>
 			{% endif %}
