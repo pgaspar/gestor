@@ -47,6 +47,21 @@
 			};
 		}
 		
+		if ($('toggle-jkprojs')) {
+
+			$$('.jk_projects div.closed').each(function(i) {
+				i.hide();
+			});
+
+			$('toggle-jkprojs').onclick = function() {
+
+				$$('.jk_projects div.closed').each(function(i) {
+					i.toggle();
+				});
+
+			};
+		}
+		
 		if ($('editable_description')) {
 			makeEditable('editable_description');
 		}

@@ -78,7 +78,7 @@
 					<div class="jk_proj closed">
 					{% endif %}
 
-						<li><a href="{{object.get_absolute_url}}">{{object.name}}</a></li>
+						<li><a href="{{object.get_absolute_url}}">{{object.name}}</a>{% if not object.active %} [closed]{% endif %}</li>
 						
 						<div class="proj_info indented">
 							<span class="label">Team: </span>
@@ -86,7 +86,7 @@
 							{% for user in object|team_list %}
 								{% if forloop.first %}<span class="manager">{% else %}<span class="member">{% endif %}
 								<a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></span>{% if not forloop.last %},{% else %}
-									{% if object.team.all|more_members %}...{% endif %}
+									{% if object|more_members %}...{% endif %}
 								{% endif %}
 							{% endfor %}
 						</div>
@@ -95,7 +95,7 @@
 					</div>
 				{% endfor %}
 			</ul>
-			<a href="#" id="toggle-projects">[See all]</a>
+			<a href="#" id="toggle-jkprojs">[See all]</a>
 			{% else %}
 				<span class="warning">No projects in list</span>
 			{% endif %}

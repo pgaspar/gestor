@@ -10,13 +10,12 @@ def team_list(value):
 		if user != value.manager: users.append(user)
 	
 	return users[:3]
-
-@register.filter
-def user_class(value):
-	pass
 	
 @register.filter
 def more_members(value):
 	listed_members = 3
 	
-	return len( value ) > listed_members
+	if value.manager in value.team.all():
+		return len( value.team.all() ) > listed_members
+	else:
+		return len( value.team.all() ) + 1 > listed_members
