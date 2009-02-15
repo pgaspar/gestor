@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load datecolor %}
+{% load dashboard %}
 
 {% block content %}
 	<div class="dashboard">
@@ -67,6 +68,7 @@
 		
 		<div id="jk_projects" class="widget">
 			<h1>jeKnowledge's Projects</h1>
+			
 			{% if jk_proj_list %}
 			<ul class="jk_projects">
 				{% for object in jk_proj_list %}
@@ -79,22 +81,14 @@
 						<li><a href="{{object.get_absolute_url}}">{{object.name}}</a></li>
 						
 						<div class="proj_info indented">
-							<div class="proj_info_cl">
-								<span class="label">Manager: </span><br />
-								<span class="label">Team: </span>
-							</div>
-							
-							<div class="proj_info_cr">
-								<span class="manager"><a href="{{object.manager.get_absolute_url}}">{{object.manager.get_full_name}}</a></span>
-								<br />
-								{% for user in object.team.all|slice:":3" %}
-									<span class="member"><a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></span>{% if not forloop.last %},{% else %}
-										{% if not object.team.all|length_is:"1" and not object.team.all|length_is:"2" and not object.team.all|length_is:"3" %}...{% endif %}
-									{% endif %}
-								{% endfor %}
-							</div>
-							
-							<div class="clear"></div>
+							<span class="label">Team: </span>
+
+							{% for user in object|team_list %}
+								{% if forloop.first %}<span class="manager">{% else %}<span class="member">{% endif %}
+								<a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></span>{% if not forloop.last %},{% else %}
+									{% if object.team.all|more_members %}...{% endif %}
+								{% endif %}
+							{% endfor %}
 						</div>
 
 						<div class="clear"></div>
