@@ -122,3 +122,6 @@ EMAIL_HOST_USER = 'gestor@jeknowledge.com'
 EMAIL_HOST_PASSWORD = 'jotakapa'
 DEFAULT_FROM_EMAIL = 'gestor@jeknowledge.com'
 
+# Override the server-derived value of SCRIPT_NAME 
+# See http://code.djangoproject.com/wiki/BackwardsIncompatibleChanges#lighttpdfastcgiandothers
+FORCE_SCRIPT_NAME = ''
