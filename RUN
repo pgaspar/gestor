@@ -1,0 +1,1 @@
+PYTHONPATH=/home/jeknowledge/django-jksite:. python manage.py runserver --settings=settings 127.0.0.1:62016 --adminmedia=/home/jeknowledge/jksite/media/admin
