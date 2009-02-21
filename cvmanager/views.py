@@ -81,7 +81,10 @@ def curriculum_find(request):
 		form = CvFindForm(request.POST)
 		if form.is_valid():
 			search_term = form.cleaned_data['find'].rstrip()
-			res = CurriculumVitae.objects.filter(Q(course__icontains=search_term) \
+			res = CurriculumVitae.objects.select_related("owner").filter(
+									   Q(owner__first_name__icontains=search_term) \
+									 | Q(owner__last_name__icontains=search_term) \
+									 | Q(course__icontains=search_term) \
 		                             | Q(complements__icontains=search_term)    \
 		                             | Q(proficient_areas__icontains=search_term) \
 		                             | Q(foreign_langs__icontains=search_term) \
