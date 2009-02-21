@@ -1,19 +1,7 @@
 # Django settings for jksite project.
 import os
 
-ENV = "DEV"
-try:
-	if os.uname()[1] == "geyser":
-		ENV = "PROD"
-except:
-	pass
-
-
-
-DEBUG = False
-if ENV == "DEV":
-	DEBUG = True
-	
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # nmariz hacking:
@@ -21,25 +9,18 @@ ROOT_PATH = os.path.realpath(os.path.dirname(__file__))
 
 
 ADMINS = (
-    ('Alcides', 'me@alcidesfonseca.com'),
+    ('Pedro Gaspar', 'pedro.gaxpar@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
-if ENV == "DEV":
-	DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-	DATABASE_NAME = 'jksite.sqlite3'             # Or path to database file if using sqlite3.
-	DATABASE_USER = ''             # Not used with sqlite3.
-	DATABASE_PASSWORD = ''         # Not used with sqlite3.
-	DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-	DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
-else:
-	DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-	DATABASE_NAME = 'jkgestor'             # Or path to database file if using sqlite3.
-	DATABASE_USER = 'id3'             # Not used with sqlite3.
-	DATABASE_PASSWORD = 'id3id3id3'         # Not used with sqlite3.
-	DATABASE_HOST = 'mysql.ideias3.com'             # Set to empty string for localhost. Not used with sqlite3.
-	DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'jksite.sqlite3'             # Or path to database file if using sqlite3.
+DATABASE_USER = ''             # Not used with sqlite3.
+DATABASE_PASSWORD = ''         # Not used with sqlite3.
+DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
+DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -73,7 +54,7 @@ MEDIA_URL = '/media/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/admin/media/'
+ADMIN_MEDIA_PREFIX = '/media/admin/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '(n%11p2k8lh(lwhq2(obb_gxj!6n2w0$rn91w1f5$5h77j(7tw'
