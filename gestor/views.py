@@ -125,7 +125,7 @@ def project_fastedit(request, object_id):
 		p.description = request.POST['content']
 		p.save()
 		
-		return HttpResponse(p.description)
+		return render(request,'project_description.html',{'object':p})
 
 @login_required
 def project_list(request):

@@ -1,27 +1,25 @@
 (function() {
-	
 	Event.observe(window, 'load',function() { 
 		
-		if ($('toggle-history')) {
+		// Toggle history in Projects
 		
+		if ($('toggle-history')) {
 			$$('.action-items li.green').each(function(i) {
 				i.hide();
 			});
-	
 			$('toggle-history').onclick = function() {
-		
 				$$('.action-items li.green').each(function(i) {
 					i.toggle();
 				});
-		
 			};
 		}
 		
+		
+		//Edit in place.
 		if ($('editable_description')) {
 			makeEditable('editable_description');
 		}
 	});
-	
 	
 })();
 
@@ -42,15 +40,7 @@ function showAsEditable(obj, clear){
 
 function edit(obj){
 	Element.hide(obj);
-	
-	var textarea = '<div id="' + obj.id + '_editor"><textarea id="' 
-		+ obj.id + '_edit" name="' + obj.id + '" rows="4" cols="60">' 
-		+ obj.innerHTML + '</textarea>';
-	
-	var button = '<br /><input id="' + obj.id + '_save" type="button" value="SAVE" /> OR <input id="' 
-		+ obj.id + '_cancel" type="button" value="CANCEL" /></div>';
-	
-	new Insertion.After(obj, textarea+button);
+	Element.show(obj.id + "_editor");
 	
 	Event.observe(obj.id+'_save', 'click', function(){saveChanges(obj)}, false);
 	Event.observe(obj.id+'_cancel', 'click', function(){cleanUp(obj)}, false);
@@ -58,7 +48,7 @@ function edit(obj){
 }
 
 function cleanUp(obj, keepEditable){
-	Element.remove(obj.id+'_editor');
+	Element.hide(obj.id + "_editor");
 	Element.show(obj);
 	if (!keepEditable) showAsEditable(obj, true);
 }
