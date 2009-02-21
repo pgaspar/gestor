@@ -117,7 +117,7 @@ DATE_FORMAT = "d/F/Y"
 FIXTURE_DIRS = os.path.join(ROOT_PATH, 'fixtures')
 
 # SMTP
-EMAIL_HOST = 'mail.jeknowledge.com'
+EMAIL_HOST = 'localhost'
 EMAIL_HOST_USER = 'gestor@jeknowledge.com'
 EMAIL_HOST_PASSWORD = 'bxe52ows'
 DEFAULT_FROM_EMAIL = 'gestor@jeknowledge.com'
