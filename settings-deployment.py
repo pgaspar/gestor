@@ -2,7 +2,7 @@
 from settings import *
 
 DEBUG = False
-TEMPLATE_DEBUG = FALSE
+TEMPLATE_DEBUG = False
 
 DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = 'jeknowledge_jksite'             # Or path to database file if using sqlite3.
