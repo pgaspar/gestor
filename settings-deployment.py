@@ -10,3 +10,7 @@ DATABASE_USER = 'jeknowledge'             # Not used with sqlite3.
 DATABASE_PASSWORD = '8Huhzj/u'         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+
+# Override the server-derived value of SCRIPT_NAME 
+# See http://code.djangoproject.com/wiki/BackwardsIncompatibleChanges#lighttpdfastcgiandothers
+FORCE_SCRIPT_NAME = ''
