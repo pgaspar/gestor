@@ -31,7 +31,7 @@ class FileForm(CommonForm):
 		model = File	
 		
 class ActionForm(CommonForm):
-	due_date = DateTimeField(widget=AdminDateWidget(),initial=datetime.date.today())
+	due_date = DateTimeField(widget=AdminDateWidget())
 	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")
 	class Meta:
 		model = ActionItem
@@ -39,7 +39,7 @@ class ActionForm(CommonForm):
 class ProjectForm(ModelForm):
 	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")
 	
-	start_date = DateTimeField(widget=AdminDateWidget(), initial="hey")
+	start_date = DateTimeField(widget=AdminDateWidget())
 	end_date = DateTimeField(widget=AdminDateWidget())
 	
 	class Meta:
