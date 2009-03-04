@@ -7,8 +7,10 @@ from django.views.generic.create_update import *
 from gestor.models import Project, ActionItem, Note, ActionNote, File
 from django.contrib.auth.models import User
 
+from django.core.exceptions import PermissionDenied
+
 from django.forms import *
-from gestor.forms import NoteForm, ActionForm, FileForm, ActionNoteForm
+from gestor.forms import NoteForm, ActionForm, FileForm, ActionNoteForm, ProjectForm
 
 from django.core.mail import send_mail
 
@@ -115,6 +117,27 @@ def delete_view(request,object_id,model):
 
 
 # Project Views
+
+@login_required
+def project_create(request):
+	if request.user.is_staff:
+		p = Project()
+		
+		if request.method == 'POST':
+			form = ProjectForm(request.POST, instance = p)
+			
+			if form.is_valid():
+				p = form.save()
+				
+				request.user.message_set.create(message="Project Created")
+				
+				return HttpResponseRedirect(p.get_absolute_url())
+		else:
+			form = ProjectForm(instance = p)
+		return render(request,"project_create.html",{'form':form})
+		
+	else:
+		raise PermissionDenied()
 
 @login_required
 def project_fastedit(request, object_id):

@@ -35,3 +35,12 @@ class ActionForm(CommonForm):
 	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")
 	class Meta:
 		model = ActionItem
+	
+class ProjectForm(ModelForm):
+	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")
+	
+	start_date = DateTimeField(widget=AdminDateWidget(), initial="hey")
+	end_date = DateTimeField(widget=AdminDateWidget())
+	
+	class Meta:
+		model = Project
