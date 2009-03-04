@@ -17,6 +17,9 @@ urlpatterns = patterns('',
 	(r'^project/(?P<object_id>\d+)/re-open/$', 'gestor.views.project_reopen', ),
 	(r'^project/(?P<object_id>\d+)/fast_edit/$', 'gestor.views.project_fastedit', ),
 	
+	# Note: the following is dangerous if you ever change the project's pk to strings
+	(r'^project/create/$', 'gestor.views.project_create', ),
+	
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     (r'^ical/ActionItems/(?P<username>([A-z]|[0-9]|[_])+)/$', 'gestor.views.action_ical',),
 	

@@ -281,4 +281,10 @@ li.yellow {
 
 #dashboard .widget .footer a:hover, .view-all a:hover {
 	background:#5b80b2 url(/media/icons/tooltag-add_over.gif) top right no-repeat;
+
+}
+
+.smaller {
+	font-size: 11px;
+
 }

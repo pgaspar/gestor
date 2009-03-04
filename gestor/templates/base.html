@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="/media/admin/css/forms.css" />
 	<link rel="stylesheet" type="text/css" href="/media/admin/css/widgets.css" />
 
-	<script type="text/javascript" src="/admin/jsi18n/"></script>
+	<script type="text/javascript" src="/dynamic-media/jsi18n/"></script>
 	<script type="text/javascript" src="/media/admin/js/core.js"></script>
 	<script type="text/javascript" src="/media/admin/js/dateparsing.js"></script>
 	<script type="text/javascript" src="/media/admin/js/admin/RelatedObjectLookups.js"></script>
@@ -40,8 +40,8 @@
 						<h3>Todo  List</h3>
 							{{request.user.username|todo|safe}}
 							<p class="icons">
-								<a href="/gestor/feeds/ActionItems/{{request.user.username}}/"><img src="{{MEDIA_URL}}/icons/rss.png" alt="RSS"></a>
-								<a href="/gestor/ical/ActionItems/{{request.user.username}}/"><img src="{{MEDIA_URL}}/icons/calendar.png" alt="iCal"></a>
+								<a href="/gestor/feeds/ActionItems/{{request.user.username}}/"><img src="/media/icons/rss.png" alt="RSS"></a>
+								<a href="/gestor/ical/ActionItems/{{request.user.username}}/"><img src="/media/icons/calendar.png" alt="iCal"></a>
 							</p>
 						<h3>Projects</h3>
 						<ul id="project_list">
@@ -56,6 +56,9 @@
 									<a href="{{project.get_absolute_url}}">{{project.name}}</a></li>
 							{% endfor %}
 							
+							{% if request.user.is_staff  %}
+								<span class="smaller"><a href="/gestor/project/create/"><img src="/media/icons/add.png" alt="add" /> Create a Project</a></span>
+							{% endif %}
 						</ul>
 							
 						<h3>Account</h3>
