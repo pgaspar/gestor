@@ -272,6 +272,15 @@ li.yellow {
 	float: left;
 }
 
+#dashboard .widget .view-all li {
+	background:transparent url(/media/icons/tool-left.gif) no-repeat scroll 0 0;
+	display:block;
+	float:left;
+	height:16px;
+	margin-left:2px;
+	padding:0 0 0 8px;
+}
+
 #dashboard .widget .view-all a{ 
 	background:#999 url(/media/icons/tooltag-add.gif) top right no-repeat;
 	padding: 1px 28px 2px 5px;
