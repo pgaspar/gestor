@@ -26,6 +26,8 @@
 				$$('.my_projects li.closed').each(function(i) {
 					i.toggle();
 				});
+				
+				toggleButtons($('toggle-projects'), 'View All', 'View Less');
 
 			};
 		}
@@ -43,7 +45,8 @@
 				$$('.tasks div.closed').each(function(i) {
 					i.toggle();
 				});
-
+				
+				toggleButtons($('toggle-tasks'), 'View All', 'View Less');
 			};
 		}
 		
@@ -59,6 +62,8 @@
 				$$('.jk_projects div.closed').each(function(i) {
 					i.toggle();
 				});
+				
+				toggleButtons($('toggle-jkprojs'), 'View All', 'View Less');
 			};
 		}
 		
@@ -71,6 +76,16 @@
 	
 })();
 
+function toggleButtons(obj, before, after){
+	if (obj.innerHTML == before){
+		obj.innerHTML = after;
+		Element.addClassName($(obj.id + '_div'), 'toggled');
+	}
+	else{
+		obj.innerHTML = before;
+		Element.removeClassName($(obj.id + '_div'), 'toggled');
+	}
+}
 
 function makeEditable(id){
 	Event.observe(id, 'click', function(){edit($(id))}, false);
