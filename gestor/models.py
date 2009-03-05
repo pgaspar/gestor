@@ -42,6 +42,17 @@ class Project(models.Model):
 	def check_manager(self, user):
 		if user != self.manager:
 			raise PermissionDenied()
+	
+	def ratio(self):
+		done = self.actionitem_set.filter(done=True).count()
+		total = self.actionitem_set.all().count()
+		if total:
+			return float(done) / total
+		else:
+			return 0
+			
+	def percentage(self):
+		return str(round(self.ratio() * 100)) + "%"
 
 class ActionItem(models.Model):
 	project = models.ForeignKey(Project)
