@@ -52,7 +52,7 @@ class Project(models.Model):
 			return 0
 			
 	def percentage(self):
-		return str(round(self.ratio() * 100)) + "%"
+		return str(int(round(self.ratio() * 100))) + "%"
 
 class ActionItem(models.Model):
 	project = models.ForeignKey(Project)
