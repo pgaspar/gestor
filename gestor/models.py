@@ -78,7 +78,7 @@ class ActionNote(models.Model):
 	set_date = models.DateField(auto_now=True)
 
 	def __unicode__(self):
-		return u"%s" % self.title
+		return u"%s" % self.actionitem
 
 	def get_absolute_url(self):
 		return "/gestor/actionnote/%s/" % self.id

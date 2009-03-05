@@ -217,3 +217,7 @@ li.yellow {
 .smaller {
 	font-size: 11px;
 }
+
+.project_detail .manager_options  {
+	padding: 0px 0px 8px 2px;
+}
