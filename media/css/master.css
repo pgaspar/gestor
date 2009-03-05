@@ -185,6 +185,22 @@
 	background-color: #FFFF66;
 }
 
+#main .note {
+	background-color: #EEFFBA;
+	padding-right: 3px;
+	padding-left: 3px;
+}
+
+#main .note:hover {
+	background-color: #FFFE8E;
+}
+
+#main .note h3 {
+	font-family: Helvetica,Arial,'Liberation Sans',FreeSans,sans-serif;
+	font-size: 9pt;
+	margin-bottom: 0px;
+}
+
 li.red {
 	list-style: url(/media/icons/flag_red.png);
 } 
