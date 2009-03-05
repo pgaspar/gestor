@@ -28,9 +28,9 @@ try: admin.site.register(Note,NoteAdmin)
 except: pass
 
 class ActionNoteAdmin(admin.ModelAdmin):	
-	list_display = ('title','actionitem','author',)
+	list_display = ('actionitem','author',)
 	list_filter = ('actionitem','author',)
-	search_fields = ['title','description','actionitem']
+	search_fields = ['description','actionitem']
 
 
 try: admin.site.register(ActionNote,ActionNoteAdmin)
