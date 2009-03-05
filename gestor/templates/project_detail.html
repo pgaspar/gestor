@@ -23,7 +23,7 @@
 						name="editable_description" rows="4" cols="60">{{object.description}}</textarea>
 					<br />
 					<input id="editable_description_save" type="button" value="SAVE" />
-					<input id="editable_description_cancel" type="button" value="CANCEL" /></div>
+					<input id="editable_description_cancel" type="button" value="CANCEL" />
 				</div>
 			</div>
 		{% else %}
@@ -38,11 +38,17 @@
 		<div>
 			<hr />
 			<p><span class="label">Management Area:</span></p>
-			{% if object.active %}
-				<p><img src="{{MEDIA_URL}}icons/box.png" alt=""> <a href="/gestor/project/{{object.id}}/close">Close this Project</a></p>
-			{% else %}
-				<p><img src="{{MEDIA_URL}}icons/briefcase.png" alt=""> <a href="/gestor/project/{{object.id}}/re-open">Re-open this Project</a></p>
-			{% endif %}
+			
+			<div class="manager_options smaller">
+			
+				<a href="/gestor/project/{{object.id}}/edit/"><img src="/media/icons/plain_edit.gif" width="13px" alt=""> Edit this Project</a><br />
+				{% if object.active %}
+					<a href="/gestor/project/{{object.id}}/close"><img src="/media/icons/box.png" width="13px" alt="">  Close this Project</a>
+				{% else %}
+					<a href="/gestor/project/{{object.id}}/re-open"><img src="/media/icons/briefcase.png" width="13px" alt=""> Re-open this Project</a>
+				{% endif %}
+				
+			</div>
 			<hr />
 		</div>
 		{% endifequal %}
