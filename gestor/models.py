@@ -21,9 +21,11 @@ class Project(models.Model):
 	objects = models.Manager()
 	workspace = ProjectManager()
 	
+	class Meta:
+		ordering = ["-start_date"]
+	
 	def __unicode__(self):
 		return u"%s" % self.name
-		
 		
 	def get_absolute_url(self):
 		return "/gestor/project/%d/" % self.id
@@ -51,6 +53,8 @@ class ActionItem(models.Model):
 	due_date = models.DateField(blank=True, null=True)
 	done = models.BooleanField(default=False)
 
+	class Meta:
+		ordering = ["-due_date"]
 	
 	def __unicode__(self):
 		return u"%s" % self.title
@@ -64,6 +68,9 @@ class Note(models.Model):
 	description = models.TextField(blank=True, null=True)
 	author = models.ForeignKey(User)
 	set_date = models.DateField(auto_now=True)
+	
+	class Meta:
+		ordering = ["-set_date"]
 
 	def __unicode__(self):
 		return u"%s" % self.title
@@ -76,6 +83,9 @@ class ActionNote(models.Model):
 	description = models.TextField(blank=True, null=True)
 	author = models.ForeignKey(User)
 	set_date = models.DateField(auto_now=True)
+	
+	class Meta:
+		ordering = ["-set_date"]
 
 	def __unicode__(self):
 		return u"%s" % self.actionitem
@@ -89,6 +99,9 @@ class File(models.Model):
 	content = models.FileField(upload_to="files")
 	author = models.ForeignKey(User)
 	set_date = models.DateField(auto_now=True)
+	
+	class Meta:
+		ordering = ["-set_date"]
 
 	def __unicode__(self):
 		return u"%s" % self.title
