@@ -122,7 +122,7 @@ def delete_view(request,object_id,model):
 def project_edit(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
 	
-	if not request.user.is_staff or not request.user == p.manager: raise PermissionDenied()
+	if not request.user.is_staff and not request.user == p.manager: raise PermissionDenied()
 
 	if request.method == 'POST':
 		form = ProjectForm(request.POST, instance = p)
