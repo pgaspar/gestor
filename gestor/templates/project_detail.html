@@ -14,6 +14,12 @@
 				<b>Finished</b> (from {{object.start_date|naturalday}} to {{object.end_date|naturalday}})
 			{% endif %}
 		</div>
+		<div class="progress_box">
+			<div class="progress_bar" style="width: {% widthratio object.ratio 1 400 %}px;">
+				{{ object.percentage }}
+			</div>
+		</div>
+
 		
 		{% ifequal object.manager request.user %}
 			<div class="description clear text">

@@ -123,8 +123,7 @@ def delete_view(request,object_id,model):
 def project_edit(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
 	
-	p.check_manager(request.user)
-	if not request.user.is_staff: raise PermissionDenied()
+	if not request.user.is_staff and not request.user == p.manager: raise PermissionDenied()
 
 	if request.method == 'POST':
 		form = ProjectForm(request.POST, instance = p)
@@ -299,7 +298,12 @@ def file_edit(request,object_id):
 def action_detail(request,object_id):
 	p = ActionItem.objects.get(id=object_id)
 	p.project.check_user(request.user)
-	return render(request,'action_detail.html',{'object':p, 'notes': p.actionnote_set.order_by("-set_date")})
+	add_note_form = ActionNoteForm(initial={'author':request.user.id,'actionitem':object_id })
+	return render(request,'action_detail.html',{
+										'object':p,
+										'notes': p.actionnote_set.order_by("-set_date"),
+										"add_note_form":add_note_form
+									})
 
 @login_required
 def action_delete(request,object_id):

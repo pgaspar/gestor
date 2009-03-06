@@ -20,3 +20,6 @@ class News(models.Model):
 		
 	def get_absolute_url(self):
 		return u"/noticias/%s/" % self.id
+		
+	class Meta:
+		verbose_name_plural = "news"
