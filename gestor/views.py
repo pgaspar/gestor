@@ -164,7 +164,7 @@ def project_create(request):
 def project_fastedit(request, object_id):
 	if request.method == 'POST':
 		p = Project.objects.get(id=object_id)
-		p.check_manager(request.user)
+		if not request.user.is_staff: p.check_manager(request.user)
 		
 		p.description = request.POST['content']
 		p.save()
