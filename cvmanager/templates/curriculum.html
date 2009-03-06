@@ -17,7 +17,7 @@
 				<p><b class="label adr">Address:</b> <span class="street-address">{{cv.address|linebreaksbr}}</span></p>
 				<p><b class="label">Phone:</b> <span class="tel">{{cv.phone}}</span></p>
 				<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="email">{{u.email}}</a></p>
-				<p><b class="label">Homepage:</b> <a href="{{cv.homepage}}" class="url">{{cv.homepage}}</a></p>
+				{% if cv.homepage %}<p><b class="label">Homepage:</b> <a href="{{cv.homepage}}" class="url">{{cv.homepage}}</a></p>{% endif %}
 			</div>
 		</div>
 		<h2>Course info</h2>
