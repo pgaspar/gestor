@@ -2,6 +2,7 @@
 {% load humanize %}
 {% load datecolor %}
 {% load markup %}
+{% load proj_utils %}
 
 {% block content %}
 	<div class="project_detail">
@@ -19,9 +20,8 @@
 				{{ object.percentage }}
 			</div>
 		</div>
-
 		
-		{% ifequal object.manager request.user %}
+		{% if request.user.is_staff or request.user|ismanager:object %}
 			<div class="description clear text">
 				<div id="editable_description">{{object.description|textile}}</div>
 				<div id="editable_description_editor" style="display: none;">
@@ -34,16 +34,20 @@
 			</div>
 		{% else %}
 			<div class="description clear text">{{object.description|textile}}</div>
-		{% endifequal %}
+		{% endif %}
 		
 		<div>
 			<p><span class="label">Manager: </span> <span class="manager"><a href="{{object.manager.get_absolute_url}}">{{object.manager.get_full_name}}</a></span></p>
 		</div>
 		
-		{% ifequal object.manager request.user %}
+		{% if request.user.is_staff or request.user|ismanager:object %}
 		<div>
 			<hr />
+			{% ifequal object.manager request.user %}
 			<p><span class="label">Management Area:</span></p>
+			{% else %}
+			<p><span class="label">Admin Area:</span></p>
+			{% endifequal %}
 			
 			<div class="manager_options smaller">
 			
@@ -57,7 +61,7 @@
 			</div>
 			<hr />
 		</div>
-		{% endifequal %}
+		{% endif %}
 		
 		<div class="four_col">
 			<p><span class="label">Team: </span></p> <ul class="members">
