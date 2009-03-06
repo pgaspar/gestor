@@ -56,14 +56,17 @@
 			</ul>
 		{% endif %}
 		
+		{% load proj_utils %}
 		
-		{% if todo_list %}
-			<h3>Todo List</h3>
-			<ul>
-				{% for item in todo_list %}
-					<li class="{{item|colorstatus}}"><a href="{{item.get_absolute_url}}">{{ item.title }}</a></li> 
-				{% endfor %}
-			</ul>
+		{% if request.user.is_staff or request.user|manages_user:u %}
+			{% if todo_list %}
+				<h3>Todo List</h3>
+				<ul>
+					{% for item in todo_list %}
+						<li class="{{item|colorstatus}}"><a href="{{item.get_absolute_url}}">{{ item.title }}</a></li> 
+					{% endfor %}
+				</ul>
+			{% endif %}
 		{% endif %}
 		
 		
