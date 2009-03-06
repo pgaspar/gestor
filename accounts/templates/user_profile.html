@@ -22,15 +22,11 @@
 		</div>
 		
 		<h3>Curriculum Vitae</h3>
-		{% if perms.can_view_cv %}
-			{% ifequal u.curriculumvitae_set.count 0 %}
-				This user doesn't have a CV yet.
-			{% else %}
-				<a href="{{u.get_absolute_url}}curriculum/">View {{u.get_full_name}}'s full CV</a>
-			{% endifequal %}
+		{% ifequal u.curriculumvitae_set.count 0 %}
+			This user doesn't have a CV yet.
 		{% else %}
-			Contact the administration to access the CV module.
-		{% endif %}
+			<a href="{{u.get_absolute_url}}curriculum/">View {{u.get_full_name}}'s full CV</a>
+		{% endifequal %}
 		
 		{% if current_projects %}
 			<h3>Current Projects</h3>
