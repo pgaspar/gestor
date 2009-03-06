@@ -273,11 +273,12 @@ li.yellow {
 }
 
 #dashboard .widget .view-all li {
-	background:transparent url(/media/icons/tool-left.gif) no-repeat scroll 0 0;
+	background:transparent url(/media/icons/tool-left.gif) no-repeat scroll left;
 	display:block;
 	float:left;
 	height:16px;
-	margin-left:2px;
+	margin: 0px;
+	border: 0px;
 	padding:0 0 0 8px;
 }
 
@@ -287,6 +288,7 @@ li.yellow {
 	color: #FFFFFF;
 	text-decoration: none;
 	font-size: 11px;
+	margin-top: 2px;
 }
 
 #dashboard .widget .toggled a{
