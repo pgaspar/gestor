@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load humanize %}
+{% load datecolor %}
 
 {% block content %}
 	<div class="u_profile vcard">
@@ -55,6 +56,15 @@
 			</ul>
 		{% endif %}
 		
+		
+		{% if todo_list %}
+			<h3>Todo List</h3>
+			<ul>
+				{% for item in todo_list %}
+					<li class="{{item|colorstatus}}"><a href="{{item.get_absolute_url}}">{{ item.title }}</a></li> 
+				{% endfor %}
+			</ul>
+		{% endif %}
 		
 		
 	</div>
