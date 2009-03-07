@@ -23,7 +23,7 @@
 		
 		{% if request.user.is_staff or request.user|ismanager:object %}
 			<div class="description clear text">
-				<div id="editable_description">{{object.description|textile}}</div>
+				<div id="editable_description">{{object.description|force_escape|textile}}</div>
 				<div id="editable_description_editor" style="display: none;">
 					<textarea id="editable_description_edit" 
 						name="editable_description" rows="4" cols="60">{{object.description}}</textarea>
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 		{% else %}
-			<div class="description clear text">{{object.description|textile}}</div>
+			<div class="description clear text">{{object.description|force_escape|textile}}</div>
 		{% endif %}
 		
 		<div>

@@ -12,7 +12,7 @@
 	
 		<p><b class="label">Action Item:</b> <a href="{{object.actionitem.get_absolute_url}}">{{object.actionitem.title}}</a></p>
 		<p><b class="label">Author:</b> <a href="{{object.author.get_absolute_url}}">{{object.author.get_full_name}}</a></p>
-		<div class="description clear text">{{object.description|textile}}</div>	
+		<div class="description clear text">{{object.description|force_escape|textile}}</div>	
 
 		<div class="actions">
 			<ul class="raw">

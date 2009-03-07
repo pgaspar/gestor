@@ -29,42 +29,42 @@
 		{% if cv.complements %}
 		<h2>Complements</h2>
 		<div class="cv-complements">
-			<p>{{cv.complements|textile}}</p>
+			<p>{{cv.complements|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		
 		{% if cv.proficient_areas %}
 		<h2>Proficient Areas</h2>
 		<div class="cv-proficient_areas">
-			<p class="summary">{{cv.proficient_areas|textile}}</p>
+			<p class="summary">{{cv.proficient_areas|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		
 		{% if cv.foreign_langs %}
 		<h2>Foreign Languages</h2>
 		<div class="cv-foreign_langs">
-			<p>{{cv.foreign_langs|textile}}</p>
+			<p>{{cv.foreign_langs|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		
 		{% if cv.computer_skills %}
 		<h2>Computer Skills</h2>
 		<div class="cv-computer_skills">
-			<p>{{cv.computer_skills|textile}}</p>
+			<p>{{cv.computer_skills|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		
 		{% if cv.other_skills %}
 		<h2>Other Skills</h2>
 		<div class="cv-other_skills">
-			<p>{{cv.other_skills|textile}}</p>
+			<p>{{cv.other_skills|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		
 		{% if cv.interests %}
 		<h2>Interests</h2>
 		<div class="cv-interests">
-			<p>{{cv.interests|textile}}</p>
+			<p>{{cv.interests|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		
