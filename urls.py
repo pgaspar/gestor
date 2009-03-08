@@ -44,7 +44,7 @@ urlpatterns = patterns('',
     (r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/apresentacao/" }),
     
     # Public curriculums
-    (r'^curriculum/(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),
+    (r'^(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),
 
 
 )

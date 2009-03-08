@@ -17,12 +17,12 @@
 			<h2>Curriculum Vitae</h2>
 			<h1 class="fn">{{ u.get_full_name }}</h1>
    
-			<p>Address: <span class="adr">{{ cv.address|force_escape|textile }}</span></p>
+			<p class="adr"><span class="street-address">{{ cv.address|force_escape|textile }}</span></p>
    
 			<p>
 			<a href="mailto:{{ u.email }}" class="email">{{ u.email }}</a><br/>
 			{% if cv.homepage %}
-				<span class="url"{{ cv.homepage|urlize }}<br/>
+				<span class="url">{{ cv.homepage|urlize }}</span><br/>
 			{% endif %}
 			</p>
 		

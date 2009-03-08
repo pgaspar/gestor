@@ -30,7 +30,7 @@ class CurriculumVitae(models.Model):
         return "/users/%s/curriculum" % self.owner.username
         
     def get_public_url(self):
-        return "/curriculum/%s/" % self.owner.username
+        return "/%s/" % self.owner.username
     
     def check_user(self,user):
         if not user is self.owner:
