@@ -27,7 +27,12 @@
 			This user doesn't have a CV yet.
 		{% else %}
 			<a href="{{u.get_absolute_url}}curriculum/">View {{u.get_full_name}}'s full CV</a>
+			
+			{% ifequal request.user u %}
+				<br /><a href="/curriculum/{{ u.username }}/">Use this URL to share your public CV</a>
+			{% endifequal %}
 		{% endifequal %}
+		
 		
 		{% if current_projects %}
 			<h3>Current Projects</h3>

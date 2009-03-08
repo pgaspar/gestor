@@ -67,6 +67,14 @@ def curriculum(request,username):
     c = get_object_or_404(CurriculumVitae, owner = u)
     return render(request,'curriculum.html',{'u':u, 'cv':c})
 
+def public_curriculum(request, username):
+    # This page will be visible to the outside world (logged out users)
+    
+    u = get_object_or_404(User, username = username)
+    c = get_object_or_404(CurriculumVitae, owner = u)
+    return render(request,'public_curriculum.html',{'u':u, 'cv':c})
+
+
 @login_required
 def curriculum_create(request,username):
     return create_view(request,username,CvForm,'curriculum_edit.html')

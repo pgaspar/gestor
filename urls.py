@@ -41,6 +41,9 @@ urlpatterns = patterns('',
 	(r'^noticias/(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', {'template_name': 'news_detail.html', 'queryset': News.objects.all()}),
 
     (r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/apresentacao/" }),
+    
+    # Public curriculums
+    (r'^curriculum/(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),
 
 
 )
