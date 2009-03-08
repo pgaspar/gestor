@@ -315,6 +315,7 @@ def action_finish(request, object_id):
 	obj.save()
 	return action_detail(request,object_id)
 	
+@login_required
 def action_ical(request,username):
 	user = get_object_or_404(User,username=username)
 	todos = user.actionitem_todo.filter(done=False)
