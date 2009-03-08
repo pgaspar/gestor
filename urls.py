@@ -37,8 +37,9 @@ urlpatterns = patterns('',
 
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
 	
-	(r'^noticias/$', 'django.views.generic.list_detail.object_list', {'template_name': 'news_list.html', 'queryset': News.objects.all()}),
+	(r'^noticias/$', 'django.views.generic.list_detail.object_list', {'template_name': 'news_list.html', 'queryset': News.objects.order_by('-date')}),
 	(r'^noticias/(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', {'template_name': 'news_detail.html', 'queryset': News.objects.all()}),
+    (r'^noticias/create/$', 'mainsite.views.create_news'),
 
     (r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/apresentacao/" }),
     
