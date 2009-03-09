@@ -14,5 +14,3 @@ def latest_news():
 	
 	html +="</ul>"
 	return html
-#register.tag('latest_news', latest_news)
-

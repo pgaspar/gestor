@@ -28,6 +28,9 @@ class CurriculumVitae(models.Model):
     
     def get_absolute_url(self):
         return "/users/%s/curriculum" % self.owner.username
+        
+    def get_public_url(self):
+        return "/%s/" % self.owner.username
     
     def check_user(self,user):
         if not user is self.owner:

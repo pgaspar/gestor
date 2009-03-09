@@ -122,8 +122,7 @@ def delete_view(request,object_id,model):
 def project_edit(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
 	
-	p.check_manager(request.user)
-	if not request.user.is_staff: raise PermissionDenied()
+	if not request.user.is_staff and not request.user == p.manager: raise PermissionDenied()
 
 	if request.method == 'POST':
 		form = ProjectForm(request.POST, instance = p)
@@ -165,7 +164,7 @@ def project_create(request):
 def project_fastedit(request, object_id):
 	if request.method == 'POST':
 		p = Project.objects.get(id=object_id)
-		p.check_manager(request.user)
+		if not request.user.is_staff: p.check_manager(request.user)
 		
 		p.description = request.POST['content']
 		p.save()
@@ -316,6 +315,7 @@ def action_finish(request, object_id):
 	obj.save()
 	return action_detail(request,object_id)
 	
+@login_required
 def action_ical(request,username):
 	user = get_object_or_404(User,username=username)
 	todos = user.actionitem_todo.filter(done=False)

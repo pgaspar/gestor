@@ -1,2 +1,2 @@
 {% load markup %}
-{{ obj.description|textile }}
+{{ obj.description|force_escape|textile }}

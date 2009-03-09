@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load humanize %}
+{% load datecolor %}
 
 {% block content %}
 	<div class="u_profile vcard">
@@ -22,15 +23,16 @@
 		</div>
 		
 		<h3>Curriculum Vitae</h3>
-		{% if perms.can_view_cv %}
-			{% ifequal u.curriculumvitae_set.count 0 %}
-				This user doesn't have a CV yet.
-			{% else %}
-				<a href="{{u.get_absolute_url}}curriculum/">View {{u.get_full_name}}'s full CV</a>
-			{% endifequal %}
+		{% ifequal u.curriculumvitae_set.count 0 %}
+			This user doesn't have a CV yet.
 		{% else %}
-			Contact the administration to access the CV module.
-		{% endif %}
+			<a href="{{u.get_absolute_url}}curriculum/">View {{u.get_full_name}}'s full CV</a>
+			
+			{% ifequal request.user u %}
+				<br /><a href="/{{ u.username }}/">Use this URL to share your public CV</a>
+			{% endifequal %}
+		{% endifequal %}
+		
 		
 		{% if current_projects %}
 			<h3>Current Projects</h3>
@@ -59,6 +61,18 @@
 			</ul>
 		{% endif %}
 		
+		{% load proj_utils %}
+		
+		{% if request.user.is_staff or request.user|manages_user:u %}
+			{% if todo_list %}
+				<h3>Todo List</h3>
+				<ul>
+					{% for item in todo_list %}
+						<li class="{{item|colorstatus}}"><a href="{{item.get_absolute_url}}">{{ item.title }}</a></li> 
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endif %}
 		
 		
 	</div>
