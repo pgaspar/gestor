@@ -17,7 +17,7 @@
 	
 		<p><b class="label">Project:</b> <a href="{{object.project.get_absolute_url}}">{{object.project.name}}</a></p>
 		<p><b class="label">Author:</b> <a href="{{object.author.get_absolute_url}}">{{object.author.get_full_name}}</a></p>
-		<div class="description clear text">{{object.description|textile}}</div>	
+		<div class="description clear text">{{object.description|force_escape|textile}}</div>	
 
 		<h2>Team</h2>
 		<ul>
@@ -48,7 +48,7 @@
 							<a href="{{note.get_absolute_url}}delete/"  onclick="return confirm('Are you sure you want to delete?')"><img src="/media/icons/note_delete.png" alt="Delete Note"></a>
 						</div>
 						<h3>{{note.author.get_full_name}}:</h3> 
-						<div class="text">{{note.description|textile}}</div>
+						<div class="text">{{note.description|force_escape|textile}}</div>
 					</div>
 				{% endfor %}
 				<div class="note_form">

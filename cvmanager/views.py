@@ -10,6 +10,7 @@ from django.db.models import Q
 from cvmanager.forms import CvForm, CvFindForm
 from django.core.exceptions import PermissionDenied
 
+import datetime
 
 def render(request,template,context={}):
     return render_to_response(template,context,context_instance=RequestContext(request))
@@ -51,6 +52,9 @@ def edit_view(request,object_id,form_class,template_name):
         if form.is_valid():
             
             obj = form.save()
+            obj.set_date = datetime.date.today()
+            obj.save()
+            
             if request.user.is_authenticated():
                 request.user.message_set.create(message="The %s was updated" % model._meta.verbose_name )
             return HttpResponseRedirect(obj.get_absolute_url())
@@ -59,13 +63,21 @@ def edit_view(request,object_id,form_class,template_name):
     return render(request,template_name,{'form':form})
 
 
+# Curriculum Views
 
-# Project Views
-
+@login_required
 def curriculum(request,username):
     u = get_object_or_404(User, username = username)
     c = get_object_or_404(CurriculumVitae, owner = u)
     return render(request,'curriculum.html',{'u':u, 'cv':c})
+
+def public_curriculum(request, username):
+    # This page will be visible to the outside world (logged out users)
+    
+    u = get_object_or_404(User, username = username)
+    c = get_object_or_404(CurriculumVitae, owner = u)
+    return render(request,'public_curriculum.html',{'u':u, 'cv':c})
+
 
 @login_required
 def curriculum_create(request,username):
@@ -76,6 +88,7 @@ def curriculum_create(request,username):
 def curriculum_edit(request,username):
     return edit_view(request,username,CvForm,'curriculum_edit.html')
 
+@login_required
 def curriculum_find(request):
 	if request.method == 'POST':
 		form = CvFindForm(request.POST)

@@ -31,7 +31,7 @@ TIME_ZONE = 'Europe/Lisbon'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'pt-pt'
+LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 BASE_DOMAIN = "http://jeknowledge.com"

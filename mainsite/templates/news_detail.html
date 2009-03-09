@@ -4,7 +4,7 @@
 {% block content %}
 	<h1>{{object.title}}</h1>
 	<div class="content">
-		{{object.body|textile}}
+		{{object.body|force_escape|textile}}
 	</div>
 	
 	

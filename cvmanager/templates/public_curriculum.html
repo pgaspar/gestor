@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		
+		<title>{{ u.get_full_name }}' Curriculum Vitae</title>
+		<link rel="stylesheet" href="/media/css/public_cv.css" type="text/css" media="screen" />
+	</head>
+	
+	{% load humanize %}
+	{% load markup %}
+	
+	<body>
+
+	<div id="contents">
+	<div id="cv_contents" class="hresume">
+		
+		<div class="contact vcard">
+		
+			<h2>Curriculum Vitae</h2>
+			<h1 class="fn">{{ u.get_full_name }}</h1>
+   
+			<p class="adr"><span class="street-address">{{ cv.address|force_escape|textile }}</span></p>
+   
+			<p>
+			<a href="mailto:{{ u.email }}" class="email">{{ u.email }}</a><br/>
+			{% if cv.homepage %}
+				<span class="url">{{ cv.homepage|urlize }}</span><br/>
+			{% endif %}
+			</p>
+		
+		</div>
+		
+		<h3>Course info</h3>
+		
+		<div class="education vevent">
+			<p><span class="summary">{{ cv.course }}</span>
+			<br/><span class="summary">{{ cv.course_year|ordinal }} year</span></p>
+		</div>
+		
+		{% if cv.complements %}
+		<h3>Complements</h3>
+		
+		<div class="cv-complements">
+			<p>{{ cv.complements|force_escape|textile }}</p>
+		</div>
+		{% endif %}
+		
+		{% if cv.proficient_areas %}
+		<h3>Proficient Areas</h3>
+		
+		<div class="cv-proficient_areas">
+			<p class="summary">{{ cv.proficient_areas|force_escape|textile }}</p>
+		</div>
+		{% endif %}
+		
+		{% if cv.foreign_langs %}
+		<h3>Foreign Languages</h3>
+		
+		<div class="cv-foreign_langs">
+			<p>{{ cv.foreign_langs|force_escape|textile }}</p>
+		</div>
+		{% endif %}
+		
+		{% if cv.computer_skills %}
+		<h3>Computer Skills</h3>
+		
+		<div class="cv-computer_skills">
+			<p>{{ cv.computer_skills|force_escape|textile }}</p>
+		</div>
+		{% endif %}
+		
+		{% if cv.other_skills %}
+		<h3>Other Skills</h3>
+		
+		<div class="cv-other_skills">
+			<p>{{ cv.other_skills|force_escape|textile }}</p>
+		</div>
+		{% endif %}
+
+		{% if cv.interests %}
+		<h3>Interests</h3>
+		
+		<div class="cv-interests">
+			<p>{{ cv.interests|force_escape|textile }}</p>
+		</div>
+		{% endif %}
+   
+		<div class="updated_date status">{{ cv.set_date }}</div>
+   
+	</div>
+	</div>
+
+	</body>
+</html>

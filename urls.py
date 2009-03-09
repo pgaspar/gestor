@@ -37,10 +37,17 @@ urlpatterns = patterns('',
 
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
 	
-	(r'^noticias/$', 'django.views.generic.list_detail.object_list', {'template_name': 'news_list.html', 'queryset': News.objects.all()}),
+	(r'^noticias/$', 'django.views.generic.list_detail.object_list', {'template_name': 'news_list.html', 'queryset': News.objects.order_by('-date')}),
 	(r'^noticias/(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', {'template_name': 'news_detail.html', 'queryset': News.objects.all()}),
+    (r'^noticias/create/$', 'mainsite.views.create_news'),
 
     (r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/apresentacao/" }),
+    
+    # Public curriculums
+    (r'^(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),
 
+    # Temporary path (Google App's file)
+    (r'^gafyd\.html$', 'django.views.generic.simple.direct_to_template', {'template': 'gafyd.html'}),
+    
 
 )

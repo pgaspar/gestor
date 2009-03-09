@@ -65,6 +65,7 @@
 						<ul>
 							{% if request.user.is_staff  %}
 								<li><a href="/admin">Administration</a></li>
+								<li><a href="/noticias/create/">Create a News Post</a></li>
 							{% endif %}
 							<li><a href="/users/find">Find Users</a></li>
 							<li><a href="/users/{{request.user.username}}">My Profile</a></li>
