@@ -330,7 +330,10 @@ def action_ical(request,username):
 	for actionitem in todos:
 		vtodo = cal.add('vtodo')
 		vtodo.add('summary').value = actionitem.title
-		vtodo.add('description').value = actionitem.description
+		
+		# TODO escape description
+		# vtodo.add('description').value = actionitem.description
+		
 		vtodo.add('due;value=date').value = actionitem.due_date.strftime("%Y%m%d")
 		vtodo.add('priority').value = "0"
 		
