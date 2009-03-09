@@ -16,6 +16,7 @@ urlpatterns = patterns('',
 	(r'^project/(?P<object_id>\d+)/close/$', 'gestor.views.project_close', ),
 	(r'^project/(?P<object_id>\d+)/re-open/$', 'gestor.views.project_reopen', ),
 	(r'^project/(?P<object_id>\d+)/fast_edit/$', 'gestor.views.project_fastedit', ),
+	(r'^project/(?P<object_id>\d+)/edit/$', 'gestor.views.project_edit', ),
 	
 	# Note: the following is dangerous if you ever change the project's pk to strings
 	(r'^project/create/$', 'gestor.views.project_create', ),

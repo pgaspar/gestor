@@ -120,6 +120,27 @@ def delete_view(request,object_id,model):
 # Project Views
 
 @login_required
+def project_edit(request, object_id):
+	p = get_object_or_404(Project,id=object_id)
+	
+	if not request.user.is_staff and not request.user == p.manager: raise PermissionDenied()
+
+	if request.method == 'POST':
+		form = ProjectForm(request.POST, instance = p)
+
+		if form.is_valid():
+			p = form.save()
+
+			request.user.message_set.create(message="The Project was updated")
+
+			return HttpResponseRedirect(p.get_absolute_url())
+	else:
+		form = ProjectForm(instance = p)
+	
+	return render(request,"project_edit.html",{'form':form})
+		
+
+@login_required
 def project_create(request):
 	if request.user.is_staff:
 		p = Project()
@@ -135,7 +156,7 @@ def project_create(request):
 				return HttpResponseRedirect(p.get_absolute_url())
 		else:
 			form = ProjectForm(instance = p)
-		return render(request,"project_create.html",{'form':form})
+		return render(request,"project_edit.html",{'form':form})
 		
 	else:
 		raise PermissionDenied()
@@ -277,7 +298,12 @@ def file_edit(request,object_id):
 def action_detail(request,object_id):
 	p = ActionItem.objects.get(id=object_id)
 	p.project.check_user(request.user)
-	return render(request,'action_detail.html',{'object':p, 'notes': p.actionnote_set.order_by("-set_date")})
+	add_note_form = ActionNoteForm(initial={'author':request.user.id,'actionitem':object_id })
+	return render(request,'action_detail.html',{
+										'object':p,
+										'notes': p.actionnote_set.order_by("-set_date"),
+										"add_note_form":add_note_form
+									})
 
 @login_required
 def action_delete(request,object_id):
