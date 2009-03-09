@@ -46,5 +46,8 @@ urlpatterns = patterns('',
     # Public curriculums
     (r'^(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),
 
+    # Temporary path (Google App's file)
+    (r'^gafyd\.html$', 'django.views.generic.simple.direct_to_template', {'template': 'gafyd.html'}),
+    
 
 )
