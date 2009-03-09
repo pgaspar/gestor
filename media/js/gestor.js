@@ -1,3 +1,32 @@
+var dashboard = function() {
+	return {
+		toggle: function(what){
+			target = $$('.'+what+' li.closed');
+			label = $('toggle-'+what)
+
+
+			if ( target.size() > 0 ) {
+				if (label) {
+					target.each(function(i) {
+						i.hide();
+					});
+
+					label.onclick = function() {
+						$$('.'+what+' li.closed').each(function(i) {
+							i.toggle();
+						});
+						toggleButtons(label, 'View All', 'View Less');
+					};
+				}
+			} else {
+				label.hide();
+			}
+
+		}
+	}
+}();
+
+
 (function() {
 	Event.observe(window, 'load',function() { 
 		
@@ -15,57 +44,15 @@
 		}
 		
 		// Toggle user's projects in Dashboard
-		
-		if ($('toggle-projects')) {
-			$$('.my_projects li.closed').each(function(i) {
-				i.hide();
-			});
-			
-			$('toggle-projects').onclick = function() {
-
-				$$('.my_projects li.closed').each(function(i) {
-					i.toggle();
-				});
-				
-				toggleButtons($('toggle-projects'), 'View All', 'View Less');
-
-			};
-		}
+		dashboard.toggle('my_projects');
 		
 		// Toggle user's tasks in Dashboard
 		
-		if ($('toggle-tasks')) {
-
-			$$('.tasks div.closed').each(function(i) {
-				i.hide();
-			});
-
-			$('toggle-tasks').onclick = function() {
-
-				$$('.tasks div.closed').each(function(i) {
-					i.toggle();
-				});
-				
-				toggleButtons($('toggle-tasks'), 'View All', 'View Less');
-			};
-		}
+		dashboard.toggle('tasks');
 		
 		// Toggle JK's projects in Dashboard
 		
-		if ($('toggle-jkprojs')) {
-
-			$$('.jk_projects div.closed').each(function(i) {
-				i.hide();
-			});
-			
-			$('toggle-jkprojs').onclick = function() {
-				$$('.jk_projects div.closed').each(function(i) {
-					i.toggle();
-				});
-				
-				toggleButtons($('toggle-jkprojs'), 'View All', 'View Less');
-			};
-		}
+		dashboard.toggle('jk_projects');
 		
 		
 		//Edit in place.
