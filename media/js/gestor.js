@@ -1,19 +1,12 @@
-var toggleButtons = function(obj, before, after){
-			if (obj.innerHTML == before){
-				obj.innerHTML = after;
-				Element.addClassName($(obj.id + '_div'), 'toggled');
-			}
-			else{
-				obj.innerHTML = before;
-				Element.removeClassName($(obj.id + '_div'), 'toggled');
-			}
-		}
+
 
 var dashboard = function() {
 	return {
 		toggle: function(what){
 			target = $$('.'+what+' .closed');
 			label = $('toggle-'+what)
+			
+			
 			if ( target.size() > 0 ) {
 				if (label) {
 					target.each(function(i) {
@@ -24,13 +17,24 @@ var dashboard = function() {
 						$$('.'+what+' .closed').each(function(i) {
 							i.toggle();
 						});
-						toggleButtons(label, 'View All', 'View Less');
+						dashboard.toggleButtons('toggle-'+what, 'View All', 'View Less');
 					};
 				}
 			} else {
 				Element.hide(label);
 			}
 
+		}, 
+		toggleButtons: function(id, before, after){
+			var obj = $(id);
+			if (obj.innerHTML == before){
+				obj.innerHTML = after;
+				Element.addClassName($(obj.id + '_div'), 'toggled');
+			}
+			else{
+				obj.innerHTML = before;
+				Element.removeClassName($(obj.id + '_div'), 'toggled');
+			}
 		}
 	}
 }();
