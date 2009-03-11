@@ -36,7 +36,7 @@
 		
 		{% if current_projects %}
 			<h3>Current Projects</h3>
-			<ul>
+			<ul class="projects">
 				{% for project in current_projects %}
 					<li><a href="{{project.get_absolute_url}}">{{project.name}}</a>
 					{% ifequal project.manager u  %}
