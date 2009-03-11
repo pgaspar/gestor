@@ -49,11 +49,11 @@
 	text-decoration: none;
 }
 
-.projects li {
+.projects > li {
 	list-style: url(/media/icons/box.png);
 }
 
-.projects li.owner {
+.projects > li.owner {
 	list-style: url(/media/icons/briefcase.png);
 }
 
@@ -327,6 +327,12 @@ li.yellow {
 
 #dashboard .widget .toggled a:hover {
 	background:#5b80b2 url(/media/icons/tooltag-del_over.gif) top right no-repeat;
+}
+
+.proj_info {
+	background-color: white;
+	padding: 5px;
+	border: solid black 1px;
 }
 
 .smaller {

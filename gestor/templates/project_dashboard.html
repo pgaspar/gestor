@@ -76,27 +76,24 @@
 			{% if jk_proj_list %}
 			<ul class="jk_projects projects">
 				{% for object in jk_proj_list %}
-					{% if object.active %}
-					<div class="jk_proj open">
-					{% else %}
-					<div class="jk_proj closed">
-					{% endif %}
+					
 
-						<li><a href="{{object.get_absolute_url}}">{{object.name}}</a>{% if not object.active %} [closed] {% else%}  ({{ object.percentage }}) {% endif %}</li>
+					<li
+					{% if object.active %} class="open" {% endif %}
+					id="project_title_{{object.id}}"><a href="{{object.get_absolute_url}}">{{object.name}}</a>{% if not object.active %} [closed] {% else%}  ({{ object.percentage }}) {% endif %}</li>
 						
-						<div class="proj_info indented">
-							<span class="label">Team: </span>
-
-							{% for user in object|team_list %}
-								{% if forloop.first %}<span class="manager">{% else %}<span class="member">{% endif %}
-								<a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></span>{% if not forloop.last %},{% else %}
-									{% if object|more_members %}...{% endif %}
-								{% endif %}
-							{% endfor %}
-						</div>
-
-						<div class="clear"></div>
+					<div id="project_info_{{object.id}}" class="proj_info indented" style="display:none;">
+						<span class="label">Team: </span>
+						<ul class="raw">
+						{% for user in object|team_list %}
+							{% if forloop.first %}<li class="manager">{% else %}<li class="member">{% endif %}
+							<a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></li>
+						{% endfor %}
+						</ul>
 					</div>
+					<script type="text/javascript">
+						var my_tooltip = new Tooltip("project_title_{{object.id}}", "project_info_{{object.id}}")
+					</script>
 				{% endfor %}
 			</ul>
 			<div id="toggle-jk_projects_div" class="view-all"><a href="#" id="toggle-jk_projects">View All</a></div>
