@@ -49,11 +49,11 @@
 	text-decoration: none;
 }
 
-#menu #project_list li {
+.projects li {
 	list-style: url(/media/icons/box.png);
 }
 
-#menu #project_list .owner {
+.projects li.owner {
 	list-style: url(/media/icons/briefcase.png);
 }
 
