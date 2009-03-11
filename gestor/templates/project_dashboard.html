@@ -79,7 +79,7 @@
 					
 
 					<li
-					{% if object.active %} class="open" {% endif %}
+					{% if object.active %} class="open" {% else %} class="closed" {% endif %}
 					id="project_title_{{object.id}}"><a href="{{object.get_absolute_url}}">{{object.name}}</a>{% if not object.active %} [closed] {% else%}  ({{ object.percentage }}) {% endif %}</li>
 						
 					<div id="project_info_{{object.id}}" class="proj_info indented" style="display:none;">

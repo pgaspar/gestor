@@ -215,7 +215,7 @@ def project_reopen(request, object_id):
 @login_required
 def project_close(request, object_id):
 	p = Project.objects.get(id=object_id)
-	p.check_manager(request.user)
+	if not request.user.is_staff: p.check_manager(request.user)
 	
 	p.active = False
 	p.save()
