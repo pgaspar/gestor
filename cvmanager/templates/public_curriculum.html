@@ -16,19 +16,17 @@
 	<div id="contents">
 	<div id="cv_contents" class="hresume">
 		
-		<div class="contact vcard">
+		<div class="vcard">
 		
 			<h2>Curriculum Vitae</h2>
 			<h1 class="fn">{{ u.get_full_name }}</h1>
    
-			<p class="adr"><span class="street-address">{{ cv.address|force_escape|textile }}</span></p>
-   
-			<p>
-			<a href="mailto:{{ u.email }}" class="email">{{ u.email }}</a><br/>
+			{# <p class="adr"><span class="street-address">{{ cv.address|force_escape|textile }}</span></p> #}
+   			
 			{% if cv.homepage %}
-				<span class="url">{{ cv.homepage|urlize }}</span><br/>
+				<p><span class="url">{{ cv.homepage|urlize }}</span><br/></p>
 			{% endif %}
-			</p>
+			
 		
 		</div>
 		
@@ -86,9 +84,9 @@
 			<p>{{ cv.interests|force_escape|textile }}</p>
 		</div>
 		{% endif %}
-   
+   		
+		<div class="contact"><a href="mailto:geral@jeknowledge.com">geral@jeknowledge.com</a></div>
 		<div class="updated_date status">{{ cv.set_date }}</div>
-   
 	</div>
 	</div>
 
