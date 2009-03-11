@@ -1,10 +1,19 @@
+var toggleButtons = function(obj, before, after){
+			if (obj.innerHTML == before){
+				obj.innerHTML = after;
+				Element.addClassName($(obj.id + '_div'), 'toggled');
+			}
+			else{
+				obj.innerHTML = before;
+				Element.removeClassName($(obj.id + '_div'), 'toggled');
+			}
+		}
+
 var dashboard = function() {
 	return {
 		toggle: function(what){
-			target = $$('.'+what+' li.closed');
+			target = $$('.'+what+' .closed');
 			label = $('toggle-'+what)
-
-
 			if ( target.size() > 0 ) {
 				if (label) {
 					target.each(function(i) {
@@ -12,14 +21,14 @@ var dashboard = function() {
 					});
 
 					label.onclick = function() {
-						$$('.'+what+' li.closed').each(function(i) {
+						$$('.'+what+' .closed').each(function(i) {
 							i.toggle();
 						});
 						toggleButtons(label, 'View All', 'View Less');
 					};
 				}
 			} else {
-				label.hide();
+				Element.hide(label);
 			}
 
 		}
@@ -62,17 +71,6 @@ var dashboard = function() {
 	});
 	
 })();
-
-function toggleButtons(obj, before, after){
-	if (obj.innerHTML == before){
-		obj.innerHTML = after;
-		Element.addClassName($(obj.id + '_div'), 'toggled');
-	}
-	else{
-		obj.innerHTML = before;
-		Element.removeClassName($(obj.id + '_div'), 'toggled');
-	}
-}
 
 function makeEditable(id){
 	Event.observe(id, 'click', function(){edit($(id))}, false);
