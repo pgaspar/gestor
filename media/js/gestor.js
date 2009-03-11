@@ -4,24 +4,25 @@ var dashboard = function() {
 	return {
 		toggle: function(what){
 			target = $$('.'+what+' .closed');
-			label = $('toggle-'+what)
-			
-			
-			if ( target.size() > 0 ) {
-				if (label) {
-					target.each(function(i) {
-						i.hide();
-					});
-
-					label.onclick = function() {
-						$$('.'+what+' .closed').each(function(i) {
-							i.toggle();
+			label = $('toggle-'+what);
+			if ( label ) {
+		
+				if ( target.size() > 0 ) {
+					if (label) {
+						target.each(function(i) {
+							i.hide();
 						});
-						dashboard.toggleButtons('toggle-'+what, 'View All', 'View Less');
-					};
+
+						label.onclick = function() {
+							$$('.'+what+' .closed').each(function(i) {
+								i.toggle();
+							});
+							dashboard.toggleButtons('toggle-'+what, 'View All', 'View Less');
+						};
+					}
+				} else {
+					Element.hide(label);
 				}
-			} else {
-				Element.hide(label);
 			}
 
 		}, 
@@ -57,6 +58,7 @@ var dashboard = function() {
 		}
 		
 		// Toggle user's projects in Dashboard
+		
 		dashboard.toggle('my_projects');
 		
 		// Toggle user's tasks in Dashboard
