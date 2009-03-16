@@ -301,7 +301,7 @@ def action_detail(request,object_id):
 	add_note_form = ActionNoteForm(initial={'author':request.user.id,'actionitem':object_id })
 	return render(request,'action_detail.html',{
 										'object':p,
-										'notes': p.actionnote_set.order_by("-set_date"),
+										'notes': p.actionnote_set.order_by("-set_date", "-id"),
 										"add_note_form":add_note_form
 									})
 
