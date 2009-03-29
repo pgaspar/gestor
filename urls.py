@@ -41,13 +41,13 @@ urlpatterns = patterns('',
 	(r'^noticias/(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', {'template_name': 'news_detail.html', 'queryset': News.objects.all()}),
     (r'^noticias/create/$', 'mainsite.views.create_news'),
 
-    (r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/apresentacao/" }),
+    # Old site
+    #(r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/apresentacao/" }),
+    
+    (r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html'}),
     
     # Public curriculums
     (r'^(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),
-
-    # Temporary path (Google App's file)
-    (r'^gafyd\.html$', 'django.views.generic.simple.direct_to_template', {'template': 'gafyd.html'}),
     
 
 )
