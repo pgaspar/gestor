@@ -164,7 +164,8 @@ def project_create(request):
 @login_required
 def project_fastedit(request, object_id):
 	if request.method == 'POST':
-		p = Project.objects.get(id=object_id)
+		p = get_object_or_404(Project,id=object_id)
+		
 		if not request.user.is_staff: p.check_manager(request.user)
 		
 		p.description = request.POST['content']
@@ -192,7 +193,7 @@ def project_dashboard(request):
 
 @login_required
 def project_detail(request,object_id):
-	p = Project.objects.get(id=object_id)
+	p = get_object_or_404(Project,id=object_id)
 	p.check_user(request.user)
 	
 	return render(request,'project_detail.html',{
@@ -204,7 +205,7 @@ def project_detail(request,object_id):
 
 @login_required
 def project_reopen(request, object_id):
-	p = Project.objects.get(id=object_id)
+	p = get_object_or_404(Project,id=object_id)
 	p.check_manager(request.user)
 
 	p.active = True
@@ -214,7 +215,7 @@ def project_reopen(request, object_id):
 
 @login_required
 def project_close(request, object_id):
-	p = Project.objects.get(id=object_id)
+	p = get_object_or_404(Project,id=object_id)
 	if not request.user.is_staff: p.check_manager(request.user)
 	
 	p.active = False
@@ -230,7 +231,7 @@ def project_close(request, object_id):
 
 @login_required
 def note_detail(request,object_id):
-	p = Note.objects.get(id=object_id)
+	p = get_object_or_404(Note,id=object_id)
 	p.project.check_user(request.user)
 	return render(request,'note_detail.html',{'object':p})
 	
@@ -252,7 +253,7 @@ def note_edit(request,object_id):
 
 @login_required
 def actionnote_detail(request,object_id):
-	p = ActionNote.objects.get(id=object_id)
+	p = get_object_or_404(ActionNote,id=object_id)
 	p.actionitem.project.check_user(request.user)
 	return render(request,'actionnote_detail.html',{'object':p})
 
@@ -274,7 +275,7 @@ def actionnote_edit(request,object_id):
 
 @login_required
 def file_detail(request,object_id):
-	p = File.objects.get(id=object_id)
+	p = get_object_or_404(File,id=object_id)
 	p.project.check_user(request.user)
 	return render(request,'file_detail.html',{'object':p})
 
@@ -296,7 +297,7 @@ def file_edit(request,object_id):
 
 @login_required
 def action_detail(request,object_id):
-	p = ActionItem.objects.get(id=object_id)
+	p = get_object_or_404(ActionItem,id=object_id)
 	p.project.check_user(request.user)
 	add_note_form = ActionNoteForm(initial={'author':request.user.id,'actionitem':object_id })
 	return render(request,'action_detail.html',{
