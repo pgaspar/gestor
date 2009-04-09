@@ -1,79 +1,70 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="pt-PT">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	{% block feeds %}
-		<link rel="alternate" type="application/rss+xml" title="Notícias jeKnowledge" href="/feeds/noticias" />
-	{% endblock %}
 
-	<script src="{{MEDIA_URL}}js/prototype.js"></script>
-	<link rel="stylesheet" href="{{MEDIA_URL}}css/common.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	<link rel="stylesheet" href="{{MEDIA_URL}}css/main.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	
-	<link rel="shortcut icon" href="{{MEDIA_URL}}images/favicon.ico">
-	<link rel="icon" type="image/png" href="{{MEDIA_URL}}images/favicon.png">
-	
-	<title>jeKnowledge - {% block title %} {% endblock %}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta content="Boks - 0.1.8" name="generator" />
+
+  <meta name="description" content="A Júnior Empresa de Engenharia da Universidade de Coimbra" />
+  <meta name="keywords" content="júnior,FCTUC,Coimbra,empresa,empreendorismo,engenharia,jeknowledge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="author" content="jeKnowledge" />
+
+  <title>jeKnowledge</title>
+
+  <!-- Framework CSS -->
+  <link rel="stylesheet" href="{{MEDIA_URL}}css/mainsite/screen.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="{{MEDIA_URL}}css/mainsite/print.css" type="text/css" media="print" />
+  <!--[if IE]><link rel="stylesheet" href="{{MEDIA_URL}}css/mainsite/ie.css" type="text/css" media="screen, projection" /><![endif]-->
+  <link rel="stylesheet" href="{{MEDIA_URL}}css/mainsite/custom.css" type="text/css" media="screen, projection" />
+
+  <link rel="shortcut icon" href="{{MEDIA_URL}}images/favicon.png" type="image/png" />
+
+  {% block feeds %}
+  	<link rel="alternate" type="application/rss+xml" title="Notícias jeKnowledge" href="/feeds/noticias" />
+  {% endblock %}
+
+  {% block gmaps %}{% endblock %}
+
 </head>
 
 <body>
-	
-	<div id="container">
-		
-		<div id="header">
-			<a href="/"><img src="{{MEDIA_URL}}images/logo_big.gif" alt="jeKnowledge" /></a>
-		</div>
-		
-		<div id="nav">
-			<ul>
-				<li><a href="/apresentacao/">Apresentação</a></li>
-				<li><a href="/sobre/">Sobre</a></li>
-				<li><a href="/servicos/">Serviços</a></li>
-				<li><a href="/parceiros/">Parceiros</a></li>
-				<li><a href="/contactos/">Contactos</a></li>
-				<li class="right"><a href="/gestor/">Gestor</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
-		
-		<div id="main">
-			<div id="content">
-				{% block content %}{% endblock %}
-			</div>
-   		</div>
+<div class="containers">
+  <div class="clear prepend-2 span-23 append-2 last" id="title">
+	<a href="/" title="jeKnowledge - Página Inicial">
+	  <img alt="jeKnowledge" src="{{MEDIA_URL}}images/title_logo.png" id="title_logo" />
+	</a>
+  </div>
 
-		<div id="sidebar">
-			<div id="menu">
-				{% block menu %}
-					{% load news %}
-					
-						<h3>Notícias</h3>
-						{% latest_news %}
-					
-						<a href="/noticias">Arquivo</a>
-					
-				{% endblock %}
-			</div>
-		</div>
-		
-		<div id="footer" class="clear">
-			&copy; 2008 jeKnowledge - Associação Conhecimento Prévio.
-		</div>
-		
+  <div class="clear prepend-2 span-23 append-2 last" id="content">
+
+	<div class="clear span-23 last" id="menu">
+	  <ul id="menu_list">
+		<li class="menu-option option-orange"><a href="/sobre/">Sobre</a></li>
+		<li class="menu-option option-pink"><a href="/servicos/">Serviços</a></li>
+		<li class="menu-option option-green"><a href="/parceiros/">Parceiros</a></li>
+		<li class="menu-option option-blue"><a href="/carreiras/">Carreiras</a></li>
+		<li class="menu-option option-black last-option"><a href="/contactos/">Contactos</a></li>
+	  </ul>
 	</div>
-	
-	<script type="text/javascript">
-		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-		</script>
-		<script type="text/javascript">
-		try {
-		var pageTracker = _gat._getTracker("UA-4699263-4");
-		pageTracker._trackPageview();
-		} catch(err) {}
+
+	{% block content %}{% endblock %}
+
+	</div>
+  <div class="clear span-27 last" id="footer"></div>
+</div>
+
+<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 	</script>
-	
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-4699263-4");
+	pageTracker._trackPageview();
+	} catch(err) {}
+</script>
+
 </body>
 </html>

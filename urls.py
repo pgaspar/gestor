@@ -41,10 +41,15 @@ urlpatterns = patterns('',
 	(r'^noticias/(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', {'template_name': 'news_detail.html', 'queryset': News.objects.all()}),
     (r'^noticias/create/$', 'mainsite.views.create_news'),
 
-    # Old site
-    #(r'^$', 'django.views.generic.simple.redirect_to', { 'url': "/apresentacao/" }),
     
+    
+    # New site (hard-coded, no more flat pages)
     (r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html'}),
+    (r'^carreiras/$', 'django.views.generic.simple.direct_to_template', {'template': 'carreiras.html'}),
+    (r'^contactos/$', 'django.views.generic.simple.direct_to_template', {'template': 'contactos.html'}),
+    (r'^parceiros/$', 'django.views.generic.simple.direct_to_template', {'template': 'parceiros.html'}),
+    (r'^servicos/$', 'django.views.generic.simple.direct_to_template', {'template': 'servicos.html'}),
+    (r'^sobre/$', 'django.views.generic.simple.direct_to_template', {'template': 'sobre.html'}),
     
     # Public curriculums
     (r'^(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),

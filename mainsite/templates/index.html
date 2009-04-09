@@ -1,43 +1,45 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% extends "main.html" %}
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<meta name="Júnior empresa da FCTUC" content="júnior FCTUC Coimbra empresa empreendorismo engenharia jeknowledge" />
-	<link rel="icon" type="image/png" href="{{MEDIA_URL}}images/favicon.png">
-	
-	<title>jeKnowledge</title>
-	
-	<style type="text/css">
-		body{ background-color: #008FC5; color:#fff; font-family: verdana, sans-serif; }
-		a,a:hover,a:active{ color: #fff; text-decoration: none;}
-		.link{ background-color: #007FB5; padding: 5px; text-align: right; float: right; }
-		div#container{ width: 400px; margin-left: auto; margin-right: auto; margin-top: 100px; }
-	</style>
-	
-</head>
+{% block content %}
 
-<body>
-	
-	<div class="link" style="position:absolute; top:0; right:0;">
-		<a href="/gestor/">Gestor</a>
-	</div>
-	
-	<div id="container">
-		<img src="{{MEDIA_URL}}images/nlogo.jpg" width="400"> <br />
-		A junior empresa de Engenharia da Universidade de Coimbra.<br/><br/><br/>
-		<i>A construir o futuro...</i><br/>
-		
-		<div class="link"><a href="{{MEDIA_URL}}docs/apresentacao.pdf">Mais informação...</a></div>
-		
-		<div style="margin-right: auto; margin-left: auto; padding-top: 60px; width:100px;">
-			<a href="http://twitter.com/jeknowledge">
-				<img src="{{MEDIA_URL}}images/twitter.png" alt="Twitter" title="Sigam-nos no Twitter" width="100" style="border: 0px;"/>
-			</a>
-		</div>
-	</div>
+    <div id="side" class="clear span-8">
+ 
+      <p>A jeKnowledge é a <strong>Júnior Empresa</strong> da Faculdade de Ciências e Tecnologias da Universidade de Coimbra.</p>
+ 
+      <img src="{{MEDIA_URL}}images/coimbra.jpg" alt="coimbra" class="illustration"/>
+ 
+      <h3>Artigos</h3>
+      <ul>
+        <li><a href="#">Email disciplinary steps</a></li>
+        <li><a href="#">First offense</a></li>
+        <li><a href="#">Verbal warning</a></li>
+        <li><a href="#">Any further disciplinary action</a></li>
+      </ul>
+ 
+      <h3>Arquivo</h3>
+      <ul>
+        <li><a href="#">Abril 2008</a></li>
+        <li><a href="#">Março 2008</a></li>
+        <li><a href="#">Fevereiro 2008</a></li>
+        <li><a href="#">Janeiro 2008</a></li>
+      </ul>
 
-
-</body>
-</html>
+    </div>
+ 
+    <div class="span-14 prepend-1 last">
+      <div class="article">
+        <h2><a href="#">Email disciplinary steps</a></h2>
+        <p>Let’s look into electruction. Want to? However, we need not go further than the Guide. And the next thing you know: ewok rap. Ewoks and the mom said, No, animals have more legs than that. A Pained Life is a fun and easy paper doll game allows you to some strange place. I can’t imagine why I posted it there, but I figure out a bit of 3-D is bound for DVD shortly. These guys shot a couple more, if you’re digging this. Mr. Six. Nadia ; An RPG character. Base by Aragonite. She blinks. Treefreshener.</p>
+        <p>About <a href="#">enhancements</a>. Enhancement vs. enhancement! One brother suited and shrunk! The other given his own tongue. The Man Who Stabbed Lion’s Brains Lions.They can try.But he’s figured out where she usually puts her arms in space on a bush.</p>
+        <p class="closing">30/04/2009 <img src="{{MEDIA_URL}}images/dot.png" alt="" class="decor" /> Sérgio Santos</p>
+      </div>
+      <div class="article">
+        <h2><a href="#">Any further disciplinary action</a></h2>
+        <p>Let’s look into electruction. Want to? However, we need not go further than the Guide. And the next thing you know: ewok rap. Ewoks and the mom said, No, animals have more legs than that. A Pained Life is a fun and easy paper doll game allows you to some strange place. I can’t imagine why I posted it there, but I figure out a bit of 3-D is bound for DVD shortly. These guys shot a couple more, if you’re digging this. Mr. Six. Nadia ; An RPG character. Base by Aragonite. She blinks. Treefreshener.</p>
+        <img src="{{MEDIA_URL}}images/coimbra.jpg" alt="coimbra"/>
+        <p>About enhancements. Enhancement vs. enhancement! One brother suited and shrunk! The other given his own tongue. The Man Who Stabbed Lion’s Brains Lions.They can try.But he’s figured out where she usually puts her arms in space on a bush.</p>
+        <p class="closing">30/04/2009 <img src="{{MEDIA_URL}}images/dot.png" alt="" class="decor" /> Sérgio Santos</p>
+      </div>
+    </div>
+ 
+{% endblock %}
