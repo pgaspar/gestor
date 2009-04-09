@@ -2,44 +2,15 @@
 
 {% block content %}
 
-    <div id="side" class="clear span-8">
- 
-      <p>A jeKnowledge é a <strong>Júnior Empresa</strong> da Faculdade de Ciências e Tecnologias da Universidade de Coimbra.</p>
- 
-      <img src="{{MEDIA_URL}}images/coimbra.jpg" alt="coimbra" class="illustration"/>
- 
-      <h3>Artigos</h3>
-      <ul>
-        <li><a href="#">Email disciplinary steps</a></li>
-        <li><a href="#">First offense</a></li>
-        <li><a href="#">Verbal warning</a></li>
-        <li><a href="#">Any further disciplinary action</a></li>
-      </ul>
- 
-      <h3>Arquivo</h3>
-      <ul>
-        <li><a href="#">Abril 2008</a></li>
-        <li><a href="#">Março 2008</a></li>
-        <li><a href="#">Fevereiro 2008</a></li>
-        <li><a href="#">Janeiro 2008</a></li>
-      </ul>
-
-    </div>
+    {% include "side_bar.html" %}
+    
  
     <div class="span-14 prepend-1 last">
-      <div class="article">
-        <h2><a href="#">Email disciplinary steps</a></h2>
-        <p>Let’s look into electruction. Want to? However, we need not go further than the Guide. And the next thing you know: ewok rap. Ewoks and the mom said, No, animals have more legs than that. A Pained Life is a fun and easy paper doll game allows you to some strange place. I can’t imagine why I posted it there, but I figure out a bit of 3-D is bound for DVD shortly. These guys shot a couple more, if you’re digging this. Mr. Six. Nadia ; An RPG character. Base by Aragonite. She blinks. Treefreshener.</p>
-        <p>About <a href="#">enhancements</a>. Enhancement vs. enhancement! One brother suited and shrunk! The other given his own tongue. The Man Who Stabbed Lion’s Brains Lions.They can try.But he’s figured out where she usually puts her arms in space on a bush.</p>
-        <p class="closing">30/04/2009 <img src="{{MEDIA_URL}}images/dot.png" alt="" class="decor" /> Sérgio Santos</p>
-      </div>
-      <div class="article">
-        <h2><a href="#">Any further disciplinary action</a></h2>
-        <p>Let’s look into electruction. Want to? However, we need not go further than the Guide. And the next thing you know: ewok rap. Ewoks and the mom said, No, animals have more legs than that. A Pained Life is a fun and easy paper doll game allows you to some strange place. I can’t imagine why I posted it there, but I figure out a bit of 3-D is bound for DVD shortly. These guys shot a couple more, if you’re digging this. Mr. Six. Nadia ; An RPG character. Base by Aragonite. She blinks. Treefreshener.</p>
-        <img src="{{MEDIA_URL}}images/coimbra.jpg" alt="coimbra"/>
-        <p>About enhancements. Enhancement vs. enhancement! One brother suited and shrunk! The other given his own tongue. The Man Who Stabbed Lion’s Brains Lions.They can try.But he’s figured out where she usually puts her arms in space on a bush.</p>
-        <p class="closing">30/04/2009 <img src="{{MEDIA_URL}}images/dot.png" alt="" class="decor" /> Sérgio Santos</p>
-      </div>
+      
+      {% for object in latest %}
+        {% include "news.html" %}
+      {% endfor %}
+      
     </div>
  
 {% endblock %}

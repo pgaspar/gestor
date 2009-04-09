@@ -1,0 +1,20 @@
+<div id="side" class="clear span-8">
+
+  <p>A jeKnowledge é a <strong>Júnior Empresa</strong> da Faculdade de Ciências e Tecnologias da Universidade de Coimbra.</p>
+
+  <img src="{{MEDIA_URL}}images/coimbra.jpg" alt="coimbra" class="illustration"/>
+  
+  {% load news %}
+  
+  <h3>Artigos</h3>
+  {% latest_news 5 %}
+
+  <h3>Arquivo</h3>
+  <ul>
+	<li><a href="#">Abril 2008</a></li>
+	<li><a href="#">Março 2008</a></li>
+	<li><a href="#">Fevereiro 2008</a></li>
+	<li><a href="#">Janeiro 2008</a></li>
+  </ul>
+
+</div>

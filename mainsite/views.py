@@ -30,3 +30,6 @@ def create_news(request):
 	else:
 		raise PermissionDenied()
 
+def index(request):
+	latest = News.objects.order_by('-date')[:3]
+	return render(request,'index.html', {'latest': latest})

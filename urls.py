@@ -44,7 +44,7 @@ urlpatterns = patterns('',
     
     
     # New site (hard-coded, no more flat pages)
-    (r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html'}),
+    (r'^$', 'mainsite.views.index'),
     (r'^carreiras/$', 'django.views.generic.simple.direct_to_template', {'template': 'carreiras.html'}),
     (r'^contactos/$', 'django.views.generic.simple.direct_to_template', {'template': 'contactos.html'}),
     (r'^parceiros/$', 'django.views.generic.simple.direct_to_template', {'template': 'parceiros.html'}),

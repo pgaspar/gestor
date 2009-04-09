@@ -2,10 +2,11 @@
 {% load markup %}
 
 {% block content %}
-	<h1>{{object.title}}</h1>
-	<div class="content">
-		{{object.body|force_escape|textile}}
-	</div>
+
+	{% include "side_bar.html" %}
 	
+	<div class="span-14 prepend-1 last">
+		{% include "news.html" %}
+	</div>
 	
 {% endblock %}

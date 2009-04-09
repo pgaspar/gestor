@@ -65,7 +65,7 @@ div#title img {
 
 div#content {
 	background: url('/media/images/contents_back.png') repeat-y 10px 12px;
-	text-align: left;
+	text-align: justify;
 	min-height: 600px;
 }
 
@@ -141,6 +141,7 @@ img.decor {
 
 div.description p {
 	font-size: 14px;
+	
 }
 
 div#map {
