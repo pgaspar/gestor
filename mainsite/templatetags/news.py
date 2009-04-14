@@ -1,5 +1,6 @@
-from django.template import Library
+﻿from django.template import Library
 from mainsite.models import News
+from mainsite.utils import translate
 
 register = Library()
 
@@ -22,7 +23,11 @@ def load_archive(number = 0):
 	
 	html = "<ul>\n"
 	for obj in date_list:
-		html += "<li><a href='/noticias/arquivo/%s'>%s</a></li>\n" %(obj.strftime('%Y/%m/'), obj.strftime('%B %Y'))
+		html += "<li><a href='/noticias/arquivo/%s'>%s</a></li>\n" %(obj.strftime('%Y/%m/'), " ".join( map( translate, obj.strftime('%B %Y').split() ) ))
 
 	html += "</ul>"
 	return html
+
+@register.filter
+def trans_month(string):
+	return " ".join( map( translate, string.split() ) )

@@ -1,13 +1,14 @@
 ﻿{% extends "main.html" %}
+{% load news %}
 
 {% block content %}
 
 	{% include "side_bar.html" %}
 
-
+	
 	<div class="span-14 prepend-1 last">
 	  
-	  <h2>Arquivo - {{ month|date:"F Y" }}</h2>
+	  <h2>Arquivo - {{ month|date:"F Y"|trans_month }}</h2>
 	  
 	  {% if object_list %}
 	  
