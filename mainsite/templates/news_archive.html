@@ -1,0 +1,19 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+	{% include "side_bar.html" %}
+
+
+	<div class="span-14 prepend-1 last">
+	  <h2>Arquivo</h2>
+	  
+	  <ul>
+	  {% for date in date_list %}
+		<li><a href="{{ date|date:"Y" }}/">{{ date|date:"Y" }}</a></li>
+	  {% endfor %}
+	  </ul>
+
+	</div>
+
+{% endblock %}

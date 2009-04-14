@@ -13,6 +13,7 @@ feeds = {
 info_dict = {
     'queryset': News.objects.all(),
     'date_field': 'date',
+    'allow_empty': 1,
 }
 
 
@@ -37,14 +38,28 @@ urlpatterns = patterns('',
 
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
 	
-	(r'^noticias/$', 'django.views.generic.list_detail.object_list', {'template_name': 'news_list.html', 'queryset': News.objects.order_by('-date')}),
+    # News Archives
+    (r'^noticias/arquivo/$', 'mainsite.views.archive'),
+	(r'^noticias/arquivo/(?P<year>\d{4})/$', 'django.views.generic.date_based.archive_year', dict( info_dict, template_name='news_archive_year.html' )),
+    (r'^noticias/arquivo/(?P<year>\d{4})/(?P<month>\w{1,2})/$', 'django.views.generic.date_based.archive_month', dict( info_dict, 
+                                                                                                                       month_format='%m',
+                                                                                                                       template_name='news_archive_month.html',
+                                                                                                                       extra_context={'truncate':'true'})),
+    (r'^noticias/arquivo/(?P<year>\d{4})/(?P<month>\w{1,2})/(?P<day>\w{1,2})/$', 'django.views.generic.date_based.archive_day', dict( info_dict,
+                                                                                                                                      month_format='%m',
+                                                                                                                                      template_name='news_archive_day.html',
+                                                                                                                                      extra_context={'truncate':'true'})),
+    
 	(r'^noticias/(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', {'template_name': 'news_detail.html', 'queryset': News.objects.all()}),
+    
+    
     (r'^noticias/create/$', 'mainsite.views.create_news'),
 
     
     
     # New site (hard-coded, no more flat pages)
-    (r'^$', 'mainsite.views.index'),
+    (r'^$', 'django.views.generic.date_based.archive_index', dict( info_dict, template_name='index.html',
+                                                              num_latest=3 )),
     (r'^carreiras/$', 'django.views.generic.simple.direct_to_template', {'template': 'carreiras.html'}),
     (r'^contactos/$', 'django.views.generic.simple.direct_to_template', {'template': 'contactos.html'}),
     (r'^parceiros/$', 'django.views.generic.simple.direct_to_template', {'template': 'parceiros.html'}),

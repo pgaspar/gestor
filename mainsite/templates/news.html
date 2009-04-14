@@ -3,7 +3,11 @@
 <h2><a href="{{object.get_absolute_url}}">{{object.title}}</a></h2>
 
 <div class="article">
-	{{object.body|force_escape|textile}}
+	{% if truncate %}
+		{{object.body|force_escape|textile|truncatewords:80}}
+	{% else %}
+		{{object.body|force_escape|textile}}
+	{% endif %}
 	<p class="closing">{{object.date|date:"d/m/y"}} <img src="{{MEDIA_URL}}icons/dot.png" alt="" class="decor" /> jeKnowledge</p>
 </div>
 
