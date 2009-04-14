@@ -8,6 +8,6 @@
 	{% else %}
 		{{object.body|force_escape|textile}}
 	{% endif %}
-	<p class="closing">{{object.date|date:"d/m/y"}} <img src="{{MEDIA_URL}}icons/dot.png" alt="" class="decor" /> jeKnowledge</p>
+	<p class="closing">{{object.date|date:"d/m/y"}} <img src="{{MEDIA_URL}}icons/dot.png" alt="" class="decor" /> {% if object.has_author %} {{ object.author.get_full_name }}{% else %} jeKnowledge{% endif %}</p>
 </div>
 

@@ -9,6 +9,7 @@ class News(models.Model):
 	title = models.CharField(max_length=200)
 	date = models.DateTimeField()
 	body = models.TextField()
+	author = models.ForeignKey(User, related_name='news_set', null=True, blank=True, default='')
 	
 	def save(self):
 		if not self.id:
@@ -20,6 +21,12 @@ class News(models.Model):
 		
 	def get_absolute_url(self):
 		return u"/noticias/%s/" % self.id
+		
+	def has_author(self):
+		try: self.author
+		except: return False
+		
+		return True
 		
 	class Meta:
 		verbose_name_plural = "news"

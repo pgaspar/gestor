@@ -11,7 +11,7 @@ class NewsFeed(Feed):
         return u"jeKnowledge"
         
     def link(self):
-        return u"/noticias/"
+        return u"/"
 
     def description(self):
         return u"Feed das noticias da jeKnowledge"
@@ -20,5 +20,5 @@ class NewsFeed(Feed):
         return u"http://jeknowledge.com/"
         
     def items(self):
-        return News.objects.order_by('-date')[:5]
+        return News.objects.order_by('-date')[:15]
         
