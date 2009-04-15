@@ -1,4 +1,4 @@
-h1. Information System of jeKnowledge
+﻿h1. Information System of jeKnowledge
 
 http://jeknowledge.com
 
@@ -14,4 +14,4 @@ h2. Credits
 
 "Alcides Fonseca":http://alcidesfonseca.com/
 "Pedro Gaspar":http://pgaspar.ideias3.com/
-"S�rgio Santos":http://sergiosantos.info/
+"Sérgio Santos":http://sergiosantos.info/
