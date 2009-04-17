@@ -104,7 +104,6 @@ INSTALLED_APPS = (
 	'django.contrib.admin',
 	'django.contrib.humanize',
 	'django.contrib.markup',
-	'django.contrib.flatpages',
     'django_evolution',
 	#'extensions',
 	'accounts',
