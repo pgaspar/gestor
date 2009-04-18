@@ -66,7 +66,7 @@ class ActionItem(models.Model):
 	priority = models.IntegerField(default=2, choices=((1, 'High') ,(2, 'Medium'), (3, 'Low')) )
 
 	class Meta:
-		ordering = ["-due_date"]
+		ordering = ('done', 'priority', 'due_date')
 	
 	def __unicode__(self):
 		return u"%s" % self.title

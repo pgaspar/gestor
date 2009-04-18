@@ -10,9 +10,10 @@ try: admin.site.register(Project,ProjectAdmin)
 except: pass
 
 class ActionItemAdmin(admin.ModelAdmin):	
-	list_display = ('title','project','done','due_date')
-	list_filter = ('project','done','targets',)
+	list_display = ('title','project','done','due_date','priority')
+	list_filter = ('project','done','targets','priority')
 	search_fields = ['title','description','project']
+	ordering = ('-due_date',)
 
 
 try: admin.site.register(ActionItem,ActionItemAdmin)

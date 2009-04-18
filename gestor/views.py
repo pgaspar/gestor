@@ -185,7 +185,7 @@ def project_list(request):
 def project_dashboard(request):
 	my_proj = request.user.projects_working.order_by("-active","end_date")
 	
-	my_task = [ [item, dist(item.due_date)] for item in request.user.actionitem_todo.order_by("done","due_date") ]
+	my_task = [ [item, dist(item.due_date)] for item in request.user.actionitem_todo.all() ]
 	
 	jk_proj = Project.objects.order_by("-active")
 	
@@ -200,7 +200,7 @@ def project_detail(request,object_id):
 		'object':p,
 		'notes': p.note_set.order_by("-set_date"),
 		'files': p.file_set.order_by("-set_date"),
-		'actionitems': p.actionitem_set.order_by("done","due_date")
+		'actionitems': [ [item, dist(item.due_date)] for item in p.actionitem_set.all() ]
 		})
 
 @login_required

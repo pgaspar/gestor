@@ -72,8 +72,10 @@
 		</div>
 		<div class="four_col">
 			<p><span class="label">Action Items: </span></p> <ul class="action-items">
-				{% for item in actionitems %}
-					<li class="{{item|colorstatus}}"><a href="{{item.get_absolute_url}}">{{item.title}}</a></li>
+				{% for item, dist in actionitems %}
+					<li class="{{item|colorstatus}}" title="Dues: {{dist}} days. Priority: {{item.get_priority_display}}">
+						<a href="{{item.get_absolute_url}}">{{item.title}}</a>
+					</li>
 				{% endfor %}
 			</ul>
 			<img src="{{MEDIA_URL}}icons/cog_add.png" alt=""> <a href="/gestor/action/in/{{object.id}}">New ActionItem</a><br />
