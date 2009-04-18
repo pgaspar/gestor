@@ -1,109 +1,18 @@
 {% extends "base.html" %}
-{% load datecolor %}
-{% load dashboard %}
 
 {% block content %}
 	<div id="dashboard">
+		
 		<div id="col">
-		
-		<div id="my_proj" class="widget">
+			{% include "widgets/my_projs.html" %}
 			
-			<h1>My Projects</h1>
-			
-			{% if my_proj_list %}
-			<ul class="my_projects projects">
-				{% for object in my_proj_list %}
-					<li class="{% ifequal object.manager request.user %} owner {% endifequal %}
-					{% if object.active %} open {% else %} closed {% endif %}
-					"><a href="{{object.get_absolute_url}}">{{object.name}}</a>
-					{% if not object.active %} [closed] {% else %}  ({{ object.percentage }})  {% endif %}</li>
-				{% endfor %}
-			</ul>
-			<div id="toggle-my_projects_div" class="view-all"><a href="#" id="toggle-my_projects">View All</a></div>
-			
-			{% else %}
-				<span class="warning">No projects in list</span>
-			{% endif %}
-			
-		</div>
-		
-		<div id="my_tasks" class="widget">
-
-			<h1>My Tasks</h1>
-			
-			{% if my_task_list %}
-			<ul class="tasks">
-				{% for object, remaining in my_task_list %}
-					{% if object.done %}
-					<div class="task closed">
-					{% else %}
-					<div class="task open">
-					{% endif %}
-					
-						<div class="task_info">
-							<li class="{{object|colorstatus}}">
-								<a href="{{object.get_absolute_url}}" title="{{remaining}} days left in {{object.project.name}}">{{object.title}}</a>
-							</li>
-						</div>
-						
-						<div class="task_actions">
-							<a href="/gestor/actionnote/in/{{object.id}}/" title="Add Note to ActionItem"><img src="{{MEDIA_URL}}icons/note_add.png" alt="Add Note" /></a>
-							{% if not object.done %}
-							<a href="{{object.get_absolute_url}}finish/" title="Finish ActionItem"><img src="{{MEDIA_URL}}icons/accept.png" alt="Finish ActionItem" /></a>
-							{% endif %}
-						</div>
-						
-						<div class="clear"></div>
-					</div>
-				{% endfor %}
-			</ul>
-			
-			<div id="toggle-tasks_div" class="view-all"><a href="#" id="toggle-tasks">View All</a></div>
-			
-			{% else %}
-				<span class="warning">You have no tasks! :)</span>
-			{% endif %}
-
-		</div>
-		
+			{% include "widgets/my_tasks.html" %}
 		</div>
 		
 		<div id="col">
-		
-		<div id="jk_projects" class="widget">
-			<h1>jeKnowledge's Projects</h1>
-			
-			{% if jk_proj_list %}
-			<ul class="jk_projects projects">
-				{% for object in jk_proj_list %}
-					
-
-					<li
-					{% if object.active %} class="open" {% else %} class="closed" {% endif %}
-					id="project_title_{{object.id}}"><a href="{{object.get_absolute_url}}">{{object.name}}</a>{% if not object.active %} [closed] {% else%}  ({{ object.percentage }}) {% endif %}</li>
-						
-					<div id="project_info_{{object.id}}" class="proj_info indented" style="display:none;">
-						<span class="label">Team: </span>
-						<ul class="raw">
-						{% for user in object|team_list %}
-							{% if forloop.first %}<li class="manager">{% else %}<li class="member">{% endif %}
-							<a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></li>
-						{% endfor %}
-						</ul>
-					</div>
-					<script type="text/javascript">
-						var my_tooltip = new Tooltip("project_title_{{object.id}}", "project_info_{{object.id}}")
-					</script>
-				{% endfor %}
-			</ul>
-			<div id="toggle-jk_projects_div" class="view-all"><a href="#" id="toggle-jk_projects">View All</a></div>
-			
-			{% else %}
-				<span class="warning">No projects in list</span>
-			{% endif %}
+			{% include "widgets/jk_projs.html" %}
 		</div>
 		
-		</div>
 	</div>
 
 {% endblock %}

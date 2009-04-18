@@ -36,52 +36,7 @@
 			<h1><a href="/gestor/"><img src="{{MEDIA_URL}}images/logo.gif" alt="jeKnowledge"></a></h1>			
 		</div>
 		
-		<div id="sidebar">
-			{% if not user.is_anonymous %}
-				<div id="menu">
-					{% block menu %}
-						{% load todo %}
-
-						<h3>Todo  List</h3>
-							{{request.user.username|todo|safe}}
-							<p class="icons">
-								<a href="/gestor/feeds/ActionItems/{{request.user.username}}/"><img src="/media/icons/rss.png" alt="RSS"></a>
-								<a href="/gestor/ical/ActionItems/{{request.user.username}}/"><img src="/media/icons/calendar.png" alt="iCal"></a>
-							</p>
-						<h3>Projects</h3>
-						<ul id="project_list" class="projects">
-							{% load projecting %}
-							
-							{% for project in request.user.projects_working|workspace %}
-								{% ifequal project.manager request.user %}
-									<li class="owner">
-								{% else %}
-									<li>
-								{% endifequal %}
-									<a href="{{project.get_absolute_url}}">{{project.name}}</a></li>
-							{% endfor %}
-							
-							{% if request.user.is_staff  %}
-								<span class="smaller"><a href="/gestor/project/create/"><img src="/media/icons/add.png" alt="add" /> Create a Project</a></span>
-							{% endif %}
-						</ul>
-							
-						<h3>Account</h3>
-						<ul>
-							{% if request.user.is_staff  %}
-								<li><a href="/admin">Administration</a></li>
-								<li><a href="/noticias/create/">Create a News Post</a></li>
-							{% endif %}
-							<li><a href="/users/find">Find Users</a></li>
-							<li><a href="/users/{{request.user.username}}">My Profile</a></li>
-							<li><a href="/users/{{request.user.username}}/curriculum/edit">My Curriculum</a></li>
-							<li><a href="/accounts/password_change">Change Password</a></li>
-							<li><a href="/accounts/logout">Logout</a></li>
-						</ul>
-					{% endblock %}
-				</div>
-			{% endif %}
-		</div>
+		{% include "sidebar_gestor.html" %}
 		
 		<div id="main">
 			<div id="messages">

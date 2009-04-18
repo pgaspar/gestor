@@ -1,0 +1,37 @@
+{% load dashboard %}
+
+
+<div id="jk_projects" class="widget">
+
+<h1>jeKnowledge's Projects</h1>
+
+{% if jk_proj_list %}
+<ul class="jk_projects projects">
+	{% for object in jk_proj_list %}
+
+
+		<li
+		{% if object.active %} class="open" {% else %} class="closed" {% endif %}
+		id="project_title_{{object.id}}"><a href="{{object.get_absolute_url}}">{{object.name}}</a>{% if not object.active %} [closed] {% else%}  ({{ object.percentage }}) {% endif %}</li>
+
+		<div id="project_info_{{object.id}}" class="proj_info indented" style="display:none;">
+			<span class="label">Team: </span>
+			<ul class="raw">
+			{% for user in object|team_list %}
+				{% if forloop.first %}<li class="manager">{% else %}<li class="member">{% endif %}
+				<a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></li>
+			{% endfor %}
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var my_tooltip = new Tooltip("project_title_{{object.id}}", "project_info_{{object.id}}")
+		</script>
+	{% endfor %}
+</ul>
+<div id="toggle-jk_projects_div" class="view-all"><a href="#" id="toggle-jk_projects">View All</a></div>
+
+{% else %}
+	<span class="warning">No projects in list</span>
+{% endif %}
+
+</div>
