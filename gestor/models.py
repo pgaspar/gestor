@@ -63,6 +63,7 @@ class ActionItem(models.Model):
 	set_date = models.DateField(auto_now=True)
 	due_date = models.DateField(blank=True, null=True)
 	done = models.BooleanField(default=False)
+	priority = models.IntegerField(default=2, choices=((1, 'High') ,(2, 'Medium'), (3, 'Low')) )
 
 	class Meta:
 		ordering = ["-due_date"]
