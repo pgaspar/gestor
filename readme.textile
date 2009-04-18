@@ -1,17 +1,15 @@
-﻿h1. Information System of jeKnowledge
+﻿h1. jeKnowledge's Information System
 
-http://jeknowledge.com
+"jeKnowledge.com":http://jeknowledge.com
 
 h2. Requirements
 
 Requirements are specified in requirements.txt. Be sure to check that out.
 
-h2. Django Plugins
-
-* "Evolution":http://code.google.com/p/django-evolution/
-
 h2. Credits
 
 "Alcides Fonseca":http://alcidesfonseca.com/
+
 "Pedro Gaspar":http://pgaspar.ideias3.com/
+
 "Sérgio Santos":http://sergiosantos.info/
