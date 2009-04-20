@@ -4,6 +4,8 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedire
 from django.contrib.auth.decorators import login_required
 from django.views.generic.create_update import *
 
+from django.contrib.syndication.views import feed
+
 from gestor.models import Project, ActionItem, Note, ActionNote, File
 from django.contrib.auth.models import User
 
@@ -354,3 +356,9 @@ def action_ical(request,username):
 	response['Filename'] = filename  # IE needs this
 	response['Content-Disposition'] = 'attachment; filename='+filename
 	return response
+
+# Feed View
+
+@login_required
+def protected_feed(*args, **kwargs):
+	return feed(*args, **kwargs)
