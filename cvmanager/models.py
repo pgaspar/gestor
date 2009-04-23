@@ -33,6 +33,10 @@ class CurriculumVitae(models.Model):
         return "/%s/" % self.owner.username
     
     def check_user(self,user):
+        if not user.has_perm('can_view_cv') or not user is self.owner:
+            raise PermissionDenied()
+    
+    def check_owner(self,user):
         if not user is self.owner:
             raise PermissionDenied()
 

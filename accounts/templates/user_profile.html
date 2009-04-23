@@ -23,15 +23,20 @@
 		</div>
 		
 		<h3>Curriculum Vitae</h3>
-		{% ifequal u.curriculumvitae_set.count 0 %}
-			This user doesn't have a CV yet.
-		{% else %}
-			<a href="{{u.get_absolute_url}}curriculum/">View {{u.get_full_name}}'s full CV</a>
-			
-			{% ifequal request.user u %}
-				<br /><a href="/{{ u.username }}/">Use this URL to share your public CV</a>
+		
+		{% if perms.cvmanager.can_view_cv %}
+			{% ifequal u.curriculumvitae_set.count 0 %}
+				This user doesn't have a CV yet.
+			{% else %}
+				<a href="{{u.get_absolute_url}}curriculum/">View {{u.get_full_name}}'s full CV</a>
+   
+				{% ifequal request.user u %}
+					<br /><a href="/{{ u.username }}/">Use this URL to share your public CV</a>
+				{% endifequal %}
 			{% endifequal %}
-		{% endifequal %}
+		{% else %}
+			You do not have permissions to view this CV.
+		{% endif %}
 		
 		
 		{% if current_projects %}

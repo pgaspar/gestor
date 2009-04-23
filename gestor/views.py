@@ -124,8 +124,8 @@ def delete_view(request,object_id,model):
 @login_required
 def project_edit(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
-	
-	if not request.user.is_staff and not request.user == p.manager: raise PermissionDenied()
+
+	p.check_manager(request.user, 'change')
 
 	if request.method == 'POST':
 		form = ProjectForm(request.POST, instance = p)
@@ -144,7 +144,7 @@ def project_edit(request, object_id):
 
 @login_required
 def project_create(request):
-	if request.user.is_staff:
+	if request.user.has_perm('gestor.add_project'):
 		p = Project()
 		
 		if request.method == 'POST':
@@ -168,7 +168,7 @@ def project_fastedit(request, object_id):
 	if request.method == 'POST':
 		p = get_object_or_404(Project,id=object_id)
 		
-		if not request.user.is_staff: p.check_manager(request.user)
+		p.check_manager(request.user, 'change')
 		
 		p.description = request.POST['content']
 		p.save()
@@ -208,7 +208,7 @@ def project_detail(request,object_id):
 @login_required
 def project_reopen(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
-	p.check_manager(request.user)
+	p.check_manager(request.user, 'change')
 
 	p.active = True
 	p.save()
@@ -218,7 +218,7 @@ def project_reopen(request, object_id):
 @login_required
 def project_close(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
-	if not request.user.is_staff: p.check_manager(request.user)
+	p.check_manager(request.user, 'change')
 	
 	p.active = False
 	p.save()

@@ -23,6 +23,7 @@ class Project(models.Model):
 	
 	class Meta:
 		ordering = ["-start_date"]
+		permissions = [ ('view_project','Can view Projects') ]
 	
 	def __unicode__(self):
 		return u"%s" % self.name
@@ -31,16 +32,16 @@ class Project(models.Model):
 		return "/gestor/project/%d/" % self.id
 		
 	def has_user(self,user):
-		if user in self.team.all() or user == self.manager or user.is_staff:
+		if user in self.team.all() or user == self.manager:
 			return True
 		return False
 		
 	def check_user(self,user):
-		if not self.has_user(user):
+		if not user.has_perm('gestor.view_project') and not self.has_user(user):
 			raise PermissionDenied()
 	
-	def check_manager(self, user):
-		if user != self.manager:
+	def check_manager(self, user, perm):
+		if user != self.manager and not user.has_perm('gestor.' + perm + '_project'):
 			raise PermissionDenied()
 	
 	def ratio(self):
