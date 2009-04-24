@@ -41,4 +41,6 @@ class CurriculumVitae(models.Model):
             raise PermissionDenied()
 
     class Meta:
-        permissions = ( ('can_view_cv','Can view CVs'), ('can_view_team_cv', "Can view team's CVs") )
+        permissions = ( ('can_view_cv','Can view CVs'), 
+                        ('can_view_team_cv', "Can view team's CVs"),
+                        ('can_view_cv_details','View CV details'),)

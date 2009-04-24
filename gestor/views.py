@@ -29,13 +29,11 @@ def create_view(request,object_id,form_class,template_name):
 	model = form_class.Meta.model	# Never a Project
 	
 	if model is ActionNote:
-		obj = get_object_or_404(ActionItem,id=object_id)
-		user_is_member = obj.project.has_user(request.user)
+		obj = get_object_or_404(ActionItem,id=object_id).project
 	else:
 		obj = get_object_or_404(Project,id=object_id)
-		user_is_member = obj.has_user(request.user)
 	
-	if not (request.user.has_perm('gestor.add_' + model._meta.module_name) or user_is_member or request.user.has_perm('gestor.view_project')):
+	if not (request.user.has_perm('gestor.add_' + model._meta.module_name) or obj.has_user(request.user)):
 		raise PermissionDenied()
 	
 	if request.method == 'POST':
@@ -74,10 +72,10 @@ def edit_view(request,object_id,form_class,template_name):
 	model = form_class.Meta.model	
 	obj = get_object_or_404(model,id=object_id)
 	
-	if model is ActionNote: user_is_member = obj.actionitem.project.has_user(request.user)
-	else: user_is_member = obj.project.has_user(request.user)
+	if model is ActionNote: proj = obj.actionitem.project
+	else: proj = obj.project
 
-	if not (request.user.has_perm('gestor.change_' + model._meta.module_name) or user_is_member or request.user.has_perm('gestor.view_project')):
+	if not (request.user.has_perm('gestor.change_' + model._meta.module_name) or proj.has_user(request.user)):
 		raise PermissionDenied()
 
 	if request.method == 'POST':
@@ -119,10 +117,10 @@ def edit_view(request,object_id,form_class,template_name):
 def delete_view(request,object_id,model):
 	obj = get_object_or_404(model,id=object_id)
 	
-	if model is ActionNote: user_is_member = obj.actionitem.project.has_user(request.user)
-	else: user_is_member = obj.project.has_user(request.user)
+	if model is ActionNote: proj = obj.actionitem.project
+	else: proj = obj.project
 
-	if not (request.user.has_perm('gestor.delete_' + model._meta.module_name) or user_is_member or request.user.has_perm('gestor.view_project')):
+	if not (request.user.has_perm('gestor.delete_' + model._meta.module_name) or proj.has_user(request.user)):
 		raise PermissionDenied()
 	
 	obj.delete()
@@ -339,10 +337,8 @@ def action_edit(request,object_id):
 @login_required
 def action_finish(request, object_id):
 	obj = get_object_or_404(ActionItem,id=object_id)
-	
-	user_is_member = obj.project.has_user(request.user)
 
-	if not (request.user.has_perm('gestor.change_actionitem') or user_is_member):
+	if not (request.user.has_perm('gestor.change_actionitem') or obj.project.has_user(request.user)):
 		raise PermissionDenied()
 	
 	obj.done = True

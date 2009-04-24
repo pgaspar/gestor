@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.template.context import RequestContext
 from cvmanager.models import CurriculumVitae
 
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.views.generic.create_update import *
 from django.forms import *
 from django.db.models import Q
@@ -66,11 +66,14 @@ def edit_view(request,object_id,form_class,template_name):
 # Curriculum Views
 
 @login_required
-@permission_required('cvmanager.can_view_cv')
 def curriculum(request,username):
-    u = get_object_or_404(User, username = username)
-    c = get_object_or_404(CurriculumVitae, owner = u)
-    return render(request,'curriculum.html',{'u':u, 'cv':c})
+    if request.user.has_perm('cvmanager.can_view_cv') and request.user.has_perm('cvmanager.can_view_cv_details'):
+        u = get_object_or_404(User, username = username)
+        c = get_object_or_404(CurriculumVitae, owner = u)
+        
+        return render(request,'curriculum.html',{'u':u, 'cv':c})
+    else:
+        raise PermissionDenied()
 
 def public_curriculum(request, username):
     # This page will be visible to the outside world (logged out users)

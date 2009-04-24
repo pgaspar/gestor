@@ -6,7 +6,7 @@ class UserProfile(models.Model):
 	user = models.ForeignKey(User, unique=True)
 	
 	organization = models.CharField("Organization", max_length=20, default='jeKnowledge', null=True)
-	title = models.CharField("Title", max_length=40, blank=True, null=True)
+	title = models.CharField("Position", max_length=40, blank=True, null=True)
 	description = models.TextField(blank=True, null=True)
 	
 	class Meta:
