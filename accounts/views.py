@@ -23,7 +23,7 @@ def profile(request,username):
 	
 	current_projects = list(set(u.projects_working.filter(active=True)) | set(u.projects_managed.filter(active=True)))
 	past_projects = list(set(u.projects_working.filter(active=False)) | set(u.projects_managed.filter(active=False)))
-	todo_list = [ [item, dist(item.due_date)] for item in User.objects.get(username=username).actionitem_todo.filter(done=False) ]
+	todo_list = [ [item, dist(item.due_date)] for item in u.actionitem_todo.filter(done=False) ]
 	
 	try: profile = u.get_profile()
 	except UserProfile.DoesNotExist: profile = None
