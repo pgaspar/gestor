@@ -1,5 +1,6 @@
 from django.template import Library
 from gestor.utils import mergeLists
+
 register = Library()
 
 @register.filter

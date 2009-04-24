@@ -34,9 +34,11 @@
 		</div>
 		{% endif %}
 		
+		{% load cv_utils %}
+		
 		<h3>Curriculum Vitae</h3>
 		
-		{% if perms.cvmanager.can_view_cv %}
+		{% if perms.cvmanager.can_view_cv or request.user|can_view_this_cv:u %}
 			{% ifequal u.curriculumvitae_set.count 0 %}
 				This user doesn't have a CV yet.
 			{% else %}
