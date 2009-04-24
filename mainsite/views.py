@@ -12,7 +12,7 @@ from django.core.exceptions import PermissionDenied
 
 @login_required
 def create_news(request):
-	if request.user.is_staff:
+	if request.user.has_perm('mainsite.add_news'):
 	
 		if request.method == 'POST':
 			form = NewsForm(request.POST)

@@ -29,7 +29,7 @@
 						<a href="{{project.get_absolute_url}}">{{project.name}}</a></li>
 				{% endfor %}
 
-				{% if request.user.is_staff  %}
+				{% if perms.gestor.add_project %}
 					<span class="smaller"><a href="/gestor/project/create/"><img src="/media/icons/add.png" alt="add" /> Create a Project</a></span>
 				{% endif %}
 			</ul>
@@ -37,10 +37,8 @@
 
 			<h3>Account</h3>
 			<ul>
-				{% if request.user.is_staff  %}
-					<li><a href="/admin">Administration</a></li>
-					<li><a href="/noticias/create/">Create a News Post</a></li>
-				{% endif %}
+				{% if request.user.is_staff  %}<li><a href="/admin">Administration</a></li>{% endif %}
+				{% if perms.mainsite.add_news %}<li><a href="/noticias/create/">Create a News Post</a></li>{% endif %}
 				
 				<li><a href="/users/find">Find Users</a></li>
 				<li><a href="/users/{{request.user.username}}">My Profile</a></li>

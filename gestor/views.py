@@ -26,7 +26,18 @@ from datetime import date
 # General Views
 
 def create_view(request,object_id,form_class,template_name):
-	model = form_class.Meta.model
+	model = form_class.Meta.model	# Never a Project
+	
+	if model is ActionNote:
+		obj = get_object_or_404(ActionItem,id=object_id)
+		user_is_member = obj.project.has_user(request.user)
+	else:
+		obj = get_object_or_404(Project,id=object_id)
+		user_is_member = obj.has_user(request.user)
+	
+	if not (request.user.has_perm('gestor.add_' + model._meta.module_name) or user_is_member or request.user.has_perm('gestor.view_project')):
+		raise PermissionDenied()
+	
 	if request.method == 'POST':
 		form = form_class(request.POST, request.FILES)
 		if form.is_valid():
@@ -62,11 +73,12 @@ def create_view(request,object_id,form_class,template_name):
 def edit_view(request,object_id,form_class,template_name):
 	model = form_class.Meta.model	
 	obj = get_object_or_404(model,id=object_id)
+	
+	if model is ActionNote: user_is_member = obj.actionitem.project.has_user(request.user)
+	else: user_is_member = obj.project.has_user(request.user)
 
-	if model is ActionNote:
-		obj.actionitem.project.check_user(request.user)
-	else:
-		obj.project.check_user(request.user)
+	if not (request.user.has_perm('gestor.change_' + model._meta.module_name) or user_is_member or request.user.has_perm('gestor.view_project')):
+		raise PermissionDenied()
 
 	if request.method == 'POST':
 		form = form_class(request.POST, request.FILES, instance=obj)
@@ -106,10 +118,13 @@ def edit_view(request,object_id,form_class,template_name):
 
 def delete_view(request,object_id,model):
 	obj = get_object_or_404(model,id=object_id)
-	if model is ActionNote:
-		obj.actionitem.project.check_user(request.user)
-	else:
-		obj.project.check_user(request.user)
+	
+	if model is ActionNote: user_is_member = obj.actionitem.project.has_user(request.user)
+	else: user_is_member = obj.project.has_user(request.user)
+
+	if not (request.user.has_perm('gestor.delete_' + model._meta.module_name) or user_is_member or request.user.has_perm('gestor.view_project')):
+		raise PermissionDenied()
+	
 	obj.delete()
 	request.user.message_set.create(message='The %s was deleted' % model._meta.verbose_name )
 	if model is ActionNote:
