@@ -20,7 +20,7 @@
 			
 			<ul id="project_list" class="projects">	
 
-				{% for project in request.user.projects_working|workspace %}
+				{% for project in request.user|workspace %}
 					{% ifequal project.manager request.user %}
 						<li class="owner">
 					{% else %}

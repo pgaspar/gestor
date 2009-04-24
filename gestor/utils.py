@@ -20,3 +20,7 @@ def truncate(txt, lim):
 	
 def work_together(user, target):
 	return len( (set(user.projects_working.all()) | set(user.projects_managed.all())) & (set(target.projects_working.all()) | set(target.projects_managed.all())) ) > 0
+	
+def mergeLists(list_a, list_b):
+	return list(list_a) + [el for el in list_b if el not in list_a]
+			

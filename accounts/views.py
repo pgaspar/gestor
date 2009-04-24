@@ -7,7 +7,7 @@ from accounts.models import UserProfile
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
-from gestor.utils import dist, work_together
+from gestor.utils import dist, work_together, mergeLists
 
 
 def render(request,template,context={}):
@@ -21,8 +21,8 @@ def profile(request,username):
 	if not (request.user == u or request.user.has_perm('accounts.view_profiles') or work_together(u, request.user)):
 		raise PermissionDenied()
 	
-	current_projects = list(set(u.projects_working.filter(active=True)) | set(u.projects_managed.filter(active=True)))
-	past_projects = list(set(u.projects_working.filter(active=False)) | set(u.projects_managed.filter(active=False)))
+	current_projects = mergeLists(u.projects_working.filter(active=True), u.projects_managed.filter(active=True))
+	past_projects = mergeLists(u.projects_working.filter(active=False), u.projects_managed.filter(active=False))
 	todo_list = [ [item, dist(item.due_date)] for item in u.actionitem_todo.filter(done=False) ]
 	
 	try: profile = u.get_profile()

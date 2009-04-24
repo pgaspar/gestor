@@ -18,7 +18,7 @@ from django.core.mail import send_mail
 
 from settings import *
 from common.utils import render
-from gestor.utils import dist
+from gestor.utils import dist, mergeLists
 
 from datetime import date
 
@@ -200,7 +200,7 @@ def project_list(request):
 	
 @login_required
 def project_dashboard(request):
-	my_proj = request.user.projects_working.order_by("-active","end_date")
+	my_proj = mergeLists(request.user.projects_working.order_by("-active","end_date"), request.user.projects_managed.order_by("-active","end_date"))
 	
 	my_task = [ [item, dist(item.due_date)] for item in request.user.actionitem_todo.all() ]
 	
@@ -339,6 +339,12 @@ def action_edit(request,object_id):
 @login_required
 def action_finish(request, object_id):
 	obj = get_object_or_404(ActionItem,id=object_id)
+	
+	user_is_member = obj.project.has_user(request.user)
+
+	if not (request.user.has_perm('gestor.change_actionitem') or user_is_member):
+		raise PermissionDenied()
+	
 	obj.done = True
 	obj.save()
 	return action_detail(request,object_id)
