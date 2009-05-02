@@ -9,13 +9,6 @@ body {
 	background: #008FC5 url('/media/images/back.png') no-repeat fixed top left;
 }
 
-@font-face { 
-	font-family: Pigiarniq; 
-	font-style: normal; 
-	font-weight: normal; 
-	src: url("/media/fonts/PigiarniqRegular.ttf");
-}
-
 h2 {
 	color: #008FC5;
 	font-weight: bold;
@@ -46,6 +39,7 @@ a:hover {
 ul {
 	list-style-image: url("/media/icons/dot.png");
 	margin: 0px;
+	margin-left: 5px;
 	padding: 0px;
 }
 
@@ -82,7 +76,7 @@ div#footer{
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	padding-top: 300px;
+	padding-top: 400px;
 	width: 100%;
 	background: url('/media/images/contents_back.png') repeat-y 10px 12px;
 	z-index: -1;
@@ -91,6 +85,11 @@ div#footer{
 div#menu {
 	height: 54px;
 	margin-bottom: 32px;
+}
+
+ul#menu_list { 
+	margin: 0px;
+	padding: 0px;
 }
 
 li.menu-option {
