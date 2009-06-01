@@ -128,6 +128,10 @@ li.option-green { background-color: #56BB61; }
 li.option-blue { background-color: #6BCEEC; }
 li.option-black { background-color: #050607; }
 
+li.archive {
+	text-align: left;
+}
+
 img.illustration, .article img, .description img {
 	padding: 2px;
 	border: 1px solid #999;
