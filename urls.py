@@ -32,10 +32,10 @@ urlpatterns = patterns('',
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/$', 'cvmanager.views.curriculum'),
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/create/$', 'cvmanager.views.curriculum_create'),
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/edit/$', 'cvmanager.views.curriculum_edit'),
+    
     (r'^accounts/', include('accounts.urls')),
-
-
-
+    (r'^formacao/', include('formacao.urls')),
+    
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
 	
     # News Archives

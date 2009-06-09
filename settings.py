@@ -110,6 +110,7 @@ INSTALLED_APPS = (
 	'gestor',
 	'cvmanager',
 	'mainsite',
+    'formacao',
 )
 
 DATE_FORMAT = "d/F/Y"
