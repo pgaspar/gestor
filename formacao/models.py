@@ -13,7 +13,7 @@ class Event(models.Model):
 	details = models.TextField()
 	
 	type = models.IntegerField(default=1, choices=((1, 'Talk') ,(2, 'Workshop')) )
-	password = models.TextField(max_length=20, null=True)
+	password = models.CharField(max_length=20, null=True)
 	
 	is_published = models.BooleanField(default=False)
 	
@@ -23,3 +23,5 @@ class Event(models.Model):
 	def get_absolute_url(self):
 		return u"/formacao/%s/" % self.id
 	
+	def isTalk(self):
+		return self.get_type_display() == 'Talk'

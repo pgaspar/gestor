@@ -1,7 +1,54 @@
-{% extends "main.html" %}
+﻿{% extends "main.html" %}
 
 {% block content %}
 
-Hello World!
+	<div id="side" class="clear span-8">
+		<p>O email <a href="mailto:formacao@jeknowledge.com">formacao@jeknowledge.com</a> está disponível para o pedido de informações ou envio de novas sugestões.</p>
+		<img src="{{MEDIA_URL}}images/lady.jpg" class="illustration"/><br/><br/>
+		<p>Reveja as nossas <a href="/formacao/old/">formações já realizadas</a>.<p/>
+	</div>
+
+	<div class="span-14 prepend-1 last">
+		<h2>Formação</h2>
+		
+		{% if object_list %}
+		
+		{% for object in object_list|slice:":3" %}
+		<div class="span-14 last">
+			<div class="span-4 event_header">
+				<h3>{{ object.date|date:"d/m/Y" }}</h3>
+				<div class="span-4 last" >
+					{% if object.isTalk %}
+					<img class="event_icon" src="{{MEDIA_URL}}images/talk.png" alt="talk"/>
+					{% else %}
+					<img class="event_icon" src="{{MEDIA_URL}}images/workshop.png" alt="workshop"/>
+					{% endif %}
+				</div>
+			</div>
+			<div class="span-10 last">
+				<h3><a href="{{object.get_absolute_url}}">{{ object.name }}</a></h3>
+				<p>{{ object.description }}</p>
+			</div>
+		</div>
+		{% endfor %}
+
+		<div class="span-14 last spacer"></div>
+		
+		{% for object in object_list|slice:"3:" %}
+		<div class="span-14 last short_version">
+			<div class="span-4 event_header">
+				<h3>{{ object.date|date:"d/m/Y" }}</h3>
+			</div>
+			<div class="span-10 last">
+				<h3><a href="{{object.get_absolute_url}}">{{ object.name }}</a></h3>
+			</div>
+		</div>	
+		{% endfor %}
+		
+		{% else %}
+		
+		<p>Não há nenhum evento para mostrar. Consulte os eventos {% if not old %}anteriores <a href="/formacao/old/">aqui</a>{% else %}actuais <a href="/formacao/">aqui</a>{% endif %}.</p>
+		
+		{% endif %}
 
 {% endblock %}
