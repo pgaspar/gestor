@@ -1,0 +1,55 @@
+﻿{% extends "main.html" %}
+{% load markup %}
+
+{% block gmaps %}
+<script src="{{MEDIA_URL}}js/formacao.js"></script>
+<script src="{{MEDIA_URL}}js/prototype.js"></script>
+{% endblock %}
+
+{% block content %}
+
+	<div id="side" class="clear span-8">
+		<p>O email <a href="mailto:formacao@jeknowledge.com">formacao@jeknowledge.com</a> está disponível para o pedido de informações ou envio de novas sugestões.</p>
+		<img src="{{MEDIA_URL}}images/lady.jpg" class="illustration"/><br/><br/>
+		<p>{{ event.details|textile }}</p>
+	</div>
+
+	<div class="span-14 prepend-1 last">
+
+		<div id="event_images">
+			{% if event.isTalk %}
+			<img class="event_icon" src="{{MEDIA_URL}}images/talk.png" alt="talk"/>
+			{% else %}
+			<img class="event_icon" src="{{MEDIA_URL}}images/workshop.png" alt="workshop"/>
+			{% endif %}
+		</div>
+		<h2>Formação</h2><br/>
+
+		<h2>{{ event.name }}</h2>
+
+		<h3>{{ event.date|date:"d/m/Y" }}</h3>
+		
+		{% if private %}{{ event.privateContent|textile }}{% else %}{{ event.content|textile }}{% endif %}
+		
+		{% if not private and event.privateContent %}
+
+		{% if not event.password or perms.formacao.can_change_event %}
+		<a href="{{ event.get_private_url }}"><img src="{{MEDIA_URL}}icons/key.gif" alt="Zona privada" /></a>
+		{% else %}
+		<img id="private_img" src="{{MEDIA_URL}}icons/key.gif" onclick="showPwdForm();" onmouseover="this.style.cursor='pointer';" alt="Zona privada" />
+
+		<form id="password_form" action="{% url formacao.views.view_private_content event.id %}" method="post" style="display: none;">
+			<b>Password: </b><input type="password" class="vTextField" name="pwd" maxlength="20" /> 
+
+			<input type="image" src="{{MEDIA_URL}}icons/action_check.png" />
+			<img src="{{MEDIA_URL}}icons/action_delete.png" onclick="hidePwdForm();" onmouseover="this.style.cursor='pointer';" />
+		</form>
+		{% endif %}
+
+		{% else %}{% if event.privateContent %}
+		<a href="{{ event.get_absolute_url }}"><img src="{{MEDIA_URL}}icons/home.png" alt="Zona aberta" /></a>
+		{% endif %}{% endif %}
+	</div>
+
+
+{% endblock %}
