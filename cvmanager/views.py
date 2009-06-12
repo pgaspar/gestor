@@ -108,6 +108,8 @@ def curriculum_find(request):
 		                             | Q(computer_skills__icontains=search_term) \
 		                             | Q(other_skills__icontains=search_term) \
 		                             | Q(interests__icontains=search_term) )
+									 
+		else: res = []
 		
 	else:
 		form = CvFindForm()
