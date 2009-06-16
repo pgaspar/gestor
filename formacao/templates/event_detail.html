@@ -34,20 +34,20 @@
 		{% if not private and event.privateContent %}
 
 		{% if not event.password or perms.formacao.can_change_event %}
-		<a href="{{ event.get_private_url }}"><img src="{{MEDIA_URL}}icons/key.gif" alt="Zona privada" /></a>
+		<a href="{{ event.get_private_url }}"><img src="{{MEDIA_URL}}icons/key.gif" alt="Zona privada" title="Zona privada" /></a>
 		{% else %}
-		<img id="private_img" src="{{MEDIA_URL}}icons/key.gif" onclick="showPwdForm();" onmouseover="this.style.cursor='pointer';" alt="Zona privada" />
+		<img id="private_img" src="{{MEDIA_URL}}icons/key.gif" onclick="showPwdForm();" onmouseover="this.style.cursor='pointer';" alt="Zona privada" title="Zona privada" />
 
 		<form id="password_form" action="{% url formacao.views.view_private_content event.id %}" method="post" style="display: none;">
-			<b>Password: </b><input type="password" class="vTextField" name="pwd" maxlength="20" /> 
+			<b>Password: </b><input id="pwd_input" type="password" class="vTextField" name="pwd" maxlength="20" /> 
 
-			<input type="image" src="{{MEDIA_URL}}icons/action_check.png" />
-			<img src="{{MEDIA_URL}}icons/action_delete.png" onclick="hidePwdForm();" onmouseover="this.style.cursor='pointer';" />
+			<input type="image" src="{{MEDIA_URL}}icons/action_check.png" alt="Concluir" title="Concluir" />
+			<img src="{{MEDIA_URL}}icons/action_delete.png" onclick="hidePwdForm();" onmouseover="this.style.cursor='pointer';" alt="Cancelar" title="Cancelar" />
 		</form>
 		{% endif %}
 
 		{% else %}{% if event.privateContent %}
-		<a href="{{ event.get_absolute_url }}"><img src="{{MEDIA_URL}}icons/home.png" alt="Zona aberta" /></a>
+		<a href="{{ event.get_absolute_url }}"><img src="{{MEDIA_URL}}icons/home.png" alt="Zona aberta" title="Zona aberta" /></a>
 		{% endif %}{% endif %}
 	</div>
 
