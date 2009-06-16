@@ -7,13 +7,15 @@ from django.views.generic.create_update import *
 from django.contrib.syndication.views import feed
 
 from gestor.models import Project, ActionItem, Note, ActionNote, File
+from cvmanager.models import CurriculumVitae
 from django.contrib.auth.models import User
 
 from django.core.exceptions import PermissionDenied
 
 from django.forms import *
-from gestor.forms import NoteForm, ActionForm, FileForm, ActionNoteForm, ProjectForm
+from gestor.forms import NoteForm, ActionForm, FileForm, ActionNoteForm, ProjectForm, SearchForm
 
+from django.db.models import Q
 from django.core.mail import send_mail
 
 from settings import *
@@ -379,3 +381,61 @@ def action_ical(request,username):
 @login_required
 def protected_feed(*args, **kwargs):
 	return feed(*args, **kwargs)
+	
+@login_required
+def search_everything(request):
+	res = {}
+	
+	if request.method == 'POST':
+		form = SearchForm(request.POST)
+		if form.is_valid():
+			search_term = form.cleaned_data['find'].rstrip()
+			
+			res['Cv'] = CurriculumVitae.objects.select_related("owner").filter(
+									   Q(owner__first_name__icontains=search_term) \
+									 | Q(owner__last_name__icontains=search_term) \
+									 | Q(course__icontains=search_term) \
+									 | Q(complements__icontains=search_term)    \
+									 | Q(proficient_areas__icontains=search_term) \
+									 | Q(foreign_langs__icontains=search_term) \
+									 | Q(computer_skills__icontains=search_term) \
+									 | Q(other_skills__icontains=search_term) \
+									 | Q(interests__icontains=search_term) )
+
+			res['User'] = User.objects.filter(
+									   Q(first_name__icontains=search_term) \
+									 | Q(last_name__icontains=search_term) \
+									 | Q(username__icontains=search_term) )
+			
+			res['Proj'] = Project.objects.filter(
+									   Q(name__icontains=search_term) \
+									 | Q(description__icontains=search_term) )
+			
+			res['ActionItem'] = ActionItem.objects.filter(
+									   Q(title__icontains=search_term) \
+									 | Q(description__icontains=search_term) )
+			
+			res['ActionNote'] = ActionNote.objects.filter(
+									   Q(actionitem__title__icontains=search_term) \
+									 | Q(description__icontains=search_term) )
+			
+			res['Note'] = Note.objects.filter(
+									   Q(title__icontains=search_term) \
+									 | Q(description__icontains=search_term) )
+			
+			res['File'] = File.objects.filter( Q(title__icontains=search_term) )
+		
+		else:
+			return render(request,'generic_search.html',{'form':form,'results': False})
+	else:
+		form = SearchForm()
+		return render(request,'generic_search.html',{'form':form,'results': False})
+	
+	return render(request,'generic_search.html',{'form':form,'results': len( [ v for k,v in res.items() if v ] ) > 0,
+												  'res_cv': res['Cv'],
+												  'res_user': res['User'],
+												  'res_proj': res['Proj'],
+												  'res_actionitem': res['ActionItem'],
+												  'res_actionnote': res['ActionNote'],
+												  'res_file': res['File'],
+												  'res_note': res['Note'] })

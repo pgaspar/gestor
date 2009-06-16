@@ -45,5 +45,7 @@ urlpatterns = patterns('',
 	(r'^file/in/(?P<object_id>\d+)/$', 'gestor.views.file_create', ),
 	(r'^file/(?P<object_id>\d+)/edit/$', 'gestor.views.file_edit',),
 	(r'^file/(?P<object_id>\d+)/delete/$', 'gestor.views.file_delete',),
+	
+	(r'^search/$', 'gestor.views.search_everything',),
 
 )
