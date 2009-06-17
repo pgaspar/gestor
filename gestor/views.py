@@ -8,6 +8,7 @@ from django.contrib.syndication.views import feed
 
 from gestor.models import Project, ActionItem, Note, ActionNote, File
 from cvmanager.models import CurriculumVitae
+from accounts.models import UserProfile
 from django.contrib.auth.models import User
 
 from django.core.exceptions import PermissionDenied
@@ -402,10 +403,15 @@ def search_everything(request):
 									 | Q(other_skills__icontains=search_term) \
 									 | Q(interests__icontains=search_term) )
 
-			res['User'] = User.objects.filter(
+			res['User'] = list( set( list( User.objects.filter(
 									   Q(first_name__icontains=search_term) \
 									 | Q(last_name__icontains=search_term) \
-									 | Q(username__icontains=search_term) )
+									 | Q(username__icontains=search_term) ) ) \
+						+ [ p.user for p in UserProfile.objects.filter(
+									   Q(organization__icontains=search_term) \
+									 | Q(title__icontains=search_term) \
+									 | Q(description__icontains=search_term) ) ] ) )
+									 
 			
 			res['Proj'] = Project.objects.filter(
 									   Q(name__icontains=search_term) \
