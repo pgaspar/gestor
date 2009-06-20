@@ -10,6 +10,12 @@ urlpatterns = patterns('',
 	(r'^(?P<object_id>\d+)/$', 'formacao.views.view_content'),
 	(r'^(?P<object_id>\d+)/private/$', 'formacao.views.view_private_content'),
 	
+	(r'^(?P<object_id>\d+)/inscrever/$', 'formacao.views.surveys', {'register':True}),
+	(r'^(?P<object_id>\d+)/confirm/$', 'formacao.views.surv_response'),
+	
+	(r'^(?P<object_id>\d+)/inquerito/$', 'formacao.views.surveys', {'register':False}),
+	(r'^thanks/$', 'django.views.generic.simple.direct_to_template', {'template': 'survey_thanks.html'}),
+	
 	# Survey
 	(r'^inquerito/$', 'django.views.generic.simple.direct_to_template', {'template': 'inquerito.html'}),
 )

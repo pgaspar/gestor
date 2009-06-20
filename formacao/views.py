@@ -9,7 +9,7 @@ from formacao.models import Event
 def view_content(request, object_id):
 	event = get_object_or_404(Event, id=object_id)
 	
-	if not event.is_published and not request.user.has_perms('formacao.event.can_change'):
+	if (not event.is_published or event.is_short_preview) and not request.user.has_perms('formacao.event.can_change'):
 		raise Http404
 	else:
 		return render(request,'event_detail.html',{'event':event})
@@ -17,7 +17,7 @@ def view_content(request, object_id):
 def view_private_content(request, object_id):
 	event = get_object_or_404(Event, id=object_id)
 	
-	if not event.is_published and not request.user.has_perms('formacao.event.can_change'):
+	if (not event.is_published or event.is_short_preview) and not request.user.has_perms('formacao.event.can_change'):
 		raise Http404
 	else:
 		if request.user.has_perms('formacao.event.can_change') or \
@@ -29,5 +29,22 @@ def view_private_content(request, object_id):
 		else:
 			return HttpResponseRedirect(event.get_absolute_url())
 	
+def surveys(request, object_id, register):
+	event = get_object_or_404(Event, id=object_id)
 	
+	if (not event.is_published or event.is_short_preview) and not request.user.has_perms('formacao.event.can_change'):
+		raise Http404
+	else:
+		if register: url = event.iframeUrl_registration
+		else: url = event.iframeUrl_surveys
+		
+		if url: 
+			return render(request,'survey_template.html',{'iFrameUrl':url, 'event':event})
+		else:
+			raise Http404
+
+def surv_response(request, object_id):
+	event = get_object_or_404(Event, id=object_id)
+	if event.confirmBox: return render(request,'survey_response.html', {'event':event})
+	else: return HttpResponseRedirect('/formacao/thanks/')
 	

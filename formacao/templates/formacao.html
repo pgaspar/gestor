@@ -20,13 +20,13 @@
 				<div class="span-4 last" >
 					{% if object.isTalk %}
 					<img class="event_icon" src="{{MEDIA_URL}}images/talk.png" alt="talk"/>
-					{% else %}
+					{% else %}{% if object.isWorkshop %}
 					<img class="event_icon" src="{{MEDIA_URL}}images/workshop.png" alt="workshop"/>
-					{% endif %}
+					{% endif %}{% endif %}
 				</div>
 			</div>
 			<div class="span-10 last">
-				<h3><a href="{{object.get_absolute_url}}">{{ object.name }}</a></h3>
+				<h3>{% if object.is_short_preview and not perms.formacao.can_change_event %}{{ object.name }}{% else %}<a href="{{object.get_absolute_url}}">{{ object.name }}</a>{% endif %}</h3>
 				<p>{{ object.description }}</p>
 			</div>
 		</div>
@@ -40,7 +40,7 @@
 				<h3>{{ object.date|date:"d/m/Y" }}</h3>
 			</div>
 			<div class="span-10 last">
-				<h3><a href="{{object.get_absolute_url}}">{{ object.name }}</a></h3>
+				<h3>{% if object.is_short_preview and not perms.formacao.can_change_event %}{{ object.name }}{% else %}<a href="{{object.get_absolute_url}}">{{ object.name }}</a>{% endif %}</h3>
 			</div>
 		</div>	
 		{% endfor %}

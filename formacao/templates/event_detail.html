@@ -19,9 +19,9 @@
 		<div id="event_images">
 			{% if event.isTalk %}
 			<img class="event_icon" src="{{MEDIA_URL}}images/talk.png" alt="talk"/>
-			{% else %}
+			{% else %}{% if event.isWorkshop %}
 			<img class="event_icon" src="{{MEDIA_URL}}images/workshop.png" alt="workshop"/>
-			{% endif %}
+			{% endif %}{% endif %}
 		</div>
 		<h2>Formação</h2><br/>
 
