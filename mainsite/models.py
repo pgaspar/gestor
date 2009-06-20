@@ -8,6 +8,8 @@ class News(models.Model):
 	
 	title = models.CharField(max_length=200)
 	date = models.DateTimeField()
+	is_published = models.BooleanField(default=True, help_text=" Only published posts will be visible to the outside users. However, it will be visible to administrators like yourself!")
+	
 	body = models.TextField()
 	author = models.ForeignKey(User, related_name='news_set', null=True, blank=True, default='')
 	

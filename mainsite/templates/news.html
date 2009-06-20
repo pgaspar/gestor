@@ -1,8 +1,8 @@
 {% load markup %}
 
-<h2><a href="{{object.get_absolute_url}}">{{object.title}}</a></h2>
+<h2 {% if not object.is_published %}style="border: grey dashed 1px; background: #eeeeee;"{% endif %}><a href="{{object.get_absolute_url}}">{{object.title}}{% if not object.is_published %} <i>(Preview)</i>{% endif %}</a></h2>
 
-<div class="article">
+<div class="article" {% if not object.is_published %}style=""{% endif %}>
 	{% if truncate %}
 		{{object.body|textile|truncatewords:80}}
 	{% else %}

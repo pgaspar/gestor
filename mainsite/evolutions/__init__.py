@@ -1,1 +1,1 @@
-SEQUENCE = ['add_author']
+SEQUENCE = ['add_is_published']

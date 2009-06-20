@@ -6,7 +6,7 @@ register = Library()
 
 @register.simple_tag
 def latest_news(number = 5):
-	latest = News.objects.order_by('-date')[:number]
+	latest = News.objects.filter(is_published=True).order_by('-date')[:number]
 	
 	html = "<ul>\n"
 	for obj in latest:
@@ -17,7 +17,7 @@ def latest_news(number = 5):
 
 @register.simple_tag
 def load_archive(number = 0):
-	date_list = News.objects.all().dates('date', 'month')[::-1]
+	date_list = News.objects.filter(is_published=True).dates('date', 'month')[::-1]
 	
 	if number: date_list = date_list[:number]
 	

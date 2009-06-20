@@ -11,7 +11,7 @@ feeds = {
 }
 
 info_dict = {
-    'queryset': News.objects.all(),
+    'queryset': News.objects.filter(is_published=True),
     'date_field': 'date',
     'allow_empty': 1,
 }
@@ -50,7 +50,7 @@ urlpatterns = patterns('',
                                                                                                                                       template_name='news_archive_day.html',
                                                                                                                                       extra_context={'truncate':'true'})),
     
-	(r'^noticias/(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', {'template_name': 'news_detail.html', 'queryset': News.objects.all()}),
+	(r'^noticias/(?P<object_id>\d+)/$', 'mainsite.views.news_detail', {'template_name': 'news_detail.html'}),
     
     
     (r'^noticias/create/$', 'mainsite.views.create_news'),
@@ -58,8 +58,7 @@ urlpatterns = patterns('',
     
     
     # New site (hard-coded, no more flat pages)
-    (r'^$', 'django.views.generic.date_based.archive_index', dict( info_dict, template_name='index.html',
-                                                              num_latest=3 )),
+    (r'^$', 'mainsite.views.news_index', dict( info_dict, template_name='index.html', num_latest=3 )),
     (r'^carreiras/$', 'django.views.generic.simple.direct_to_template', {'template': 'carreiras.html'}),
     (r'^contactos/$', 'django.views.generic.simple.direct_to_template', {'template': 'contactos.html'}),
     (r'^parceiros/$', 'django.views.generic.simple.direct_to_template', {'template': 'parceiros.html'}),
