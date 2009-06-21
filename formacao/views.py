@@ -38,7 +38,7 @@ def surveys(request, object_id, register):
 		if register: url = event.iframeUrl_registration
 		else: url = event.iframeUrl_surveys
 		
-		if url: 
+		if url and not (register and event.close_registration):
 			return render(request,'survey_template.html',{'iFrameUrl':url, 'event':event})
 		else:
 			raise Http404

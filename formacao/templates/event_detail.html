@@ -12,6 +12,14 @@
 		<p>O email <a href="mailto:formacao@jeknowledge.com">formacao@jeknowledge.com</a> está disponível para o pedido de informações ou envio de novas sugestões.</p>
 		<img src="{{MEDIA_URL}}images/lady.jpg" class="illustration"/><br/><br/>
 		<p>{{ event.details|textile }}</p>
+		
+		<hr />
+		
+		{% if not event.close_registration %}
+		<p>Inscreva-se <a href="/formacao/{{event.id}}/inscrever/">aqui</a>.</p>
+		{% else %}
+		<p>Inscrições fechadas.</p>
+		{% endif %}
 	</div>
 
 	<div class="span-14 prepend-1 last">
