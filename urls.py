@@ -32,10 +32,10 @@ urlpatterns = patterns('',
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/$', 'cvmanager.views.curriculum'),
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/create/$', 'cvmanager.views.curriculum_create'),
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/edit/$', 'cvmanager.views.curriculum_edit'),
+    
     (r'^accounts/', include('accounts.urls')),
-
-
-
+    (r'^formacao/', include('formacao.urls')),
+    
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
 	
     # News Archives
@@ -64,10 +64,6 @@ urlpatterns = patterns('',
     (r'^parceiros/$', 'django.views.generic.simple.direct_to_template', {'template': 'parceiros.html'}),
     (r'^servicos/$', 'django.views.generic.simple.direct_to_template', {'template': 'servicos.html'}),
     (r'^sobre/$', 'django.views.generic.simple.direct_to_template', {'template': 'sobre.html'}),
-    
-    # Survey
-    (r'^formacao/inquerito/$', 'django.views.generic.simple.direct_to_template', {'template': 'inquerito.html'}),
-    (r'^formacao/$', 'django.views.generic.simple.redirect_to', { 'url': "/" }),
     
     # Public curriculums
     (r'^(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),

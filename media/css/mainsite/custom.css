@@ -26,6 +26,15 @@ h3 {
 	margin-bottom: 8px;
 }
 
+.short_version h3 {
+	color: #008FC5;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 18px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
 a,a:hover,a:active,a:visited {
 	color: #008FC5;
 	text-decoration: none;
@@ -82,6 +91,18 @@ div#footer{
 	z-index: -1;
 }
 
+div#side {
+	text-align: left;
+}
+
+div.spacer {
+	height: 18px;
+}
+
+div#event_images {
+	float: right;
+}
+
 div#menu {
 	height: 54px;
 	margin-bottom: 32px;
@@ -100,7 +121,7 @@ li.menu-option {
 	color: #FFF;
 	background-color: #f00;
 	padding: 28px 16px 4px 16px;
-	margin: 0px 55px 4px 0px;
+	margin: 0px 54px 4px 0px;
 	border: 0px;
 }
 
@@ -171,9 +192,20 @@ div#popup {
 	width:270px;
 }
 
+div.event_header {
+	text-align: center;
+}
+
 img.media_icon {
 	border: 0px;
 	padding: 0px;
 	margin-left: 30px;
 	margin-top: 30px;
+}
+
+img.event_icon {
+	border: 0px;
+	padding: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
 }
