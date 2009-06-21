@@ -10,15 +10,15 @@
 
 	<div id="side" class="clear span-8">
 		<p>O email <a href="mailto:formacao@jeknowledge.com">formacao@jeknowledge.com</a> está disponível para o pedido de informações ou envio de novas sugestões.</p>
-		<img src="{{MEDIA_URL}}images/lady.jpg" class="illustration"/><br/><br/>
+		<img src="{{MEDIA_URL}}images/lady.jpg" class="illustration"/><br/>
 		<p>{{ event.details|textile }}</p>
 		
 		<hr />
 		
 		{% if not event.close_registration %}
-		<p>Inscreva-se <a href="/formacao/{{event.id}}/inscrever/">aqui</a>.</p>
+		<h3><p>Inscreva-se <a href="/formacao/{{event.id}}/inscrever/">aqui</a>.</p></h3>
 		{% else %}
-		<p>Inscrições fechadas.</p>
+		<h3><p>Inscrições fechadas.</p></h3>
 		{% endif %}
 	</div>
 
