@@ -10,7 +10,8 @@ class UserProfile(models.Model):
 	description = models.TextField(blank=True, null=True)
 	
 	class Meta:
-		permissions = (('view_profiles', 'View all Profiles'),)
+		permissions = (('view_profiles', 'View all Profiles'),
+					   ('can_search_everything', 'Search Everything'),)
 		
 	def __unicode__(self):
 		return u"%s's Profile" % self.user.get_full_name()

@@ -40,7 +40,7 @@
 				{% if request.user.is_staff  %}<li><a href="/admin">Administration</a></li>{% endif %}
 				{% if perms.mainsite.add_news %}<li><a href="/noticias/create/">Create a News Post</a></li>{% endif %}
 				
-				<li><a href="/users/find">Find Users</a></li>
+				<li><a href="/gestor/search">Search</a></li>
 				<li><a href="/users/{{request.user.username}}">My Profile</a></li>
 				<li><a href="/users/{{request.user.username}}/curriculum/edit">My Curriculum</a></li>
 				<li><a href="/accounts/password_change">Change Password</a></li>
