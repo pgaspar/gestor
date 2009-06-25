@@ -6,8 +6,8 @@ from cvmanager.models import CurriculumVitae
 from django.contrib.auth.decorators import login_required
 from django.views.generic.create_update import *
 from django.forms import *
-from django.db.models import Q
-from cvmanager.forms import CvForm, CvFindForm
+
+from cvmanager.forms import CvForm
 from django.core.exceptions import PermissionDenied
 
 import datetime
@@ -91,29 +91,3 @@ def curriculum_create(request,username):
 @login_required
 def curriculum_edit(request,username):
     return edit_view(request,username,CvForm,'curriculum_edit.html')
-
-@login_required
-def curriculum_find(request):
-	if request.method == 'POST':
-		form = CvFindForm(request.POST)
-		if form.is_valid():
-			search_term = form.cleaned_data['find'].rstrip()
-			res = CurriculumVitae.objects.select_related("owner").filter(
-									   Q(owner__first_name__icontains=search_term) \
-									 | Q(owner__last_name__icontains=search_term) \
-									 | Q(course__icontains=search_term) \
-		                             | Q(complements__icontains=search_term)    \
-		                             | Q(proficient_areas__icontains=search_term) \
-		                             | Q(foreign_langs__icontains=search_term) \
-		                             | Q(computer_skills__icontains=search_term) \
-		                             | Q(other_skills__icontains=search_term) \
-		                             | Q(interests__icontains=search_term) )
-									 
-		else: res = []
-		
-	else:
-		form = CvFindForm()
-		res = []
-	
-	return render(request,'curriculum_find.html',{'form':form,'results':res})
-	
