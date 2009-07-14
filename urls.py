@@ -64,8 +64,9 @@ urlpatterns = patterns('',
     (r'^servicos/$', 'django.views.generic.simple.direct_to_template', {'template': 'servicos.html'}),
     (r'^sobre/$', 'django.views.generic.simple.direct_to_template', {'template': 'sobre.html'}),
     
+    # RH's Survey
+    (r'^rh/$', 'django.views.generic.simple.direct_to_template', {'template': 'inquerito.html'}),
+    
     # Public curriculums
     (r'^(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),
-    
-
 )

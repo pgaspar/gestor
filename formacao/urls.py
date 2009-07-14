@@ -15,7 +15,4 @@ urlpatterns = patterns('',
 	
 	(r'^(?P<object_id>\d+)/inquerito/$', 'formacao.views.surveys', {'register':False}),
 	(r'^thanks/$', 'django.views.generic.simple.direct_to_template', {'template': 'survey_thanks.html'}),
-	
-	# Survey
-	(r'^inquerito/$', 'django.views.generic.simple.direct_to_template', {'template': 'inquerito.html'}),
 )
