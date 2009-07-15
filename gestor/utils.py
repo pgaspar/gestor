@@ -5,13 +5,15 @@ from gestor.models import *
 def color_status(value):
 	if value.done:
 		return "green"
-	if value.due_date > date.today():
+	if not value.due_date or value.due_date > date.today():
 		return "yellow"
 	return "red"
 	
 def dist(d):
-	dif =  d - date.today()
-	return str(dif.days)
+	if d:
+		dif =  d - date.today()
+		return str(dif.days)
+	else: return None
 
 def truncate(txt, lim):
 	try: txt = unicode(txt)

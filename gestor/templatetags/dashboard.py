@@ -1,4 +1,5 @@
 from django.template import Library
+from gestor.utils import truncate
 
 register = Library()
 
@@ -10,3 +11,7 @@ def team_list(value):
 		if user != value.manager:
 			users.append(user)
 	return users
+	
+@register.filter
+def trunc(txt, lim):
+	return truncate(txt, lim)

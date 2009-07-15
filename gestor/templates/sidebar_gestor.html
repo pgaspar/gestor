@@ -5,6 +5,7 @@
 		{% block menu %}
 			{% load todo %}
 			{% load projecting %}
+			{% load dashboard %}
 			
 			
 			<h3>Todo List</h3>
@@ -26,7 +27,7 @@
 					{% else %}
 						<li>
 					{% endifequal %}
-						<a href="{{project.get_absolute_url}}">{{project.name}}</a></li>
+						<a href="{{project.get_absolute_url}}">{{project.name|trunc:"25"}}</a></li>
 				{% endfor %}
 
 				{% if perms.gestor.add_project %}

@@ -94,7 +94,7 @@
 				<ul>
 					{% for item, dist in todo_list %}
 						<li class="{{item|colorstatus}}">
-							<a href="{{item.get_absolute_url}}" title="Dues: {{dist}} days. Priority: {{item.get_priority_display}}">{{ item.title }}</a>
+							<a href="{{item.get_absolute_url}}" title="Dues: {%if dist%}{{dist}} days{%else%}Never{%endif%}. Priority: {{item.get_priority_display}}">{{ item.title }}</a>
 						</li> 
 					{% endfor %}
 				</ul>
