@@ -15,3 +15,7 @@ def team_list(value):
 @register.filter
 def trunc(txt, lim):
 	return truncate(txt, lim)
+	
+@register.filter
+def bigger_than(val1, val2):
+	return int(val1) > int(val2)

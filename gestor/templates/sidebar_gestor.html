@@ -27,7 +27,7 @@
 					{% else %}
 						<li>
 					{% endifequal %}
-						<a href="{{project.get_absolute_url}}">{{project.name|trunc:"25"}}</a></li>
+						<a href="{{project.get_absolute_url}}" title="{% if project.name|length|bigger_than:"25" %}{{project.name}}{%endif%}">{{project.name|trunc:"25"}}</a></li>
 				{% endfor %}
 
 				{% if perms.gestor.add_project %}
