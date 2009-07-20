@@ -38,7 +38,7 @@
 			
 			{% if request.user.is_authenticated %}
 			<div style="float: right; padding-right: 50px; padding-top: 40px;">
-			<form action="/gestor/search/" method="post"><input type="text" name="find" value="Search..." id="id_find" onclick="this.clear();"/></form>
+			<form action="/gestor/search/" method="post"><input type="text" name="find" value="Search..." id="id_find" onclick="this.clear();"/> <input type="submit" value="Find" /></form>
 			</div>
 			{% endif %}
 			
