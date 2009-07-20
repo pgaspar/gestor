@@ -4,15 +4,30 @@ from datetime import datetime
 
 from django.core.exceptions import PermissionDenied
 
+
+class Company(models.Model):
+	name = models.CharField(max_length=100)
+	address = models.TextField(blank=True,null = True)
+	nif = models.CharField(max_length=100,blank=True,null = True)
+	email = models.EmailField(max_length=100,blank=True,null = True)
+	workers = models.ManyToManyField(User, related_name = 'companies',blank=True,null = True)
+	
+	def __str__(self):
+		return u"%s" % self.name
+		
+	class Meta:
+	        ordering = ["name"]
+	        verbose_name_plural = "Companies"
+
 class ProjectManager(models.Manager):
 	def get_query_set(self):
 		return super(ProjectManager,self).get_query_set().filter(active=True)
-
 
 class Project(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.TextField(blank=True)
 	active = models.BooleanField(default=True)
+	client = models.ForeignKey(Company,blank=True, null=True)
 	manager = models.ForeignKey(User, related_name='projects_managed')
 	team = models.ManyToManyField(User, related_name = 'projects_working')
 	start_date = models.DateField()

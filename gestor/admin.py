@@ -1,4 +1,4 @@
-from gestor.models import Project, ActionItem, Note, File, ActionNote
+from gestor.models import *
 from django.contrib import admin
 
 class ProjectAdmin(admin.ModelAdmin):	
@@ -44,4 +44,7 @@ class FileAdmin(admin.ModelAdmin):
 
 
 try: admin.site.register(File,FileAdmin)
+except: pass
+
+try: admin.site.register(Company)
 except: pass
