@@ -9,11 +9,7 @@
 {% if my_task_list %}
 <ul class="tasks">
 	{% for object, remaining in my_task_list %}
-		{% if object.done %}
-		<div class="task closed">
-		{% else %}
 		<div class="task open">
-		{% endif %}
 
 			<div class="task_info">
 				<li class="{{object|colorstatus}}">
@@ -24,9 +20,7 @@
 			<div class="task_actions">
 				<a href="/gestor/actionnote/in/{{object.id}}/" title="Add Note to ActionItem"><img src="{{MEDIA_URL}}icons/note_add.png" alt="Add Note" /></a>
 				
-				{% if not object.done %}
 				<a href="{{object.get_absolute_url}}finish/" title="Finish ActionItem"><img src="{{MEDIA_URL}}icons/accept.png" alt="Finish ActionItem" /></a>
-				{% endif %}
 				
 				{% ifequal object.priority 1 %}
 				<img src="{{MEDIA_URL}}icons/alert.gif" title="High Priority!" alt="High Priority!" />
@@ -37,8 +31,6 @@
 		</div>
 	{% endfor %}
 </ul>
-
-<div id="toggle-tasks_div" class="view-all"><a href="#" id="toggle-tasks">View All</a></div>
 
 {% else %}
 	<span class="warning">You have no tasks! :)</span>

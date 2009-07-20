@@ -1,0 +1,21 @@
+{% load dashboard %}
+
+<div id="late_people" class="widget">
+
+<h1>Late People</h1>
+
+{% if late_people %}
+	<p>There are <b>{{ late_tasks.count }}</b> action items overdue.</p>
+	<ul class="my_projects projects">
+		{% for object in late_people %}
+			<li>
+				<a href="{{object.user.get_absolute_url}}">{{object.user.get_full_name}}</a> ({{ object.count }})
+			</li>
+		{% endfor %}
+	</ul>
+
+{% else %}
+	<span class="warning">No late users in list</span>
+{% endif %}
+
+</div>

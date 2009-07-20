@@ -1,46 +1,3 @@
-
-
-var dashboard = function() {
-	return {
-		toggle: function(what){
-			target = $$('.'+what+' .closed');
-			label = $('toggle-'+what);
-			if ( label ) {
-		
-				if ( target.size() > 0 ) {
-					if (label) {
-						target.each(function(i) {
-							i.hide();
-						});
-
-						label.onclick = function() {
-							$$('.'+what+' .closed').each(function(i) {
-								i.toggle();
-							});
-							dashboard.toggleButtons('toggle-'+what, 'View All', 'View Less');
-						};
-					}
-				} else {
-					Element.hide(label);
-				}
-			}
-
-		}, 
-		toggleButtons: function(id, before, after){
-			var obj = $(id);
-			if (obj.innerHTML == before){
-				obj.innerHTML = after;
-				Element.addClassName($(obj.id + '_div'), 'toggled');
-			}
-			else{
-				obj.innerHTML = before;
-				Element.removeClassName($(obj.id + '_div'), 'toggled');
-			}
-		}
-	}
-}();
-
-
 (function() {
 	Event.observe(window, 'load',function() { 
 		
@@ -56,18 +13,6 @@ var dashboard = function() {
 				});
 			};
 		}
-		
-		// Toggle user's projects in Dashboard
-		
-		dashboard.toggle('my_projects');
-		
-		// Toggle user's tasks in Dashboard
-		
-		dashboard.toggle('tasks');
-		
-		// Toggle JK's projects in Dashboard
-		
-		dashboard.toggle('jk_projects');
 		
 		
 		//Edit in place.

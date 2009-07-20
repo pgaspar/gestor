@@ -9,14 +9,11 @@
 
 	<ul class="my_projects projects">
 		{% for object in my_proj_list %}
-			<li class="{% ifequal object.manager request.user %} owner {% endifequal %}
-			{% if object.active %} open {% else %} closed {% endif %}
-			"><a href="{{object.get_absolute_url}}">{{object.name}}</a>
-			{% if not object.active %} [closed] {% else %}  ({{ object.percentage }})  {% endif %}</li>
+			<li class="{% ifequal object.manager request.user %} owner {% endifequal %}"><a href="{{object.get_absolute_url}}">{{object.name}}</a>
+			({{ object.percentage }})
+			</li>
 		{% endfor %}
 	</ul>
-
-	<div id="toggle-my_projects_div" class="view-all"><a href="#" id="toggle-my_projects">View All</a></div>
 
 {% else %}
 	<span class="warning">No projects in list</span>

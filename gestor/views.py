@@ -201,13 +201,40 @@ def project_list(request):
 	
 @login_required
 def project_dashboard(request):
-	my_proj = mergeLists(request.user.projects_working.order_by("-active","end_date"), request.user.projects_managed.order_by("-active","end_date"))
+	my_proj = mergeLists(
+						request.user.projects_working.filter(active=True).order_by("end_date"), 						
+						request.user.projects_managed.filter(active=True).order_by("end_date")
+				)
 	
-	my_task = [ [item, dist(item.due_date)] for item in request.user.actionitem_todo.all() ]
+	my_task = [ [item, dist(item.due_date)] for item in request.user.actionitem_todo.filter(done=False) ]
 	
-	jk_proj = Project.objects.order_by("-active")
+	jk_proj = Project.objects.filter(active=True)
+
+	late_projects = Project.objects.filter(active=True, end_date__lt=date.today())
 	
-	return render(request,'project_dashboard.html',{'my_proj_list':my_proj, 'my_task_list':my_task, 'jk_proj_list':jk_proj})
+	
+	class MockUserWithCount(object):
+		def __init__(self,user,count):
+			self.user = user
+			self.count = count
+	
+	late_people = []
+	for u in User.objects.all():
+		c = u.actionitem_todo.filter(done=False,due_date__lt=date.today()).count()
+		if c > 0:
+			late_people.append(MockUserWithCount(u,c))
+	late_people.sort(lambda x,y: y.count - x.count)
+	
+	late_tasks = ActionItem.objects.filter(done=False,due_date__lt=date.today())
+	
+	return render(request,'project_dashboard.html',{
+				'my_proj_list':my_proj,
+				'my_task_list':my_task,
+				'jk_proj_list':jk_proj,
+				'late_projects':late_projects,
+				'late_people':late_people,
+				'late_tasks':late_tasks
+			})
 
 @login_required
 def project_detail(request,object_id):

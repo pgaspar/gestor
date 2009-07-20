@@ -11,6 +11,12 @@
 		
 		<div id="col">
 			{% include "widgets/jk_projs.html" %}
+			
+			{% if request.user.is_staff %}
+				{% include "widgets/late_projects.html" %}
+				
+				{% include "widgets/late_people.html" %}
+			{% endif %}
 		</div>
 		
 	</div>

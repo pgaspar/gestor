@@ -1,14 +1,12 @@
 {% load dashboard %}
 
+<div id="late_projects" class="widget">
 
-<div id="jk_projects" class="widget">
+<h1>Late Projects</h1>
 
-<h1>jeKnowledge's Projects</h1>
-
-{% if jk_proj_list %}
+{% if late_projects %}
 <ul class="jk_projects projects">
-	{% for object in jk_proj_list %}
-
+	{% for object in late_projects %}
 
 		<li class="open" id="project_title_{{object.id}}">
 			<a href="{{object.get_absolute_url}}">{{object.name}}</a> ({{ object.percentage }})</li>
