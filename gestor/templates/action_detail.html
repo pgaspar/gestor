@@ -11,7 +11,7 @@
 			{% if object.done %}
 				<span class="green">Done</span>
 			{% else %}
-				<span class="{{object|colorstatus}}">Dues: {{object.due_date|naturalday}}</span>
+				<span class="{{object|colorstatus}}">Dues: {{object.due_date|naturalday|default_if_none:"Never"}}</span>
 			{% endif %}
 		</div>
 	

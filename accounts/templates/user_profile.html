@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load humanize %}
 {% load datecolor %}
+{% load markup %}
+
+{% load cv_utils %}
+{% load proj_utils %}
 
 {% block content %}
 	<div class="u_profile vcard">
@@ -16,64 +20,86 @@
 		<h3>Personal info</h3>
 		<div class="personal-info">
 			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="email">{{u.email}}</a></p>
+			
+			{% if perms.cvmanager.can_view_cv_details or request.user|equals:u %}
 			<p><b class="label">Last Visit:</b> {{u.last_login|naturalday}}</p>
 			<p><b class="label">User Since:</b> {{u.date_joined|naturalday}}</p>
+			{% endif %}
 			
-			<span class="org" style="display: none">jeKnowledge</span>
+			{% if profile %}<span class="org" style="display: none">{{ profile.organization }}</span>{% else %}
+			<span class="org" style="display: none">jeKnowledge</span>{% endif %}
 		</div>
 		
+		
+		{% if profile %}
+		<h3>Career info</h3>
+		<div class="career-info">
+			<p><b class="label">Organization:</b> {{profile.organization}}</p>
+			{% if profile.title %}<p><b class="label">Position:</b> {{profile.title}}</p>{% endif %}
+			{% if profile.description %}{{profile.description|force_escape|textile}}{% endif %}
+		</div>
+		{% endif %}
+		
 		<h3>Curriculum Vitae</h3>
-		{% ifequal u.curriculumvitae_set.count 0 %}
-			This user doesn't have a CV yet.
-		{% else %}
-			<a href="{{u.get_absolute_url}}curriculum/">View {{u.get_full_name}}'s full CV</a>
-			
-			{% ifequal request.user u %}
-				<br /><a href="/{{ u.username }}/">Use this URL to share your public CV</a>
+		
+		{% if perms.cvmanager.can_view_cv or request.user|can_view_this_cv:u %}
+			{% ifequal u.curriculumvitae_set.count 0 %}
+				This user doesn't have a CV yet.
+			{% else %}
+				{% if perms.cvmanager.can_view_cv_details or request.user|equals:u %}
+				<a href="{{u.get_absolute_url}}curriculum/">View {{u.get_full_name}}'s full CV</a>
+   				{% else %}
+				<a href="/{{ u.username }}/">View {{u.get_full_name}}'s public CV</a>
+				{% endif %}
+				
+				{% ifequal request.user u %}
+					<br /><a href="/{{ u.username }}/">Use this URL to share your public CV</a>
+				{% endifequal %}
 			{% endifequal %}
-		{% endifequal %}
-		
-		
-		{% if current_projects %}
-			<h3>Current Projects</h3>
-			<ul class="projects">
-				{% for project in current_projects %}
-					<li><a href="{{project.get_absolute_url}}">{{project.name}}</a>
-					{% ifequal project.manager u  %}
-						(Manager)
-					{% endifequal %}
-					</li> 
-				{% endfor %}
-			</ul>
+		{% else %}
+			You do not have permissions to view this CV.
 		{% endif %}
 		
+		{% if perms.cvmanager.can_view_cv_details or request.user|manages_user:u %}
 		
-		{% if past_projects %}
-			<h3>Past Projects</h3>
-			<ul>
-				{% for project in past_projects %}
-					<li><a href="{{project.get_absolute_url}}">{{project.name}}</a>
-					{% ifequal project.manager u  %}
-						(Manager)
-					{% endifequal %}
-					</li> 
-				{% endfor %}
-			</ul>
-		{% endif %}
+			{% if current_projects %}
+				<h3>Current Projects</h3>
+				<ul class="projects">
+					{% for project in current_projects %}
+						<li><a href="{{project.get_absolute_url}}">{{project.name}}</a>
+						{% ifequal project.manager u  %}
+							(Manager)
+						{% endifequal %}
+						</li> 
+					{% endfor %}
+				</ul>
+			{% endif %}
+   
+   
+			{% if past_projects %}
+				<h3>Past Projects</h3>
+				<ul>
+					{% for project in past_projects %}
+						<li><a href="{{project.get_absolute_url}}">{{project.name}}</a>
+						{% ifequal project.manager u  %}
+							(Manager)
+						{% endifequal %}
+						</li> 
+					{% endfor %}
+				</ul>
+			{% endif %}
 		
-		{% load proj_utils %}
-		
-		{% if request.user.is_staff or request.user|manages_user:u %}
 			{% if todo_list %}
 				<h3>Todo List</h3>
 				<ul>
 					{% for item, dist in todo_list %}
 						<li class="{{item|colorstatus}}">
-							<a href="{{item.get_absolute_url}}" title="Dues: {{dist}} days. Priority: {{item.get_priority_display}}">{{ item.title }}</a>
+							<a href="{{item.get_absolute_url}}" title="Dues: {%if dist%}{{dist}} days{%else%}Never{%endif%}. Priority: {{item.get_priority_display}}">{{ item.title }}</a>
 						</li> 
 					{% endfor %}
 				</ul>
 			{% endif %}
+			
 		{% endif %}
 		
 		

@@ -11,7 +11,7 @@ feeds = {
 }
 
 info_dict = {
-    'queryset': News.objects.all(),
+    'queryset': News.objects.filter(is_published=True),
     'date_field': 'date',
     'allow_empty': 1,
 }
@@ -27,15 +27,14 @@ urlpatterns = patterns('',
     (r'^admin/(.*)', admin.site.root),
 
     (r'^gestor/', include('gestor.urls')),
-    (r'^users/find/$', 'cvmanager.views.curriculum_find'),
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/$', 'accounts.views.profile'),
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/$', 'cvmanager.views.curriculum'),
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/create/$', 'cvmanager.views.curriculum_create'),
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/edit/$', 'cvmanager.views.curriculum_edit'),
+    
     (r'^accounts/', include('accounts.urls')),
-
-
-
+    (r'^formacao/', include('formacao.urls')),
+    
     (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
 	
     # News Archives
@@ -50,7 +49,7 @@ urlpatterns = patterns('',
                                                                                                                                       template_name='news_archive_day.html',
                                                                                                                                       extra_context={'truncate':'true'})),
     
-	(r'^noticias/(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', {'template_name': 'news_detail.html', 'queryset': News.objects.all()}),
+	(r'^noticias/(?P<object_id>\d+)/$', 'mainsite.views.news_detail', {'template_name': 'news_detail.html'}),
     
     
     (r'^noticias/create/$', 'mainsite.views.create_news'),
@@ -58,20 +57,16 @@ urlpatterns = patterns('',
     
     
     # New site (hard-coded, no more flat pages)
-    (r'^$', 'django.views.generic.date_based.archive_index', dict( info_dict, template_name='index.html',
-                                                              num_latest=3 )),
+    (r'^$', 'mainsite.views.news_index', dict( info_dict, template_name='index.html', num_latest=3 )),
     (r'^carreiras/$', 'django.views.generic.simple.direct_to_template', {'template': 'carreiras.html'}),
     (r'^contactos/$', 'django.views.generic.simple.direct_to_template', {'template': 'contactos.html'}),
     (r'^parceiros/$', 'django.views.generic.simple.direct_to_template', {'template': 'parceiros.html'}),
     (r'^servicos/$', 'django.views.generic.simple.direct_to_template', {'template': 'servicos.html'}),
     (r'^sobre/$', 'django.views.generic.simple.direct_to_template', {'template': 'sobre.html'}),
     
-    # Survey
-    (r'^formacao/inquerito/$', 'django.views.generic.simple.direct_to_template', {'template': 'inquerito.html'}),
-    (r'^formacao/$', 'django.views.generic.simple.redirect_to', { 'url': "/" }),
+    # RH's Survey
+    (r'^rh/$', 'django.views.generic.simple.direct_to_template', {'template': 'inquerito.html'}),
     
     # Public curriculums
     (r'^(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),
-    
-
 )

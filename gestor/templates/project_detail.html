@@ -21,7 +21,7 @@
 			</div>
 		</div>
 		
-		{% if request.user.is_staff or request.user|ismanager:object %}
+		{% if perms.gestor.change_project or request.user|ismanager:object %}
 			<div class="description clear text">
 				<div id="editable_description">{{object.description|force_escape|textile}}</div>
 				<div id="editable_description_editor" style="display: none;">
@@ -40,14 +40,10 @@
 			<p><span class="label">Manager: </span> <span class="manager"><a href="{{object.manager.get_absolute_url}}">{{object.manager.get_full_name}}</a></span></p>
 		</div>
 		
-		{% if request.user.is_staff or request.user|ismanager:object %}
+		{% if perms.gestor.change_project or request.user|ismanager:object %}
 		<div>
 			<hr />
-			{% ifequal object.manager request.user %}
 			<p><span class="label">Management Area:</span></p>
-			{% else %}
-			<p><span class="label">Admin Area:</span></p>
-			{% endifequal %}
 			
 			<div class="manager_options smaller">
 			
@@ -73,7 +69,7 @@
 		<div class="four_col">
 			<p><span class="label">Action Items: </span></p> <ul class="action-items">
 				{% for item, dist in actionitems %}
-					<li class="{{item|colorstatus}}" title="Dues: {{dist}} days. Priority: {{item.get_priority_display}}">
+					<li class="{{item|colorstatus}}" title="Dues: {%if dist%}{{dist}} days{%else%}Never{%endif%}. Priority: {{item.get_priority_display}}">
 						<a href="{{item.get_absolute_url}}">{{item.title}}</a>
 					</li>
 				{% endfor %}

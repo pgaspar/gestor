@@ -5,6 +5,7 @@
 		{% block menu %}
 			{% load todo %}
 			{% load projecting %}
+			{% load dashboard %}
 			
 			
 			<h3>Todo List</h3>
@@ -20,16 +21,16 @@
 			
 			<ul id="project_list" class="projects">	
 
-				{% for project in request.user.projects_working|workspace %}
+				{% for project in request.user|workspace %}
 					{% ifequal project.manager request.user %}
 						<li class="owner">
 					{% else %}
 						<li>
 					{% endifequal %}
-						<a href="{{project.get_absolute_url}}">{{project.name}}</a></li>
+						<a href="{{project.get_absolute_url}}" title="{% if project.name|length|bigger_than:"25" %}{{project.name}}{%endif%}">{{project.name|trunc:"25"}}</a></li>
 				{% endfor %}
 
-				{% if request.user.is_staff  %}
+				{% if perms.gestor.add_project %}
 					<span class="smaller"><a href="/gestor/project/create/"><img src="/media/icons/add.png" alt="add" /> Create a Project</a></span>
 				{% endif %}
 			</ul>
@@ -37,12 +38,10 @@
 
 			<h3>Account</h3>
 			<ul>
-				{% if request.user.is_staff  %}
-					<li><a href="/admin">Administration</a></li>
-					<li><a href="/noticias/create/">Create a News Post</a></li>
-				{% endif %}
+				{% if request.user.is_staff  %}<li><a href="/admin">Administration</a></li>{% endif %}
+				{% if perms.mainsite.add_news %}<li><a href="/noticias/create/">Create a News Post</a></li>{% endif %}
 				
-				<li><a href="/users/find">Find Users</a></li>
+				<li><a href="/gestor/search">Search</a></li>
 				<li><a href="/users/{{request.user.username}}">My Profile</a></li>
 				<li><a href="/users/{{request.user.username}}/curriculum/edit">My Curriculum</a></li>
 				<li><a href="/accounts/password_change">Change Password</a></li>

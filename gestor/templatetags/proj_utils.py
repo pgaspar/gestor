@@ -9,3 +9,7 @@ def ismanager(value, obj):
 @register.filter
 def manages_user(request_user, u):
 	return request_user in [ proj.manager for proj in u.projects_working.filter(active=True) ]
+
+@register.filter
+def equals(value, value2):
+	return value == value2

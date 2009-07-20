@@ -1,3 +1,7 @@
 *.pyc
 *.pid
 *.sock
+*.project
+*.pydev
+*.pydevproject
+.tmp_*

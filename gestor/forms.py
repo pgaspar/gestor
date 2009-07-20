@@ -44,3 +44,6 @@ class ProjectForm(ModelForm):
 	
 	class Meta:
 		model = Project
+		
+class SearchForm(Form):
+	find = CharField(label="Looking for:")

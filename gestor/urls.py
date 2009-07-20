@@ -21,7 +21,7 @@ urlpatterns = patterns('',
 	# Note: the following is dangerous if you ever change the project's pk to strings
 	(r'^project/create/$', 'gestor.views.project_create', ),
 	
-    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
+    (r'^feeds/(?P<url>.*)/$', 'gestor.views.protected_feed', {'feed_dict': feeds}),
     (r'^ical/ActionItems/(?P<username>([A-z]|[0-9]|[_])+)/$', 'gestor.views.action_ical',),
 	
 	(r'^action/(?P<object_id>\d+)/$', 'gestor.views.action_detail', ),
@@ -45,5 +45,7 @@ urlpatterns = patterns('',
 	(r'^file/in/(?P<object_id>\d+)/$', 'gestor.views.file_create', ),
 	(r'^file/(?P<object_id>\d+)/edit/$', 'gestor.views.file_edit',),
 	(r'^file/(?P<object_id>\d+)/delete/$', 'gestor.views.file_delete',),
+	
+	(r'^search/$', 'gestor.views.search_everything',),
 
 )

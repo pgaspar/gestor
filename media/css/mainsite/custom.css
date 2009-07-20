@@ -9,13 +9,6 @@ body {
 	background: #008FC5 url('/media/images/back.png') no-repeat fixed top left;
 }
 
-@font-face { 
-	font-family: Pigiarniq; 
-	font-style: normal; 
-	font-weight: normal; 
-	src: url("/media/fonts/PigiarniqRegular.ttf");
-}
-
 h2 {
 	color: #008FC5;
 	font-weight: bold;
@@ -33,6 +26,15 @@ h3 {
 	margin-bottom: 8px;
 }
 
+.short_version h3 {
+	color: #008FC5;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 18px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
 a,a:hover,a:active,a:visited {
 	color: #008FC5;
 	text-decoration: none;
@@ -46,6 +48,7 @@ a:hover {
 ul {
 	list-style-image: url("/media/icons/dot.png");
 	margin: 0px;
+	margin-left: 5px;
 	padding: 0px;
 }
 
@@ -82,15 +85,32 @@ div#footer{
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	padding-top: 300px;
+	padding-top: 400px;
 	width: 100%;
 	background: url('/media/images/contents_back.png') repeat-y 10px 12px;
 	z-index: -1;
 }
 
+div#side {
+	text-align: left;
+}
+
+div.spacer {
+	height: 18px;
+}
+
+div#event_images {
+	float: right;
+}
+
 div#menu {
 	height: 54px;
 	margin-bottom: 32px;
+}
+
+ul#menu_list { 
+	margin: 0px;
+	padding: 0px;
 }
 
 li.menu-option {
@@ -101,7 +121,7 @@ li.menu-option {
 	color: #FFF;
 	background-color: #f00;
 	padding: 28px 16px 4px 16px;
-	margin: 0px 55px 4px 0px;
+	margin: 0px 53px 4px 0px;
 	border: 0px;
 }
 
@@ -128,6 +148,10 @@ li.option-pink { background-color: #F03F6F; }
 li.option-green { background-color: #56BB61; }
 li.option-blue { background-color: #6BCEEC; }
 li.option-black { background-color: #050607; }
+
+li.archive {
+	text-align: left;
+}
 
 img.illustration, .article img, .description img {
 	padding: 2px;
@@ -168,9 +192,20 @@ div#popup {
 	width:270px;
 }
 
+div.event_header {
+	text-align: center;
+}
+
 img.media_icon {
 	border: 0px;
 	padding: 0px;
 	margin-left: 30px;
 	margin-top: 30px;
+}
+
+img.event_icon {
+	border: 0px;
+	padding: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
 }

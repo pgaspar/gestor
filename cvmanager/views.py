@@ -6,8 +6,8 @@ from cvmanager.models import CurriculumVitae
 from django.contrib.auth.decorators import login_required
 from django.views.generic.create_update import *
 from django.forms import *
-from django.db.models import Q
-from cvmanager.forms import CvForm, CvFindForm
+
+from cvmanager.forms import CvForm
 from django.core.exceptions import PermissionDenied
 
 import datetime
@@ -67,9 +67,13 @@ def edit_view(request,object_id,form_class,template_name):
 
 @login_required
 def curriculum(request,username):
-    u = get_object_or_404(User, username = username)
-    c = get_object_or_404(CurriculumVitae, owner = u)
-    return render(request,'curriculum.html',{'u':u, 'cv':c})
+    if request.user.has_perm('cvmanager.can_view_cv') and request.user.has_perm('cvmanager.can_view_cv_details'):
+        u = get_object_or_404(User, username = username)
+        c = get_object_or_404(CurriculumVitae, owner = u)
+        
+        return render(request,'curriculum.html',{'u':u, 'cv':c})
+    else:
+        raise PermissionDenied()
 
 def public_curriculum(request, username):
     # This page will be visible to the outside world (logged out users)
@@ -87,27 +91,3 @@ def curriculum_create(request,username):
 @login_required
 def curriculum_edit(request,username):
     return edit_view(request,username,CvForm,'curriculum_edit.html')
-
-@login_required
-def curriculum_find(request):
-	if request.method == 'POST':
-		form = CvFindForm(request.POST)
-		if form.is_valid():
-			search_term = form.cleaned_data['find'].rstrip()
-			res = CurriculumVitae.objects.select_related("owner").filter(
-									   Q(owner__first_name__icontains=search_term) \
-									 | Q(owner__last_name__icontains=search_term) \
-									 | Q(course__icontains=search_term) \
-		                             | Q(complements__icontains=search_term)    \
-		                             | Q(proficient_areas__icontains=search_term) \
-		                             | Q(foreign_langs__icontains=search_term) \
-		                             | Q(computer_skills__icontains=search_term) \
-		                             | Q(other_skills__icontains=search_term) \
-		                             | Q(interests__icontains=search_term) )
-		
-	else:
-		form = CvFindForm()
-		res = []
-	
-	return render(request,'curriculum_find.html',{'form':form,'results':res})
-	

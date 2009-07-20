@@ -7,5 +7,7 @@ register = Library()
 
 @register.filter
 def todo(value):
-	max_word = 4
-	return "<ul>" + "\n".join([ ("<li class='%s'><a href='%s' title='%s days left in %s with %s priority'>%s</a></li>" % ( color_status(obj),obj.get_absolute_url(),dist(obj.due_date),obj.project.name,obj.get_priority_display(),truncate(obj.title, max_word)) ) for obj in User.objects.get(username=value).actionitem_todo.filter(done=False) ]) + "</ul>"
+	max_letters = 25
+	f = lambda x: x and (x + ' days left') or 'No due date'
+	
+	return "<ul>" + "\n".join([ ("<li class='%s'><a href='%s' title='%s in %s with %s priority'>%s</a></li>" % ( color_status(obj),obj.get_absolute_url(),f(dist(obj.due_date)),obj.project.name,obj.get_priority_display(),truncate(obj.title, max_letters)) ) for obj in User.objects.get(username=value).actionitem_todo.filter(done=False) ]) + "</ul>"

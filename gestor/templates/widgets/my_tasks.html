@@ -17,7 +17,7 @@
 
 			<div class="task_info">
 				<li class="{{object|colorstatus}}">
-					<a href="{{object.get_absolute_url}}" title="{{remaining}} days left in {{object.project.name}} with {{object.get_priority_display}} priority">{{object.title}}</a>
+					<a href="{{object.get_absolute_url}}" title="{% if remaining %}{{remaining}} days left{% else %}No due date{% endif %} in {{object.project.name}} with {{object.get_priority_display}} priority">{{object.title}}</a>
 				</li>
 			</div>
 

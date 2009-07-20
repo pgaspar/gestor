@@ -20,5 +20,5 @@ class NewsFeed(Feed):
         return u"http://jeknowledge.com/"
         
     def items(self):
-        return News.objects.order_by('-date')[:15]
+        return News.objects.filter(is_published=True).order_by('-date')[:15]
         

@@ -4,19 +4,24 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedire
 from django.contrib.auth.decorators import login_required
 from django.views.generic.create_update import *
 
+from django.contrib.syndication.views import feed
+
 from gestor.models import Project, ActionItem, Note, ActionNote, File
+from cvmanager.models import CurriculumVitae
+from accounts.models import UserProfile
 from django.contrib.auth.models import User
 
 from django.core.exceptions import PermissionDenied
 
 from django.forms import *
-from gestor.forms import NoteForm, ActionForm, FileForm, ActionNoteForm, ProjectForm
+from gestor.forms import NoteForm, ActionForm, FileForm, ActionNoteForm, ProjectForm, SearchForm
 
+from django.db.models import Q
 from django.core.mail import send_mail
 
 from settings import *
 from common.utils import render
-from gestor.utils import dist
+from gestor.utils import dist, mergeLists
 
 from datetime import date
 
@@ -24,7 +29,16 @@ from datetime import date
 # General Views
 
 def create_view(request,object_id,form_class,template_name):
-	model = form_class.Meta.model
+	model = form_class.Meta.model	# Never a Project
+	
+	if model is ActionNote:
+		obj = get_object_or_404(ActionItem,id=object_id).project
+	else:
+		obj = get_object_or_404(Project,id=object_id)
+	
+	if not (request.user.has_perm('gestor.add_' + model._meta.module_name) or obj.has_user(request.user)):
+		raise PermissionDenied()
+	
 	if request.method == 'POST':
 		form = form_class(request.POST, request.FILES)
 		if form.is_valid():
@@ -60,11 +74,12 @@ def create_view(request,object_id,form_class,template_name):
 def edit_view(request,object_id,form_class,template_name):
 	model = form_class.Meta.model	
 	obj = get_object_or_404(model,id=object_id)
+	
+	if model is ActionNote: proj = obj.actionitem.project
+	else: proj = obj.project
 
-	if model is ActionNote:
-		obj.actionitem.project.check_user(request.user)
-	else:
-		obj.project.check_user(request.user)
+	if not (request.user.has_perm('gestor.change_' + model._meta.module_name) or proj.has_user(request.user)):
+		raise PermissionDenied()
 
 	if request.method == 'POST':
 		form = form_class(request.POST, request.FILES, instance=obj)
@@ -104,10 +119,13 @@ def edit_view(request,object_id,form_class,template_name):
 
 def delete_view(request,object_id,model):
 	obj = get_object_or_404(model,id=object_id)
-	if model is ActionNote:
-		obj.actionitem.project.check_user(request.user)
-	else:
-		obj.project.check_user(request.user)
+	
+	if model is ActionNote: proj = obj.actionitem.project
+	else: proj = obj.project
+
+	if not (request.user.has_perm('gestor.delete_' + model._meta.module_name) or proj.has_user(request.user)):
+		raise PermissionDenied()
+	
 	obj.delete()
 	request.user.message_set.create(message='The %s was deleted' % model._meta.verbose_name )
 	if model is ActionNote:
@@ -122,8 +140,8 @@ def delete_view(request,object_id,model):
 @login_required
 def project_edit(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
-	
-	if not request.user.is_staff and not request.user == p.manager: raise PermissionDenied()
+
+	p.check_manager(request.user, 'change')
 
 	if request.method == 'POST':
 		form = ProjectForm(request.POST, instance = p)
@@ -142,7 +160,7 @@ def project_edit(request, object_id):
 
 @login_required
 def project_create(request):
-	if request.user.is_staff:
+	if request.user.has_perm('gestor.add_project'):
 		p = Project()
 		
 		if request.method == 'POST':
@@ -166,7 +184,7 @@ def project_fastedit(request, object_id):
 	if request.method == 'POST':
 		p = get_object_or_404(Project,id=object_id)
 		
-		if not request.user.is_staff: p.check_manager(request.user)
+		p.check_manager(request.user, 'change')
 		
 		p.description = request.POST['content']
 		p.save()
@@ -183,7 +201,7 @@ def project_list(request):
 	
 @login_required
 def project_dashboard(request):
-	my_proj = request.user.projects_working.order_by("-active","end_date")
+	my_proj = mergeLists(request.user.projects_working.order_by("-active","end_date"), request.user.projects_managed.order_by("-active","end_date"))
 	
 	my_task = [ [item, dist(item.due_date)] for item in request.user.actionitem_todo.all() ]
 	
@@ -206,7 +224,7 @@ def project_detail(request,object_id):
 @login_required
 def project_reopen(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
-	p.check_manager(request.user)
+	p.check_manager(request.user, 'change')
 
 	p.active = True
 	p.save()
@@ -216,7 +234,7 @@ def project_reopen(request, object_id):
 @login_required
 def project_close(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
-	if not request.user.is_staff: p.check_manager(request.user)
+	p.check_manager(request.user, 'change')
 	
 	p.active = False
 	p.save()
@@ -322,6 +340,10 @@ def action_edit(request,object_id):
 @login_required
 def action_finish(request, object_id):
 	obj = get_object_or_404(ActionItem,id=object_id)
+
+	if not (request.user.has_perm('gestor.change_actionitem') or obj.project.has_user(request.user)):
+		raise PermissionDenied()
+	
 	obj.done = True
 	obj.save()
 	return action_detail(request,object_id)
@@ -354,3 +376,72 @@ def action_ical(request,username):
 	response['Filename'] = filename  # IE needs this
 	response['Content-Disposition'] = 'attachment; filename='+filename
 	return response
+
+# Feed View
+
+@login_required
+def protected_feed(*args, **kwargs):
+	return feed(*args, **kwargs)
+	
+@login_required
+def search_everything(request):
+	res = {}
+	
+	if request.method == 'POST':
+		form = SearchForm(request.POST)
+		if form.is_valid():
+			search_term = form.cleaned_data['find'].rstrip()
+			
+			res['Cv'] = CurriculumVitae.objects.select_related("owner").filter(
+									   Q(owner__first_name__icontains=search_term) \
+									 | Q(owner__last_name__icontains=search_term) \
+									 | Q(course__icontains=search_term) \
+									 | Q(complements__icontains=search_term)    \
+									 | Q(proficient_areas__icontains=search_term) \
+									 | Q(foreign_langs__icontains=search_term) \
+									 | Q(computer_skills__icontains=search_term) \
+									 | Q(other_skills__icontains=search_term) \
+									 | Q(interests__icontains=search_term) )
+
+			res['User'] = list( set( list( User.objects.filter(
+									   Q(first_name__icontains=search_term) \
+									 | Q(last_name__icontains=search_term) \
+									 | Q(username__icontains=search_term) ) ) \
+						+ [ p.user for p in UserProfile.objects.filter(
+									   Q(organization__icontains=search_term) \
+									 | Q(title__icontains=search_term) \
+									 | Q(description__icontains=search_term) ) ] ) )
+									 
+			
+			res['Proj'] = Project.objects.filter(
+									   Q(name__icontains=search_term) \
+									 | Q(description__icontains=search_term) )
+			
+			res['ActionItem'] = ActionItem.objects.filter(
+									   Q(title__icontains=search_term) \
+									 | Q(description__icontains=search_term) )
+			
+			res['ActionNote'] = ActionNote.objects.filter(
+									   Q(actionitem__title__icontains=search_term) \
+									 | Q(description__icontains=search_term) )
+			
+			res['Note'] = Note.objects.filter(
+									   Q(title__icontains=search_term) \
+									 | Q(description__icontains=search_term) )
+			
+			res['File'] = File.objects.filter( Q(title__icontains=search_term) )
+		
+		else:
+			return render(request,'generic_search.html',{'form':form,'results': False})
+	else:
+		form = SearchForm()
+		return render(request,'generic_search.html',{'form':form,'results': False})
+	
+	return render(request,'generic_search.html',{'form':form,'results': len( [ v for k,v in res.items() if v ] ) > 0,
+												  'res_cv': res['Cv'],
+												  'res_user': res['User'],
+												  'res_proj': res['Proj'],
+												  'res_actionitem': res['ActionItem'],
+												  'res_actionnote': res['ActionNote'],
+												  'res_file': res['File'],
+												  'res_note': res['Note'] })

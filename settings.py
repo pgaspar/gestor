@@ -110,9 +110,12 @@ INSTALLED_APPS = (
 	'gestor',
 	'cvmanager',
 	'mainsite',
+    'formacao',
 )
 
 DATE_FORMAT = "d/F/Y"
+
+AUTH_PROFILE_MODULE = "accounts.userprofile"
 
 FIXTURE_DIRS = os.path.join(ROOT_PATH, 'fixtures')
 

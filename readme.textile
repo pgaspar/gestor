@@ -1,4 +1,4 @@
-﻿h1. jeKnowledge's Information System
+h1. jeKnowledge's Information System
 
 "jeKnowledge.com":http://jeknowledge.com
 
