@@ -216,7 +216,7 @@ def project_dashboard(request):
 	class MockUserWithCount(object):
 		def __init__(self,user,count):
 			self.user = user
-			self.count = count
+			self.count = int(count)
 	
 	late_people = []
 	for u in User.objects.all():
