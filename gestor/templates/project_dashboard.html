@@ -7,15 +7,17 @@
 			{% include "widgets/my_projs.html" %}
 			
 			{% include "widgets/my_tasks.html" %}
+			
+			{% if perms.gestor.view_late_users %}
+				{% include "widgets/late_people.html" %}
+			{% endif %}
 		</div>
 		
 		<div id="col">
 			{% include "widgets/jk_projs.html" %}
 			
-			{% if request.user.is_staff %}
+			{% if perms.gestor.view_late_projects %}
 				{% include "widgets/late_projects.html" %}
-				
-				{% include "widgets/late_people.html" %}
 			{% endif %}
 		</div>
 		

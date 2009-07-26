@@ -23,7 +23,10 @@ class Project(models.Model):
 	
 	class Meta:
 		ordering = ["-start_date"]
-		permissions = [ ('view_project','Can view Projects'), ('view_intern_projects', 'Can view intern Projects') ]
+		permissions = [ ('view_project','Can view Projects'), 
+						('view_intern_projects', 'Can view intern Projects'),
+						('view_late_projects', 'Can view late Projects'),
+						('view_late_users', 'Can view late Users') ]
 	
 	def __unicode__(self):
 		return u"%s" % self.name
