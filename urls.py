@@ -23,7 +23,7 @@ urlpatterns = patterns('',
 	(r'^media/(.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 	(r'^dynamic-media/jsi18n/$', 'django.views.i18n.javascript_catalog'), 
 
-	(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+	#(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
 
     (r'^gestor/', include('gestor.urls')),
