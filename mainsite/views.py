@@ -42,7 +42,7 @@ def news_detail(request, **kwargs):
 	if (request.user.has_perm('mainsite.change_news')):
 		kwargs['queryset'] = News.objects.all()
 	else: kwargs['queryset'] = News.objects.filter(is_published=True)
-		
+	
 	return object_detail(request, **kwargs)
 		
 def news_index(request, **kwargs):
