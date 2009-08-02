@@ -13,6 +13,7 @@
 	
 	{% load humanize %}
 	{% load markup %}
+	{% load avatar_tags %}
 	
 	<body>
 
@@ -24,6 +25,10 @@
 			<h2>Curriculum Vitae</h2>
 			<h1 class="fn">{{ u.get_full_name }}</h1>
    
+			<div class="photo">
+				{% avatar u %}
+			</div>
+
 			{# <p class="adr"><span class="street-address">{{ cv.address|force_escape|textile }}</span></p> #}
    			
 			{% if cv.homepage %}

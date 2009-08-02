@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load humanize %}
 {% load markup %}
+{% load avatar_tags %}
 
 {% block content %}
 	<div class="hresume">
@@ -13,6 +14,11 @@
 
 
 			<h2>Personal info</h2>
+			
+			<div class="photo">
+				{% avatar u %}
+			</div>
+			
 			<div class="personal-info">
 				<p><b class="label adr">Address:</b> <span class="street-address">{{cv.address|linebreaksbr}}</span></p>
 				<p><b class="label">Phone:</b> <span class="tel">{{cv.phone}}</span></p>

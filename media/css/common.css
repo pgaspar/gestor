@@ -68,3 +68,8 @@ div {
 	margin: 0;
 	padding: 0;
 }
+
+.photo {
+	float: right;
+	margin: 10px;
+}

@@ -17,6 +17,9 @@
 			{% endif %}
 		</div>
 
+		{% if profile.photo %}
+			<img class="photo" src="{{profile.photo.url}}" />
+		{% endif %}
 		<h3>Personal info</h3>
 		<div class="personal-info">
 			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="email">{{u.email}}</a></p>

@@ -8,6 +8,7 @@ class UserProfile(models.Model):
 	organization = models.CharField("Organization", max_length=20, default='jeKnowledge', null=True)
 	title = models.CharField("Position", max_length=40, blank=True, null=True)
 	description = models.TextField(blank=True, null=True)
+	photo = models.FileField(upload_to="photos", blank=True, null=True)
 	
 	class Meta:
 		permissions = (('view_profiles', 'View all Profiles'),

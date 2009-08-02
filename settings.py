@@ -106,6 +106,7 @@ INSTALLED_APPS = (
 	'django.contrib.markup',
     'django_evolution',
 	#'extensions',
+	'avatar',
 	'accounts',
 	'gestor',
 	'cvmanager',

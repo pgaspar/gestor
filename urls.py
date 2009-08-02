@@ -25,6 +25,7 @@ urlpatterns = patterns('',
 
 	#(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
+    (r'^avatar/', include('avatar.urls')),
 
     (r'^gestor/', include('gestor.urls')),
     (r'^users/(?P<username>([A-z]|[0-9]|[_])+)/$', 'accounts.views.profile'),

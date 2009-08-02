@@ -75,3 +75,8 @@ div.contact {
 	color: #736D7B;
 	margin-top: 20px;
 }
+
+.photo {
+	width: 80px;
+	float: right;
+}
