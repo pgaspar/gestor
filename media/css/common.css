@@ -51,9 +51,6 @@ fieldset li{
 	padding-bottom:10px;
 }
 
-fieldset input{
-	float:left;
-}
 fieldset label{
 	width:140px;
 	float:left;

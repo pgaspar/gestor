@@ -106,12 +106,12 @@ INSTALLED_APPS = (
 	'django.contrib.markup',
     'django_evolution',
 	#'extensions',
-	'avatar',
 	'accounts',
 	'gestor',
 	'cvmanager',
 	'mainsite',
     'formacao',
+	'sorl.thumbnail',
 )
 
 DATE_FORMAT = "d/F/Y"
@@ -119,6 +119,10 @@ DATE_FORMAT = "d/F/Y"
 AUTH_PROFILE_MODULE = "accounts.userprofile"
 
 FIXTURE_DIRS = os.path.join(ROOT_PATH, 'fixtures')
+
+DEFAULT_AVATAR = u'photos/default.png'
+
+THUMBNAIL_SUBDIR = '_thumbs'
 
 # SMTP
 EMAIL_HOST = 'mail.wservices.ch'

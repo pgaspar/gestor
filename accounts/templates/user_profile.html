@@ -17,22 +17,28 @@
 			{% endif %}
 		</div>
 
-		{% if profile.photo %}
-			<img class="photo" src="{{profile.photo.url}}" />
-		{% endif %}
 		<h3>Personal info</h3>
 		<div class="personal-info">
+			{% if profile.photo %}
+				{% if not profile.photo_is_default %}
+					<a href="{{profile.photo.url}}" target='_blank'><img class="photo" src="{{profile.photo.thumbnail}}" alt={{u.get_full_name}} /></a>
+				{% else %}
+					<img class="photo" src="{{profile.photo.thumbnail}}" alt={{u.get_full_name}} />
+				{% endif %}
+			{% endif %}
+			
 			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="email">{{u.email}}</a></p>
 			
 			{% if perms.cvmanager.can_view_cv_details or request.user|equals:u %}
 			<p><b class="label">Last Visit:</b> {{u.last_login|naturalday}}</p>
 			<p><b class="label">User Since:</b> {{u.date_joined|naturalday}}</p>
 			{% endif %}
-			
+						
 			{% if profile %}<span class="org" style="display: none">{{ profile.organization }}</span>{% else %}
 			<span class="org" style="display: none">jeKnowledge</span>{% endif %}
 		</div>
 		
+		<div class="clear" />
 		
 		{% if profile %}
 		<h3>Career info</h3>

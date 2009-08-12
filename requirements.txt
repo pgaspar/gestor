@@ -1,3 +1,4 @@
 django >= 1.0
 vobject
 -e svn+http://django-evolution.googlecode.com/svn/trunk/
+-e svn+http://sorl-thumbnail.googlecode.com/svn/trunk/
