@@ -17,13 +17,13 @@ class ImageWidget(AdminFileWidget):
 	def render(self, name, value, attrs=None):
 		output = []
 		
-		if (value and hasattr(value, 'url')) or (value and self.instance):
+		if (value and hasattr(value, 'url')) or (value and 'instance' in vars(self)):
 			if not hasattr(value, 'url'): value = self.instance.photo
-			output.append('<table class="img_widget"><tr><td><a target="_blank" href="%s">%s</a></td><td>%s <a target="_blank" href="%s">%s</a><br />%s ' % \
+			output.append('<table style="border: 0px;"><tr><td style="vertical-align: middle; border: 0px;"><a target="_blank" href="%s">%s</a></td><td style="vertical-align: middle; border: 0px;">%s <a target="_blank" href="%s">%s</a><br />%s ' % \
 				(value.url, value.extra_thumbnails_tag['small'], _('Currently:'), value.url, value, _('Change:')))
 		else:
 			file_path = settings.MEDIA_URL + settings.DEFAULT_AVATAR
-			output.append('<table class="img_widget"><tr><td><a target="_blank" href="%s">%s</a></td><td>%s <a target="_blank" href="%s">%s</a><br />%s ' % \
+			output.append('<table style="border: 0px;"><tr><td style="vertical-align: middle; border: 0px;"><a target="_blank" href="%s">%s</a></td><td style="vertical-align: middle; border: 0px;">%s <a target="_blank" href="%s">%s</a><br />%s ' % \
 				(file_path, thumbnail(settings.DEFAULT_AVATAR, (40,40)), _('Currently:'), file_path, settings.DEFAULT_AVATAR, _('Change:')))
 		
 		output.append(super(AdminFileWidget, self).render(name, value, attrs))
