@@ -49,6 +49,9 @@ def edit_profile(request):
 			request.user.message_set.create(message="Your Profile was updated")
 
 			return HttpResponseRedirect(profile.get_absolute_url())
+		else:
+			if 'photo' in profile_form._errors:
+				profile_form.fields['photo'].widget.instance = profile
 	else:
 		if profile: profile_form = UserProfileForm(instance=profile)
 		else: profile_form = UserProfileForm(initial={'user':request.user})

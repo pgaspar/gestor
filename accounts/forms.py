@@ -9,7 +9,7 @@ from django.conf import settings
 
 class UserProfileForm(ModelForm):
 	user = ModelChoiceField(queryset=User.objects.all(),widget=HiddenInput())
-	photo = LimitedImageField(widget=ImageWidget, required=False)
+	photo = LimitedImageField(widget=ImageWidget(UserProfile), required=False)
 	
 	class Meta:
 		model = UserProfile
