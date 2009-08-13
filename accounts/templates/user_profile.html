@@ -16,8 +16,8 @@
 				<b>Admin</b>
 			{% endif %}
 		</div>
-
-		<h3>Personal info</h3>
+		
+		<h3>Personal info {% if request.user|equals:u %}<a href="/accounts/edit_profile"><img src="{{MEDIA_URL}}icons/pencil.png" height="12px" alt="Edit your Profile" title="Edit your Profile" /></a>{% endif %}</h3>
 		<div class="personal-info">
 			{% if profile.photo %}
 				{% if not profile.photo_is_default %}
@@ -40,16 +40,20 @@
 		
 		<div class="clear" />
 		
-		{% if profile %}
-		<h3>Career info</h3>
-		<div class="career-info">
-			<p><b class="label">Organization:</b> {{profile.organization}}</p>
-			{% if profile.title %}<p><b class="label">Position:</b> {{profile.title}}</p>{% endif %}
-			{% if profile.description %}{{profile.description|force_escape|textile}}{% endif %}
-		</div>
+		{% if profile or request.user|equals:u %}
+		<h3>Career info {% if request.user|equals:u %}<a href="/accounts/edit_profile"><img src="{{MEDIA_URL}}icons/pencil.png" height="12px" alt="Edit your Profile" title="Edit your Profile" /></a>{% endif %}</h3>
+		{% if not profile %}
+			<p>You don't have Career info yet! <a href="/accounts/edit_profile">Edit your profile here.</a></p>
+		{% else %}
+			<div class="career-info">
+				<p><b class="label">Organization:</b> {{profile.organization}}</p>
+				{% if profile.title %}<p><b class="label">Position:</b> {{profile.title}}</p>{% endif %}
+				{% if profile.description %}{{profile.description|force_escape|textile}}{% endif %}
+			</div>
+		{% endif %}
 		{% endif %}
 		
-		<h3>Curriculum Vitae</h3>
+		<h3>Curriculum Vitae {% if request.user|equals:u %}<a href="/accounts/edit_curriculum"><img src="{{MEDIA_URL}}icons/pencil.png" height="12px" alt="Edit your Curriculum" title="Edit your Curriculum" /></a>{% endif %}</h3>
 		
 		{% if perms.cvmanager.can_view_cv or request.user|can_view_this_cv:u %}
 			{% ifequal u.curriculumvitae_set.count 0 %}
@@ -87,7 +91,7 @@
    
 			{% if past_projects %}
 				<h3>Past Projects</h3>
-				<ul>
+				<ul class="projects">
 					{% for project in past_projects %}
 						<li><a href="{{project.get_absolute_url}}">{{project.name}}</a>
 						{% ifequal project.manager u  %}

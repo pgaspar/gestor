@@ -4,7 +4,7 @@ from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
 
 from accounts.models import UserProfile
-from accounts.forms import UserProfileForm
+from accounts.forms import UserProfileForm, UserForm
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -51,15 +51,20 @@ def edit_my_profile(request):
 		POST['user'] = u.id
 		
 		profile_form = UserProfileForm(POST, request.FILES, instance=profile)
+		user_form = UserForm(request.POST, request.FILES, instance=u)
 		
-		if profile_form.is_valid():
+		if user_form.is_valid() and profile_form.is_valid():
+			u = user_form.save()
 			profile = profile_form.save()
-
+			profile.user = u
+			
 			request.user.message_set.create(message="Your Profile was updated")
-
+			
 			return HttpResponseRedirect(profile.get_absolute_url())
 	else:
+		user_form = UserForm(instance=u)
+		
 		if profile: profile_form = UserProfileForm(instance=profile)
 		else: profile_form = UserProfileForm(initial={'user':request.user})
-	
-	return render(request, 'edit_profile.html', {'profile_form':profile_form})
+		
+	return render(request, 'edit_profile.html', {'profile_form':profile_form, 'user_form':user_form})

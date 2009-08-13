@@ -27,8 +27,6 @@
 			{% if profile.photo %}
 				{% if not profile.photo_is_default %}
 					<a href="{{profile.photo.url}}" target='_blank'><img class="photo" src="{{profile.photo.thumbnail}}" alt={{u.get_full_name}} /></a>
-				{% else %}
-					<img class="photo" src="{{profile.photo.thumbnail}}" alt={{u.get_full_name}} />
 				{% endif %}
 			{% endif %}
 
