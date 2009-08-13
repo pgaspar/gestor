@@ -47,7 +47,7 @@
 			
 			<div class="manager_options smaller">
 			
-				<a href="/gestor/project/{{object.id}}/edit/"><img src="/media/icons/plain_edit.gif" width="13px" alt=""> Edit this Project</a><br />
+				<a href="/gestor/project/{{object.id}}/edit/"><img src="/media/icons/pencil.png" width="13px" alt=""> Edit this Project</a><br />
 				{% if object.active %}
 					<a href="/gestor/project/{{object.id}}/close"><img src="/media/icons/box.png" width="13px" alt="">  Close this Project</a>
 				{% else %}
@@ -87,9 +87,12 @@
 			<img src="{{MEDIA_URL}}icons/note_add.png" alt=""> <a href="/gestor/note/in/{{object.id}}">New Note</a>
 		</div>
 		<div class="four_col">
-			<p><span class="label">Files: </span></p> <ul class="files">
+			<p><span class="label">Files: </span></p> <ul>
 				{% for file in files %}
-					<li><a href="{{file.get_absolute_url}}">{{file.title}}</a></li>
+					<li style="list-style: none">
+						<a href="{{file.content.url}}" alt='Download File' title='Download File'><img src="{{MEDIA_URL}}icons/page_save.png" /></a>&nbsp;&nbsp;
+						<a href="{{file.get_absolute_url}}">{{file.title}}</a>
+					</li>
 				{% endfor %}
 			</ul>
 			<img src="{{MEDIA_URL}}icons/page_add.png" alt=""> <a href="/gestor/file/in/{{object.id}}">New File</a>
