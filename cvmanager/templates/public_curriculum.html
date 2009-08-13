@@ -13,7 +13,6 @@
 	
 	{% load humanize %}
 	{% load markup %}
-	{% load avatar_tags %}
 	
 	<body>
 
@@ -25,9 +24,13 @@
 			<h2>Curriculum Vitae</h2>
 			<h1 class="fn">{{ u.get_full_name }}</h1>
    
-			<div class="photo">
-				{% avatar u %}
-			</div>
+			{% if profile.photo %}
+				{% if not profile.photo_is_default %}
+					<a href="{{profile.photo.url}}" target='_blank'><img class="photo" src="{{profile.photo.thumbnail}}" alt={{u.get_full_name}} /></a>
+				{% else %}
+					<img class="photo" src="{{profile.photo.thumbnail}}" alt={{u.get_full_name}} />
+				{% endif %}
+			{% endif %}
 
 			{# <p class="adr"><span class="street-address">{{ cv.address|force_escape|textile }}</span></p> #}
    			

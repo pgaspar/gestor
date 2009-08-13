@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load humanize %}
 {% load markup %}
-{% load avatar_tags %}
 
 {% block content %}
 	<div class="hresume">
@@ -15,9 +14,13 @@
 
 			<h2>Personal info</h2>
 			
-			<div class="photo">
-				{% avatar u %}
-			</div>
+			{% if profile.photo %}
+				{% if not profile.photo_is_default %}
+					<a href="{{profile.photo.url}}" target='_blank'><img class="photo" src="{{profile.photo.thumbnail}}" alt={{u.get_full_name}} /></a>
+				{% else %}
+					<img class="photo" src="{{profile.photo.thumbnail}}" alt={{u.get_full_name}} />
+				{% endif %}
+			{% endif %}
 			
 			<div class="personal-info">
 				<p><b class="label adr">Address:</b> <span class="street-address">{{cv.address|linebreaksbr}}</span></p>
@@ -26,6 +29,9 @@
 				{% if cv.homepage %}<p><b class="label">Homepage:</b> <span class="url">{{cv.homepage|urlize }}</span></p>{% endif %}
 			</div>
 		</div>
+		
+		<div class="clear" />
+		
 		<h2>Course info</h2>
 		<div class="cv-course education vevent">
 			<p><b class="label">Course:</b> <span class="summary">{{cv.course}}</span></p>
