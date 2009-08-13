@@ -70,3 +70,12 @@ div {
 	float: right;
 	margin: 10px;
 }
+
+.img_widget {
+	 border: 0px;
+}
+
+.img_widget td {
+	vertical-align: middle;
+	border: 0px;
+}
