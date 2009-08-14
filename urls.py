@@ -32,7 +32,6 @@ urlpatterns = patterns('',
 
 	(r'^users/(?P<username>([A-z]|[0-9]|[_])+)/$', 'accounts.views.profile'),
 	(r'^users/(?P<username>([A-z]|[0-9]|[_])+)/curriculum/$', 'cvmanager.views.curriculum'),
-	(r'^(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),
 
 	(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
 	
@@ -66,4 +65,6 @@ urlpatterns = patterns('',
 	# RH's Survey
 	(r'^rh/$', 'django.views.generic.simple.direct_to_template', {'template': 'inquerito.html'}),
 	
+	# Public curriculums - must be the last one.
+	(r'^(?P<username>([A-z]|[0-9]|[_])+)/$', 'cvmanager.views.public_curriculum'),
 )
