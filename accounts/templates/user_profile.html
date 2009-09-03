@@ -30,6 +30,8 @@
 			<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="email">{{u.email}}</a></p>
 			
 			{% if perms.cvmanager.can_view_cv_details or request.user|equals:u %}
+			{% if profile.im %}<p><b class="label">IM:</b> {{profile.im}}</p>{% endif %}
+			
 			<p><b class="label">Last Visit:</b> {{u.last_login|naturalday}}</p>
 			<p><b class="label">User Since:</b> {{u.date_joined|naturalday}}</p>
 			{% endif %}
