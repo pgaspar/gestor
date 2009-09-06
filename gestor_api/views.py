@@ -33,12 +33,20 @@ def generate_confirmation(message = 'OK', extension = 'xml'):
     confirm = {'ok' : {'message' : message}}
     return generate_structured_response(confirm, extension)
 
+def get_arguments(request, extension):
+    if request.method == 'POST':
+        return request.POST
+    elif request.method == 'GET':
+        return request.GET
+    else:
+        return generate_error("Request has to be either GET or POST.", extension)
+
 
 #===============================================================================
 # REQUESTS
 #===============================================================================
 
-@logged_in_or_basicauth()
+@basicauth()
 def action_items_all(request, extension):
     """
     Show all the action items of the authenticated user
@@ -48,7 +56,7 @@ def action_items_all(request, extension):
     structure = generate_action_items_structure(action_items)
     return generate_structured_response(structure, extension)
 
-@logged_in_or_basicauth()
+@basicauth()
 def action_items_todo(request, extension):
     """
     Show all the action items not done of the authenticated user
@@ -58,68 +66,52 @@ def action_items_todo(request, extension):
     structure = generate_action_items_structure(action_items)
     return generate_structured_response(structure, extension)
 
-@logged_in_or_basicauth()
+@basicauth()
 def action_items_create(request, extension):
     """
     Create a new action item
     / action_items / create    
     """
-    arguments = request.GET
+    arguments = get_arguments(request, extension)
     
     # Create action item
     new_action_item = ActionItem()
     new_action_item.author = request.user
-    action_item_targets = []
     
-    # Handle given arguments
-    for key in arguments.keys():
-        
-        # Project
-        if key == 'project_id':
-            project_id =  arguments[key]
-            project = Project.objects.filter( id = project_id )
-            if project:
-                new_action_item.project = project[0]
-            else:
-                return generate_error("Unknown project with id '" + project_id + "'", extension)
-        
-        # Targets    
-        elif key == 'targets':
-            user_ids = arguments[key].split(',')
-            
-            for user_id in user_ids:
-                user = User.objects.filter(id = user_id)
-                if user:
-                    action_item_targets.append(user[0])
-                else:
-                    return generate_error("Unknown user with id '" + user_id + "'", extension)
-            print action_item_targets
-            
-        # Other atributes
-        elif model_has_field(ActionItem, key):
-            try:
-                setattr(new_action_item, key, arguments[key])
-            except Exception, exception:
-                return generate_error("Invalid value '" + arguments[key] + "' for the attribute '" + key + "'", extension)
-            
-        else:
-            return generate_error("Unknown action item attribute: '" + key + "'", extension)
-    
-    if not action_item_targets:
-        return generate_error("The argument 'targets' is not defined. An action item needs user targets.", extension)
-    
-    # Try to save the new action item
-    try:
-        print new_action_item.due_date
-        new_action_item.save()
-        new_action_item.targets = action_item_targets
-    except Exception, error:
-        return generate_error("IntegrityError: " + str(error))
-    
-    return generate_confirmation("Action item created.", extension)
-    
+    # Fill the action item with the arguments specified
+    error = update_action_item(new_action_item, arguments, extension)
 
+    if not error:
+        return generate_confirmation("Action item created.", extension)
+    else:
+        return error
+    
+@basicauth()
+def action_items_update(request, extension):
+    """
+    Updates an existing action item
+    / action_items / update    
+    """
+    arguments = get_arguments(request, extension)
+    
+    # Get existing action item, using the given id
+    if not arguments.has_key("id"):
+        return generate_error("No 'id' was specified.", extension)
+    action_item_id = arguments["id"]
+    
+    action_item = ActionItem.objects.filter( id = action_item_id )
+    if not action_item:
+        return generate_error("Unknown action item with id '" + action_item_id + "'.", extension)
+    action_item = action_item[0] # Get the object from the queryset
+    
+    # Fill the action item with the arguments specified
+    error = update_action_item(action_item, arguments, extension)
 
+    if not error:
+        return generate_confirmation("Action item updated.", extension)
+    else:
+        return error    
+    
 
 
 

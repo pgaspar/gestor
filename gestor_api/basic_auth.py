@@ -105,3 +105,22 @@ def has_perm_or_basicauth(perm, realm = DEFAULT_REALM):
                                      realm, *args, **kwargs)
         return wrapper
     return view_decorator
+
+def basicauth(realm = DEFAULT_REALM):
+    """
+    This decorator just tests everytime for basic authentication.
+
+    Use:
+
+    @basicauth
+    def your_view:
+        ...
+
+    """
+    def view_decorator(func):
+        def wrapper(request, *args, **kwargs):
+            return view_or_basicauth(func, request,
+                                     lambda u : False,
+                                     realm, *args, **kwargs)
+        return wrapper
+    return view_decorator
