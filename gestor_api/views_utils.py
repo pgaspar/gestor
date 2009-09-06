@@ -1,4 +1,16 @@
 from gestor.models import *
+from django.db.models.fields import FieldDoesNotExist
+
+def model_has_field(model, field):    
+    try:
+        model._meta.get_field_by_name(field)
+        return True
+    except FieldDoesNotExist:
+        return False
+
+#===============================================================================
+# STRUCTURES
+#===============================================================================
 
 def generate_action_items_structure(action_items):
     action_item_list = []
