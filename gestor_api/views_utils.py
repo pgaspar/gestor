@@ -1,12 +1,59 @@
 from gestor.models import *
-from django.db.models.fields import FieldDoesNotExist
 
-def model_has_field(model, field):    
+from django.db.models.fields import FieldDoesNotExist
+from django.db import IntegrityError
+from django.http import HttpResponse
+
+#===============================================================================
+# HELPERS
+#===============================================================================
+
+def generate_structured_response(structure, extension):
+    "Generate the HTTP response for the given content and extension"
+    
+    # Default mimetype
+    mimetype = "text/plain"
+    
+    # Default is XML
+    if extension == 'xml' or not extension:
+        from xml_generator import generate_xml
+        result = generate_xml(structure)
+        mimetype = 'text/xml'
+    else:
+        return generate_error("Invalid extension: '" + extension + "'")
+        
+    response = HttpResponse(result, mimetype = mimetype)
+    return response
+
+def generate_error(error_messsage = 'Unknown error', extension = 'xml'):
+    "Generate a response with a given error message"
+    error = {'error' : {'message' : error_messsage}}
+    return generate_structured_response(error, extension)
+
+def generate_authorization_error(extension = 'xml'):
+    "Generate a response with a Not Authorized error."
+    error = {'error' : {'message' : 'Not authorized.'}}
+    return generate_structured_response(error, extension)
+
+def generate_confirmation(message = 'OK', extension = 'xml'):
+    "Generate a response with a confirmation message"
+    confirm = {'ok' : {'message' : message}}
+    return generate_structured_response(confirm, extension)
+
+def get_arguments(request, extension):
+    if request.method == 'POST':
+        return request.POST
+    elif request.method == 'GET':
+        return request.GET
+    else:
+        return generate_error("Request has to be either GET or POST.", extension)
+
+def check_permissions( project, user, extension ):
     try:
-        model._meta.get_field_by_name(field)
-        return True
-    except FieldDoesNotExist:
-        return False
+        project.check_user( user )
+    except Exception:
+        return generate_authorization_error( extension )
+    return None
 
 #===============================================================================
 # STRUCTURES
@@ -75,6 +122,13 @@ def generate_projects_structure(projects):
 #===============================================================================
 # MODELS
 #===============================================================================
+
+def model_has_field(model, field):    
+    try:
+        model._meta.get_field_by_name(field)
+        return True
+    except FieldDoesNotExist:
+        return False
 
 def update_action_item(action_item, arguments, extension):
     

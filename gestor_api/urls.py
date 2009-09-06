@@ -1,5 +1,7 @@
 from django.conf.urls.defaults import *
 
+# Final URL extension
+# Examples: /show /show.m /show.xml /show.json
 ext = r'(\.(?P<extension>\w{1,4}))?$'
 
 urlpatterns = patterns('',

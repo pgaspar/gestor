@@ -1,47 +1,9 @@
-from django.http import Http404
-from django.db import IntegrityError
-
 from gestor.models  import *
-from basic_auth     import *
 
+from basic_auth  import *
 from views_utils import *
 
-#===============================================================================
-# HELPERS
-#===============================================================================
-
-def generate_structured_response(structure, extension):
-    "Generate the HTTP response for the given content and extension"
     
-    # Default is XML
-    if extension == 'xml' or not extension:
-        from xml_generator import generate_xml
-        result = generate_xml(structure)
-    else:
-        return generate_error("Invalid extension: '" + extension + "'")
-        
-    response = HttpResponse(result, mimetype="text/plain")
-    return response
-
-def generate_error(error_messsage = 'Unknown error', extension = 'xml'):
-    "Generate a response with a given error message"
-    error = {'error' : {'message' : error_messsage}}
-    return generate_structured_response(error, extension)
-
-def generate_confirmation(message = 'OK', extension = 'xml'):
-    "Generate a response with a confirmation message"
-    confirm = {'ok' : {'message' : message}}
-    return generate_structured_response(confirm, extension)
-
-def get_arguments(request, extension):
-    if request.method == 'POST':
-        return request.POST
-    elif request.method == 'GET':
-        return request.GET
-    else:
-        return generate_error("Request has to be either GET or POST.", extension)
-
-
 #===============================================================================
 # REQUESTS
 #===============================================================================
@@ -67,6 +29,10 @@ def projects_show(request, project_id, extension):
     project = request.user.projects_working.filter( id = project_id )
     if not project:
         return generate_error("Unknown project with id '" + project_id + "'", extension)
+    
+    # Check permissions
+    not_authorized = check_permissions( project[0], request.user, extension )
+    if not_authorized: return not_authorized
     
     structure = generate_projects_structure(project)
     return generate_structured_response(structure, extension)
@@ -106,6 +72,12 @@ def action_items_create(request, extension):
     new_action_item = ActionItem()
     new_action_item.author = request.user
     
+    # Check permissions
+    if arguments.has_key('project_id'):
+        project = Project.objects.filter( id = arguments['project_id'] )
+        not_authorized = check_permissions( project[0], request.user, extension )
+        if not_authorized: return not_authorized
+    
     # Fill the action item with the arguments specified
     error = update_action_item(new_action_item, arguments, extension)
 
@@ -124,6 +96,10 @@ def action_items_show(request, item_id, extension):
     if not action_item:
         return generate_error("Unknown action item with id '" + item_id + "'.", extension)
     
+    # Check permissions
+    not_authorized = check_permissions( action_item[0].project, request.user, extension )
+    if not_authorized: return not_authorized
+    
     structure = generate_action_items_structure(action_item)
     return generate_structured_response(structure, extension)
     
@@ -138,6 +114,10 @@ def action_items_update(request, item_id, extension):
     if not action_item:
         return generate_error("Unknown action item with id '" + item_id + "'.", extension)
     action_item = action_item[0] # Get the object from the queryset
+    
+    # Check permissions
+    not_authorized = check_permissions( action_item.project, request.user, extension )
+    if not_authorized: return not_authorized
     
     # Fill the action item with the arguments specified
     arguments = get_arguments(request, extension)
@@ -158,6 +138,10 @@ def action_items_delete(request, item_id, extension):
     if not action_item:
         return generate_error("Unknown action item with id '" + item_id + "'.", extension)
     action_item = action_item[0] # Get the object from the queryset
+    
+    # Check permissions
+    not_authorized = check_permissions( action_item.project, request.user, extension )
+    if not_authorized: return not_authorized
     
     action_item.delete()
 

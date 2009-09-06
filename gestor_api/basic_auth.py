@@ -1,3 +1,7 @@
+#
+# As seen at: http://www.djangosnippets.org/snippets/243/
+#
+
 import base64
 
 from django.http import HttpResponse

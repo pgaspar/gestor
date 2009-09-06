@@ -4,7 +4,8 @@ from types import DictType, ListType
 def generate_xml(structure):
     "Generate a XML file from a dictionary structure"
     
-    if not structure: return ""
+    if not structure: 
+        raise ValueError("A structure is needed.")
     
     # Create the minidom document
     doc = Document()
@@ -18,7 +19,7 @@ def generate_xml(structure):
     doc.appendChild(root)
     
     # Generate string of our newly created XML
-    return doc.toprettyxml(encoding="utf8", indent="    ")
+    return doc.toxml(encoding="utf8")
 
 def generate_xml_element(document, name, value):
     """
@@ -26,9 +27,18 @@ def generate_xml_element(document, name, value):
     with the given name and the content specified in value.
     
     The value can be:
-     - leaf element
-     - a dictionary (more xml elements)
-     - a list of dictionaries (a list xml elements with the same name)
+    * Leaf element
+        { 'id' : 123 }
+        <id> 123 </id>
+        
+    * A dictionary (more xml elements)
+        { 'thing' : { 'id' : 123, 'name' : 'foobar' } }
+        <thing> <id> 123 </id> <name> foobar </name> </thing>
+    
+    * A list of dictionaries (a list xml elements with the same name)
+        { 'thing' : [ { 'id' : 1 } , { 'id' : 2 } ] }
+        <thing> <id> 1 </id> <id> 2 </id> </thing>
+        
     """
     
     element = document.createElement(name)
@@ -51,8 +61,8 @@ def generate_xml_element(document, name, value):
                 process_dictionary(list_value)
             else:
                 raise ValueError("All list elements must be a dictionary.")
-    #Is a leaf        
-    else: 
+           
+    else: # is a leaf 
         leaf_content = document.createTextNode(str(value))
         element.appendChild(leaf_content)
     
