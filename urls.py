@@ -27,6 +27,7 @@ urlpatterns = patterns('',
 	(r'^admin/(.*)', admin.site.root),
 
 	(r'^gestor/', include('gestor.urls')),
+	(r'^gestor_api/', include('gestor_api.urls')),
 	(r'^accounts/', include('accounts.urls')),
 	(r'^formacao/', include('formacao.urls')),
 
