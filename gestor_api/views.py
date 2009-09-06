@@ -46,6 +46,34 @@ def get_arguments(request, extension):
 # REQUESTS
 #===============================================================================
 
+# PROJECTS
+
+@basicauth()
+def projects_all(request, extension):
+    """
+    Show all the projects of the authenticated user
+    / projects / all    
+    """
+    projects = request.user.projects_working.all()
+    structure = {'projects' : generate_projects_simple_structure(projects)}
+    return generate_structured_response(structure, extension)
+
+@basicauth()
+def projects_show(request, project_id, extension):
+    """
+    Show all the projects of the authenticated user
+    / projects / 123 / show    
+    """
+    project = request.user.projects_working.filter( id = project_id )
+    if not project:
+        return generate_error("Unknown project with id '" + project_id + "'", extension)
+    
+    structure = generate_projects_structure(project)
+    return generate_structured_response(structure, extension)
+
+
+# ACTION ITEMS
+
 @basicauth()
 def action_items_all(request, extension):
     """
@@ -87,24 +115,32 @@ def action_items_create(request, extension):
         return error
     
 @basicauth()
-def action_items_update(request, extension):
+def action_items_show(request, item_id, extension):
     """
     Updates an existing action item
-    / action_items / update    
+    / action_items / 123 / show    
     """
-    arguments = get_arguments(request, extension)
-    
-    # Get existing action item, using the given id
-    if not arguments.has_key("id"):
-        return generate_error("No 'id' was specified.", extension)
-    action_item_id = arguments["id"]
-    
-    action_item = ActionItem.objects.filter( id = action_item_id )
+    action_item = ActionItem.objects.filter( id = item_id )
     if not action_item:
-        return generate_error("Unknown action item with id '" + action_item_id + "'.", extension)
+        return generate_error("Unknown action item with id '" + item_id + "'.", extension)
+    
+    structure = generate_action_items_structure(action_item)
+    return generate_structured_response(structure, extension)
+    
+@basicauth()
+def action_items_update(request, item_id, extension):
+    """
+    Updates an existing action item
+    / action_items / 123 / update    
+    """
+    
+    action_item = ActionItem.objects.filter( id = item_id )
+    if not action_item:
+        return generate_error("Unknown action item with id '" + item_id + "'.", extension)
     action_item = action_item[0] # Get the object from the queryset
     
     # Fill the action item with the arguments specified
+    arguments = get_arguments(request, extension)
     error = update_action_item(action_item, arguments, extension)
 
     if not error:
@@ -112,7 +148,17 @@ def action_items_update(request, extension):
     else:
         return error    
     
+@basicauth()
+def action_items_delete(request, item_id, extension):
+    """
+    Updates an existing action item
+    / action_items / 123 / delete    
+    """
+    action_item = ActionItem.objects.filter( id = item_id )
+    if not action_item:
+        return generate_error("Unknown action item with id '" + item_id + "'.", extension)
+    action_item = action_item[0] # Get the object from the queryset
+    
+    action_item.delete()
 
-
-
-
+    return generate_confirmation("Action item deleted.", extension)

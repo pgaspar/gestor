@@ -33,15 +33,6 @@ def generate_action_items_structure(action_items):
     structure = {"action_items" : action_item_list}
     return structure
 
-def generate_projects_simple_structure(projects):
-    projects_list = []
-    for project in projects:
-        project_structure = {}
-        project_structure["id"] =      project.id
-        project_structure["name"] =    project.name
-        projects_list.append( {"project" : project_structure} )
-    return projects_list
-
 def generate_users_simple_structure(users):
     users_list = []
     for user in users:
@@ -52,7 +43,34 @@ def generate_users_simple_structure(users):
         users_list.append( {"user" : user_structure} )
     return users_list
 
+def generate_projects_simple_structure(projects):
+    projects_list = []
+    for project in projects:
+        project_structure = {}
+        project_structure["id"] =      project.id
+        project_structure["name"] =    project.name
+        projects_list.append( {"project" : project_structure} )
+    return projects_list
 
+def generate_projects_structure(projects):
+    projects_list = []
+    for project in projects:
+        fields = project.__dict__
+    
+        manager = User.objects.filter(id = fields["manager_id"])
+        fields["manager"] =  generate_users_simple_structure(manager)
+        del fields["manager_id"]
+        
+        team = project.team.all()
+        fields["team"] =  generate_users_simple_structure(team)
+    
+        action_items = project.actionitem_set.all()
+        fields.update( generate_action_items_structure(action_items) )
+    
+        projects_list.append( {"project" : fields} )
+        
+    structure = {"projects" : projects_list}
+    return structure
 
 #===============================================================================
 # MODELS
