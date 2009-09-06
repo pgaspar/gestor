@@ -6,11 +6,11 @@ import datetime
 class News(models.Model):
 	""" Website News """
 	
-	title = models.CharField(max_length=200)
+	title = models.CharField(max_length=200, default=None)
 	date = models.DateTimeField()
 	is_published = models.BooleanField(default=True, help_text=" Only published posts will be visible to the outside users. However, it will be visible to administrators like yourself!")
 	
-	body = models.TextField()
+	body = models.TextField(default=None)
 	author = models.ForeignKey(User, related_name='news_set', null=True, blank=True, default='')
 	
 	def save(self):
