@@ -10,7 +10,7 @@ class ProjectManager(models.Manager):
 
 
 class Project(models.Model):
-	name = models.CharField(max_length=100)
+	name = models.CharField(max_length=100, default=None)
 	description = models.TextField(blank=True)
 	active = models.BooleanField(default=True)
 	manager = models.ForeignKey(User, related_name='projects_managed')
@@ -63,7 +63,7 @@ class Project(models.Model):
 
 class ActionItem(models.Model):
 	project = models.ForeignKey(Project)
-	title = models.CharField(max_length=100)
+	title = models.CharField(max_length=100, default=None)
 	description = models.TextField(blank=True, null=True)
 	author = models.ForeignKey(User, related_name='actionitem_set')
 	targets = models.ManyToManyField(User, related_name = 'actionitem_todo')
@@ -83,7 +83,7 @@ class ActionItem(models.Model):
 
 class Note(models.Model):
 	project = models.ForeignKey(Project)
-	title = models.CharField(max_length=100)
+	title = models.CharField(max_length=100, default=None)
 	description = models.TextField(blank=True, null=True)
 	author = models.ForeignKey(User)
 	set_date = models.DateField(auto_now=True)
@@ -114,7 +114,7 @@ class ActionNote(models.Model):
 
 class File(models.Model):
 	project = models.ForeignKey(Project)
-	title = models.CharField(max_length=100)
+	title = models.CharField(max_length=100, default=None)
 	content = models.FileField(upload_to="files")
 	author = models.ForeignKey(User)
 	set_date = models.DateField(auto_now=True)
