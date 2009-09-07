@@ -23,7 +23,7 @@ def projects_all(request, extension):
 @basicauth()
 def projects_show(request, project_id, extension):
     """
-    Show all the projects of the authenticated user
+    Show the project with the specified ID
     / projects / 123 / show    
     """
     project = request.user.projects_working.filter( id = project_id )
@@ -89,7 +89,7 @@ def action_items_create(request, extension):
 @basicauth()
 def action_items_show(request, item_id, extension):
     """
-    Updates an existing action item
+    Shows an existing action item
     / action_items / 123 / show    
     """
     action_item = ActionItem.objects.filter( id = item_id )
