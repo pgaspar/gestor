@@ -19,7 +19,7 @@ def generate_xml(structure):
     doc.appendChild(root)
     
     # Generate string of our newly created XML
-    return doc.toxml(encoding="utf8")
+    return doc.toxml(encoding="utf-8")
 
 def generate_xml_element(document, name, value):
     """
