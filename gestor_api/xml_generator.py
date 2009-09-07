@@ -63,7 +63,7 @@ def generate_xml_element(document, name, value):
                 raise ValueError("All list elements must be a dictionary.")
            
     else: # is a leaf 
-        leaf_content = document.createTextNode(str(value))
+        leaf_content = document.createTextNode(unicode(value))
         element.appendChild(leaf_content)
     
     return element

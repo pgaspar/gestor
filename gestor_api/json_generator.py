@@ -39,4 +39,4 @@ def convert_leaf_to_string(structure):
 				convert_leaf_to_string(element)
 		
 		else:
-			structure[key] = str(value)
+			structure[key] = unicode(value)
