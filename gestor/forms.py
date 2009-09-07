@@ -12,7 +12,7 @@ class CommonForm(ModelForm):
 	notification = BooleanField(help_text=" (Sends email to project members)",required=False)
 
 class NoteForm(CommonForm):
-	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")	
+		
 	class Meta:
 		model = Note
 
@@ -21,7 +21,6 @@ class ActionNoteForm(ModelForm):
 	actionitem = ModelChoiceField(queryset=ActionItem.objects.all(),widget=HiddenInput())
 	notification = BooleanField(help_text=" (Sends email to action item team)",required=False)
 	
-	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")	
 	class Meta:
 		model = ActionNote
 		
@@ -32,13 +31,11 @@ class FileForm(CommonForm):
 		
 class ActionForm(CommonForm):
 	due_date = DateTimeField(widget=AdminDateWidget())
-	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")
+	
 	class Meta:
 		model = ActionItem
 	
 class ProjectForm(ModelForm):
-	description = CharField(widget=Textarea(),help_text="(supports <a href='http://hobix.com/textile/' target='_blank'>textile</a>)")
-	
 	start_date = DateTimeField(widget=AdminDateWidget())
 	end_date = DateTimeField(widget=AdminDateWidget())
 	
