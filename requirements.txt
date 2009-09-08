@@ -1,6 +1,6 @@
 django >= 1.0
-vobject (easy_install)
-textile (easy_install)
-simplejson (easy_install) OR python >= 2.6
-Django Evolution - http://code.google.com/p/django-evolution/
-Sorl-thumbnail - http://code.google.com/p/sorl-thumbnail/
+vobject
+textile
+simplejson
+-e svn+http://django-evolution.googlecode.com/svn/trunk/
+-e hg+https://sorl-thumbnail.googlecode.com/hg/#egg=sorl-thumbnail
