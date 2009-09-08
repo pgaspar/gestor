@@ -6,3 +6,5 @@
 *.pydevproject
 .tmp_*
 *.DS_Store
+build
+src
