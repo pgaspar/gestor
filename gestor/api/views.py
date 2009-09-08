@@ -1,7 +1,7 @@
 from gestor.models  import *
 
-from basic_auth  import *
-from views_utils import *
+from gestor.api.lib.basic_auth import *
+from gestor.api.lib.views_utils import *
 
     
 #===============================================================================
@@ -11,13 +11,13 @@ from views_utils import *
 # PROJECTS
 
 @basicauth()
-def projects_all(request, extension):
+def projects(request, extension):
     """
     Show all the projects of the authenticated user
     / projects / all    
     """
     projects = request.user.projects_working.all()
-    structure = {'projects' : generate_projects_simple_structure(projects)}
+    structure = { 'projects' : generate_projects_simple_structure(projects) }
     return generate_structured_response(structure, extension)
 
 @basicauth()
@@ -32,7 +32,8 @@ def projects_show(request, project_id, extension):
     
     # Check permissions
     not_authorized = check_permissions( project[0], request.user, extension )
-    if not_authorized: return not_authorized
+    if not_authorized:
+		return not_authorized
     
     structure = generate_projects_structure(project)
     return generate_structured_response(structure, extension)
@@ -41,14 +42,45 @@ def projects_show(request, project_id, extension):
 # ACTION ITEMS
 
 @basicauth()
-def action_items_all(request, extension):
+def action_items(request, extension):
     """
     Show all the action items of the authenticated user
     / action_items / all    
     """
+
+    if request.method == "POST":
+        return action_items_create( request, extension)
+
     action_items = request.user.actionitem_todo.all()
     structure = generate_action_items_structure(action_items)
     return generate_structured_response(structure, extension)
+
+@basicauth()
+def action_items_create(request, extension):
+    """
+    Create a new action item
+    / action_items / create    
+    """
+    arguments = get_arguments(request, extension)
+
+    # Create action item
+    new_action_item = ActionItem()
+    new_action_item.author = request.user
+
+    # Check permissions
+    if arguments.has_key('project_id'):
+        project = Project.objects.filter( id = arguments['project_id'] )
+        not_authorized = check_permissions( project[0], request.user, extension )
+        if not_authorized: return not_authorized
+
+    # Fill the action item with the arguments specified
+    error = update_action_item(new_action_item, arguments, extension)
+
+    if not error:
+        return generate_confirmation("Action item created.", extension)
+    else:
+        return error
+
 
 @basicauth()
 def action_items_todo(request, extension):
@@ -61,31 +93,14 @@ def action_items_todo(request, extension):
     return generate_structured_response(structure, extension)
 
 @basicauth()
-def action_items_create(request, extension):
-    """
-    Create a new action item
-    / action_items / create    
-    """
-    arguments = get_arguments(request, extension)
-    
-    # Create action item
-    new_action_item = ActionItem()
-    new_action_item.author = request.user
-    
-    # Check permissions
-    if arguments.has_key('project_id'):
-        project = Project.objects.filter( id = arguments['project_id'] )
-        not_authorized = check_permissions( project[0], request.user, extension )
-        if not_authorized: return not_authorized
-    
-    # Fill the action item with the arguments specified
-    error = update_action_item(new_action_item, arguments, extension)
-
-    if not error:
-        return generate_confirmation("Action item created.", extension)
+def action_item(request, item_id, extension):
+    if request.method == "PUT":
+        return action_items_update(request, item_id, extension)
+    elif request.method == "DELETE":
+        return action_items_delete(request, item_id, extension)
     else:
-        return error
-    
+        return action_items_show(request, item_id, extension)
+
 @basicauth()
 def action_items_show(request, item_id, extension):
     """
