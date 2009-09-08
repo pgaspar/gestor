@@ -29,7 +29,7 @@ class Event(models.Model):
 		return u"%s" % self.name
 
 	def get_absolute_url(self):
-		if self.slug != "empty":
+		if self.slug != "":
 			return u"/formacao/%s/" % self.slug
 		else:
 			return u"/formacao/%s/" % self.id
