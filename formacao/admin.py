@@ -6,5 +6,6 @@ class EventAdmin(admin.ModelAdmin):
 	list_filter = ('date','eventType')
 	search_fields = ['name','content']
 	ordering = ('date',)
+	prepopulated_fields = {"slug": ("name",)}
 
 admin.site.register(Event, EventAdmin)

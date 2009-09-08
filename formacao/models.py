@@ -5,6 +5,7 @@ class Event(models.Model):
 	""" Events (Workshops & Talks) """
 
 	name = models.CharField(max_length=200)
+	slug = models.SlugField(default="")
 	date = models.DateTimeField()
 	
 	is_published = models.BooleanField(default=False, help_text="If false, the event isn't displayed to the public.")
@@ -28,7 +29,10 @@ class Event(models.Model):
 		return u"%s" % self.name
 
 	def get_absolute_url(self):
-		return u"/formacao/%s/" % self.id
+		if self.slug != "empty":
+			return u"/formacao/%s/" % self.slug
+		else:
+			return u"/formacao/%s/" % self.id
 		
 	def get_private_url(self):
 		return u"/formacao/%s/private/" % self.id
