@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from formacao.models import Event
 
 def view_content_with_slug(request, slug):
-	event = Event.objects.get(slug=slug)
+	event = get_object_or_404(Event, slug=slug)
 	
 	if (not event.is_published or event.is_short_preview) and not request.user.has_perms('formacao.event.can_change'):
 		raise Http404
