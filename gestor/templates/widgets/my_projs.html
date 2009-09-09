@@ -1,0 +1,22 @@
+{% load dashboard %}
+
+
+<div id="my_proj" class="widget">
+
+<h1>My Projects</h1>
+
+{% if my_proj_list %}
+
+	<ul class="my_projects projects">
+		{% for object in my_proj_list %}
+			<li class="{% ifequal object.manager request.user %} owner {% endifequal %}"><a href="{{object.get_absolute_url}}">{{object.name}}</a>
+			({{ object.percentage }})
+			</li>
+		{% endfor %}
+	</ul>
+
+{% else %}
+	<span class="warning">No projects in list</span>
+{% endif %}
+
+</div>

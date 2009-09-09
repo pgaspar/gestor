@@ -1,0 +1,13 @@
+{% load markup %}
+
+<h2 {% if not object.is_published %}style="border: grey dashed 1px; background: #eeeeee;"{% endif %}><a href="{{object.get_absolute_url}}">{{object.title}}{% if not object.is_published %} <i>(Preview)</i>{% endif %}</a></h2>
+
+<div class="article" {% if not object.is_published %}style=""{% endif %}>
+	{% if truncate %}
+		{{object.body|textile|truncatewords:80}}
+	{% else %}
+		{{object.body|textile}}
+	{% endif %}
+	<p class="closing">{{object.date|date:"d/m/y"}} <img src="{{MEDIA_URL}}icons/dot.png" alt="" class="decor" /> {% if object.has_author %} {{ object.author.get_full_name }}{% else %} jeKnowledge{% endif %}</p>
+</div>
+

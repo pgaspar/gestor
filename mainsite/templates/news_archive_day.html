@@ -1,0 +1,26 @@
+{% extends "main.html" %}
+{% load news %}
+
+{% block title %}- Arquivo{% endblock %}
+
+{% block content %}
+
+	{% include "side_bar.html" %}
+
+
+	<div class="span-14 prepend-1 last">
+
+	  <h2>Arquivo - {{ day|date:"d F Y"|trans_month }}</h2>
+	  
+	  {% if object_list %}
+	  
+	    {% for object in object_list %}
+	  	  {% include "news.html" %}
+		{% endfor %}
+		
+	  {% else %}
+	    <p>Não há artigos para mostrar. Consulte o <a href="/noticias/arquivo/">Arquivo</a> para uma listagem de todos os artigos.
+	  {% endif %}
+	</div>
+
+{% endblock %}

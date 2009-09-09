@@ -1,19 +1,7 @@
 # Django settings for jksite project.
 import os
 
-ENV = "DEV"
-try:
-	if os.uname()[1] == "geyser":
-		ENV = "PROD"
-except:
-	pass
-
-
-
-DEBUG = False
-if ENV == "DEV":
-	DEBUG = True
-	
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # nmariz hacking:
@@ -21,25 +9,18 @@ ROOT_PATH = os.path.realpath(os.path.dirname(__file__))
 
 
 ADMINS = (
-    ('Alcides', 'me@alcidesfonseca.com'),
+    ('Pedro Gaspar', 'pedro.gaxpar@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
-if ENV == "DEV":
-	DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-	DATABASE_NAME = 'jksite.sqlite3'             # Or path to database file if using sqlite3.
-	DATABASE_USER = ''             # Not used with sqlite3.
-	DATABASE_PASSWORD = ''         # Not used with sqlite3.
-	DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-	DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
-else:
-	DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-	DATABASE_NAME = 'jkgestor'             # Or path to database file if using sqlite3.
-	DATABASE_USER = 'id3'             # Not used with sqlite3.
-	DATABASE_PASSWORD = 'id3id3id3'         # Not used with sqlite3.
-	DATABASE_HOST = 'mysql.ideias3.com'             # Set to empty string for localhost. Not used with sqlite3.
-	DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'jksite.sqlite3'             # Or path to database file if using sqlite3.
+DATABASE_USER = ''             # Not used with sqlite3.
+DATABASE_PASSWORD = ''         # Not used with sqlite3.
+DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
+DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -50,7 +31,7 @@ TIME_ZONE = 'Europe/Lisbon'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'pt-pt'
+LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 BASE_DOMAIN = "http://jeknowledge.com"
@@ -73,7 +54,7 @@ MEDIA_URL = '/media/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/admin/media/'
+ADMIN_MEDIA_PREFIX = '/media/admin/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '(n%11p2k8lh(lwhq2(obb_gxj!6n2w0$rn91w1f5$5h77j(7tw'
@@ -90,7 +71,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
-	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+	#'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 	#'middleware.requirelogin.RequireLoginMiddleware',
 )
 
@@ -99,7 +80,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend'
 )
 
-ROOT_URLCONF = 'jksite.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -123,21 +104,28 @@ INSTALLED_APPS = (
 	'django.contrib.admin',
 	'django.contrib.humanize',
 	'django.contrib.markup',
-	'django.contrib.flatpages',
-	#'django_extensions',
+    'django_evolution',
+	#'extensions',
 	'accounts',
 	'gestor',
 	'cvmanager',
 	'mainsite',
+    'formacao',
+	'sorl.thumbnail',
 )
 
 DATE_FORMAT = "d/F/Y"
 
+AUTH_PROFILE_MODULE = "accounts.userprofile"
+
 FIXTURE_DIRS = os.path.join(ROOT_PATH, 'fixtures')
 
-# SMTP
-EMAIL_HOST = 'mail.jeknowledge.com'
-EMAIL_HOST_USER = 'gestor@jeknowledge.com'
-EMAIL_HOST_PASSWORD = 'jotakapa'
-DEFAULT_FROM_EMAIL = 'gestor@jeknowledge.com'
+DEFAULT_AVATAR = u'photos/default.png'
 
+THUMBNAIL_SUBDIR = '_thumbs'
+
+# SMTP
+EMAIL_HOST = 'mail.wservices.ch'
+EMAIL_HOST_USER = 'gestor@jeknowledge.com'
+EMAIL_HOST_PASSWORD = 'bxe52ows'
+DEFAULT_FROM_EMAIL = 'gestor@jeknowledge.com'

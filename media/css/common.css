@@ -1,5 +1,5 @@
 * {
-	border: 0;
+	/*border: 0;*/
 	padding: 0;
 }
 
@@ -51,9 +51,6 @@ fieldset li{
 	padding-bottom:10px;
 }
 
-fieldset input{
-	float:left;
-}
 fieldset label{
 	width:140px;
 	float:left;
@@ -67,4 +64,18 @@ fieldset label{
 div {
 	margin: 0;
 	padding: 0;
+}
+
+.photo {
+	float: right;
+	margin: 10px;
+}
+
+.img_widget {
+	 border: 0px;
+}
+
+.img_widget td {
+	vertical-align: middle;
+	border: 0px;
 }

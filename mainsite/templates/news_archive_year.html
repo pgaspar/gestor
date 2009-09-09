@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+{% load news %}
+
+{% block title %}- Arquivo{% endblock %}
+
+{% block content %}
+
+	{% include "side_bar.html" %}
+
+
+	<div class="span-14 prepend-1 last">
+	  
+	  <h2>Arquivo - {{ year }}</h2>
+	  
+	  <ul>
+	  {% for date in date_list %}
+	  	<li><a href="{{ date|date:"m" }}/">{{ date|date:"F"|trans_month }}</a></li>
+	  {% endfor %}
+	  </ul>
+	  
+	</div>
+
+{% endblock %}

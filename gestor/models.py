@@ -10,7 +10,7 @@ class ProjectManager(models.Manager):
 
 
 class Project(models.Model):
-	name = models.CharField(max_length=100)
+	name = models.CharField(max_length=100, default=None)
 	description = models.TextField(blank=True)
 	active = models.BooleanField(default=True)
 	manager = models.ForeignKey(User, related_name='projects_managed')
@@ -21,36 +21,59 @@ class Project(models.Model):
 	objects = models.Manager()
 	workspace = ProjectManager()
 	
+	class Meta:
+		ordering = ["-start_date"]
+		permissions = [ ('view_project','Can view Projects'), 
+						('view_intern_projects', 'Can view intern Projects'),
+						('view_late_projects', 'Can view late Projects'),
+						('view_late_users', 'Can view late Users') ]
+	
 	def __unicode__(self):
 		return u"%s" % self.name
-		
 		
 	def get_absolute_url(self):
 		return "/gestor/project/%d/" % self.id
 		
 	def has_user(self,user):
-		if user in self.team.all() or user == self.manager or user.is_staff:
+		if user in self.team.all() or user == self.manager:
 			return True
 		return False
 		
 	def check_user(self,user):
-		if not self.has_user(user):
+		if not ( user.has_perm('gestor.view_project') or self.has_user(user) or (user.has_perm('gestor.view_intern_projects') and self.isIntern()) ):
 			raise PermissionDenied()
 	
-	def check_manager(self, user):
-		if user != self.manager:
+	def check_manager(self, user, perm):
+		if user != self.manager and not user.has_perm('gestor.' + perm + '_project'):
 			raise PermissionDenied()
+	
+	def isIntern(self):
+		return self.name.split('-')[0].lower() == 'jk'
+	
+	def ratio(self):
+		done = self.actionitem_set.filter(done=True).count()
+		total = self.actionitem_set.all().count()
+		if total:
+			return float(done) / total
+		else:
+			return 0
+			
+	def percentage(self):
+		return str(int(round(self.ratio() * 100))) + "%"
 
 class ActionItem(models.Model):
 	project = models.ForeignKey(Project)
-	title = models.CharField(max_length=100)
+	title = models.CharField(max_length=100, default=None)
 	description = models.TextField(blank=True, null=True)
 	author = models.ForeignKey(User, related_name='actionitem_set')
 	targets = models.ManyToManyField(User, related_name = 'actionitem_todo')
 	set_date = models.DateField(auto_now=True)
 	due_date = models.DateField(blank=True, null=True)
 	done = models.BooleanField(default=False)
+	priority = models.IntegerField(default=2, choices=((1, 'High') ,(2, 'Medium'), (3, 'Low')) )
 
+	class Meta:
+		ordering = ('done', 'priority', 'due_date')
 	
 	def __unicode__(self):
 		return u"%s" % self.title
@@ -60,10 +83,13 @@ class ActionItem(models.Model):
 
 class Note(models.Model):
 	project = models.ForeignKey(Project)
-	title = models.CharField(max_length=100)
+	title = models.CharField(max_length=100, default=None)
 	description = models.TextField(blank=True, null=True)
 	author = models.ForeignKey(User)
 	set_date = models.DateField(auto_now=True)
+	
+	class Meta:
+		ordering = ["-set_date"]
 
 	def __unicode__(self):
 		return u"%s" % self.title
@@ -76,19 +102,25 @@ class ActionNote(models.Model):
 	description = models.TextField(blank=True, null=True)
 	author = models.ForeignKey(User)
 	set_date = models.DateField(auto_now=True)
+	
+	class Meta:
+		ordering = ["-set_date"]
 
 	def __unicode__(self):
-		return u"%s" % self.title
+		return u"%s" % self.actionitem
 
 	def get_absolute_url(self):
 		return "/gestor/actionnote/%s/" % self.id
 
 class File(models.Model):
 	project = models.ForeignKey(Project)
-	title = models.CharField(max_length=100)
+	title = models.CharField(max_length=100, default=None)
 	content = models.FileField(upload_to="files")
 	author = models.ForeignKey(User)
 	set_date = models.DateField(auto_now=True)
+	
+	class Meta:
+		ordering = ["-set_date"]
 
 	def __unicode__(self):
 		return u"%s" % self.title

@@ -10,9 +10,10 @@ try: admin.site.register(Project,ProjectAdmin)
 except: pass
 
 class ActionItemAdmin(admin.ModelAdmin):	
-	list_display = ('title','project','done','due_date')
-	list_filter = ('project','done','targets',)
+	list_display = ('title','project','done','due_date','priority')
+	list_filter = ('project','done','targets','priority')
 	search_fields = ['title','description','project']
+	ordering = ('-due_date',)
 
 
 try: admin.site.register(ActionItem,ActionItemAdmin)
@@ -28,9 +29,9 @@ try: admin.site.register(Note,NoteAdmin)
 except: pass
 
 class ActionNoteAdmin(admin.ModelAdmin):	
-	list_display = ('title','actionitem','author',)
+	list_display = ('actionitem','author',)
 	list_filter = ('actionitem','author',)
-	search_fields = ['title','description','actionitem']
+	search_fields = ['description','actionitem']
 
 
 try: admin.site.register(ActionNote,ActionNoteAdmin)

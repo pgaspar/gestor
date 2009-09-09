@@ -11,31 +11,15 @@
 			{% if object.done %}
 				<span class="green">Done</span>
 			{% else %}
-				<span class="{{object|colorstatus}}">Dues: {{object.due_date|naturalday}}</span>
+				<span class="{{object|colorstatus}}">Dues: {{object.due_date|naturalday|default_if_none:"Never"}}</span>
 			{% endif %}
 		</div>
 	
 		<p><b class="label">Project:</b> <a href="{{object.project.get_absolute_url}}">{{object.project.name}}</a></p>
 		<p><b class="label">Author:</b> <a href="{{object.author.get_absolute_url}}">{{object.author.get_full_name}}</a></p>
-		<div class="description clear text">{{object.description|textile}}</div>	
-
+		<p><b class="label">Priority:</b> {{object.get_priority_display}}</p>
 		
-		{% if notes %}
-			<h2>Notes</h2>
-			<div>
-				{% for note in notes %}
-					<div class="note">
-						<h3>{{note.author.get_full_name}}:</h3> 
-						<div class="actions">
-							<a href="{{note.get_absolute_url}}edit/"><img src="/media/icons/note_edit.png" alt="Edit Note"></a>
-							<a href="{{note.get_absolute_url}}delete/"  onclick="return confirm('Are you sure you want to delete?')"><img src="/media/icons/note_delete.png" alt="Delete Note"></a>
-						</div>
-						<div>{{note.description|textile}}</div>
-					</div>
-				{% endfor %}		
-			</div>
-		{% endif %}
-
+		<div class="description clear text">{{object.description|force_escape|textile}}</div>	
 
 		<h2>Team</h2>
 		<ul>
@@ -48,13 +32,39 @@
 		<div class="actions">
 			<ul class="raw">
 			{% if not object.done %}
-			<li><a href="{{object.get_absolute_url}}finish/"><img src="/media/icons/accept.png" alt="Finish ActionItem"> Mark as Done</a> </li>
+			<li><a href="{{object.get_absolute_url}}finish/"><img src="{{MEDIA_URL}}icons/accept.png" alt="Finish ActionItem"> Mark as Done</a> </li>
 			{% endif %}
-			<li><a href="/gestor/actionnote/in/{{object.id}}/"><img src="/media/icons/note_add.png" alt="Add Note"> Add Note to ActionItem</a> </li>
-			<li><a href="{{object.get_absolute_url}}edit/"><img src="/media/icons/cog_edit.png" alt="Edit ActionItem"> Edit ActionItem</a> </li>
-			<li><a href="{{object.get_absolute_url}}delete/" onclick="return confirm('Are you sure you want to delete?')"><img src="/media/icons/cog_delete.png" alt="Delete ActionItem"> Delete ActionItem</a></li>
+			<li><a href="/gestor/actionnote/in/{{object.id}}/"><img src="{{MEDIA_URL}}icons/note_add.png" alt="Add Note"> Add Note to ActionItem</a> </li>
+			<li><a href="{{object.get_absolute_url}}edit/"><img src="{{MEDIA_URL}}icons/cog_edit.png" alt="Edit ActionItem"> Edit ActionItem</a> </li>
+			<li><a href="{{object.get_absolute_url}}delete/" onclick="return confirm('Are you sure you want to delete?')"><img src="{{MEDIA_URL}}icons/cog_delete.png" alt="Delete ActionItem"> Delete ActionItem</a></li>
 			</ul>
 		</div>
-
+		
+		{% if notes %}
+			<div class="clear">
+				<h2>Notes</h2>
+				{% for note in notes %}
+					<div class="note">
+						<div class="actions">
+							<a href="{{note.get_absolute_url}}edit/"><img src="/media/icons/note_edit.png" alt="Edit Note"></a>
+							<a href="{{note.get_absolute_url}}delete/"  onclick="return confirm('Are you sure you want to delete?')"><img src="/media/icons/note_delete.png" alt="Delete Note"></a>
+						</div>
+						<h3>{{note.author.get_full_name}}:</h3> 
+						<div class="text">{{note.description|force_escape|textile}}</div>
+					</div>
+				{% endfor %}
+				<div class="note_form">
+					<h3>Add note:</h3>
+					<fieldset>
+						<form action="{% url gestor.views.actionnote_create object.id %}" method="post">
+							{{ add_note_form.as_ul }}
+							<div class="clear"><input type="submit" value="Add" /></div>
+						</form>
+					</fieldset>
+				</div>
+						
+			</div>
+		{% endif %}
+		
 	</div>
 {% endblock %}

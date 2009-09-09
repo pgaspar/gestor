@@ -1,11 +1,16 @@
 {% extends "main.html" %}
 {% load markup %}
 
+{% block title %}- {{object.title}}{% endblock %}
+
 {% block content %}
-	<h1>{{object.title}}</h1>
-	<div class="content">
-		{{object.body|textile}}
-	</div>
+
+	{% include "side_bar.html" %}
 	
+	<div class="span-14 prepend-1 last">
+		{% include "news.html" %}
+		<hr />
+		<p><script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=d5159c4b-3b6a-44c7-baaf-5e0a264e32d6&amp;type=website"></script></p>
+	</div>
 	
 {% endblock %}

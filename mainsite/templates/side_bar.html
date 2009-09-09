@@ -1,0 +1,19 @@
+<div id="side" class="clear span-8">
+
+  <p>A jeKnowledge é a <strong>Júnior Empresa</strong> da Faculdade de Ciências e Tecnologias da Universidade de Coimbra.</p>
+
+  <img src="{{MEDIA_URL}}images/polo2.jpg" alt="pólo II" class="illustration"/>
+  
+  {% load news %}
+  
+  <h3>Artigos</h3>
+  {% latest_news 5 %}
+
+  <h3><a href="/noticias/arquivo/">Arquivo</a></h3>
+  {% load_archive 5 %}
+  
+  <a href="http://feeds2.feedburner.com/jeknowledge">
+    <img src="{{MEDIA_URL}}images/rss.png" width="47" alt="RSS feed" title="RSS feed" class="media_icon"/>
+  </a>
+  
+</div>

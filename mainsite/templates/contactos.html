@@ -1,0 +1,48 @@
+{% extends "main.html" %}
+
+{% block title %}- Contactos{% endblock %}
+
+{% block gmaps %}
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAtH2OpEQh5kqLXXFWWEtfehQgYPyJyo39Yr_xQg_qyfIBSPmaGhRzVvEbhBGRB0ye3yPLn5bat88lIw"
+	type="text/javascript">
+  </script>
+  <script src="{{MEDIA_URL}}js/google_maps.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+
+	<div id="side" class="clear span-8">
+		<h3>Visite-nos</h3>
+		<img src="{{MEDIA_URL}}images/dep_fisica.jpg" alt="Dep. de Física da Universiade de Coimbra" class="illustration"/>
+		
+		<p>Venha visitar-nos para um pouco de <a href="http://jeknowledge.com/noticias/10/" title="Mais informações sobre coworking">coworking</a>.</p>
+		
+		<a href="http://twitter.com/jeknowledge">
+			<img src="{{MEDIA_URL}}images/twitter.png" alt="Twitter" title="Twitter" class="media_icon"/>
+		</a>
+		<a href="http://feeds2.feedburner.com/jeknowledge">
+			<img src="{{MEDIA_URL}}images/rss.png" alt="RSS feed" title="RSS feed" class="media_icon"/>
+		</a>
+	</div>
+
+	<div class="span-14 prepend-1 last">
+	  <div class="description">
+		<h2>Contactos</h2>
+
+		<p>
+		Departamento de Física sala B3<br/>
+		Rua Larga<br/>
+		P-3004-516 Coimbra<br/>
+		</p>
+
+		<p>+351 918 562 277</p>
+		
+		<p><a href="mailto:geral@jeknowledge.com">geral@jeknowledge.com</a></p>
+
+
+		<div id="map"></div>
+
+	  </div>
+	</div>
+	
+{% endblock %}

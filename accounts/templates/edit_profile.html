@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+	<h1>Edit your Profile</h1>
+	
+	<fieldset>
+		<form enctype="multipart/form-data" action="" method="POST">
+			<table style='border: 0px;'>
+				{{ user_form.as_table }}
+				{{ profile_form.as_table }}
+			</table>
+			
+			<br /><input type="submit" value="Save" />
+		</form>
+	</fieldset>
+{% endblock %}

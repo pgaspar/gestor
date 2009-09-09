@@ -49,11 +49,11 @@
 	text-decoration: none;
 }
 
-#menu #project_list li {
+.projects > li {
 	list-style: url(/media/icons/box.png);
 }
 
-#menu #project_list .owner {
+.projects > li.owner {
 	list-style: url(/media/icons/briefcase.png);
 }
 
@@ -155,6 +155,15 @@
 	background-image: url(/media/icons/user_suit.png);
 	background-repeat: no-repeat;
 	height: 18px;
+	font-size: 11px;
+}
+
+#main .member a {
+	padding-left: 18px;
+	background-image: url(/media/icons/user.png);
+	background-repeat: no-repeat;
+	height: 18px;
+	font-size: 11px;
 }
 
 #main .members li {
@@ -185,6 +194,42 @@
 	background-color: #FFFF66;
 }
 
+#main .note {
+	background-color: #EEFFBA;
+	padding-right: 3px;
+	padding-left: 3px;
+}
+
+#main .note:hover {
+	background-color: #FFFE8E;
+}
+
+#main .note h3 {
+	font-family: Helvetica,Arial,'Liberation Sans',FreeSans,sans-serif;
+	font-size: 9pt;
+	margin-bottom: 0px;
+}
+
+#main .project_list li a {
+	padding: 3px;
+	display: block inline;
+}
+
+#main .progress_box {
+	margin: 10px;
+	margin-left: 0;
+	width: 400px;
+	border: solid #333333 1px;
+}
+
+#main .progress_box div {
+	background-color:#333333;
+	color: white;
+	text-align: right;
+	overflow: hidden;
+}
+
+
 li.red {
 	list-style: url(/media/icons/flag_red.png);
 } 
@@ -212,4 +257,88 @@ li.yellow {
 .editable{
 	color: #000;
 	background-color: #ffffd3;
+}
+
+.indented{
+	padding-left: 10px;
+}
+
+#dashboard .widget h1 {
+	background-color: #086F9E;
+	color: #FFFFFF;
+	padding: 6px;
+	font-weight: none;
+}
+
+.task_info{
+	float: left;
+	width: 80%;
+}
+
+.task_actions{
+	float: left;
+	width: 20%;
+}
+
+#my_proj{
+	width: 100%;
+}
+
+#my_tasks{
+	width: 100%;
+}
+
+#dashboard #col{
+	width: 45%;
+	/*border: 1px solid #999;*/
+	padding: 0px 20px 0px 20px;		/* TRBL */
+	float: left;
+}
+
+#dashboard .widget{
+	padding-bottom: 30px;
+}
+
+#dashboard .widget .footer{
+	/* background-color: #333333; /* #086F9E */
+	text-align: left;
+}
+
+#dashboard .widget .view-all{
+	float: left;
+}
+
+#dashboard .widget .view-all a{ 
+	background:#999 url(/media/icons/tooltag-add.gif) top right no-repeat;
+	padding: 1px 28px 2px 5px;
+	color: #FFFFFF;
+	text-decoration: none;
+	font-size: 11px;
+	margin-top: 2px;
+}
+
+#dashboard .widget .toggled a{
+	background:#999 url(/media/icons/tooltag-del.gif) top right no-repeat;
+}
+
+#dashboard .widget .view-all a:hover {
+	background:#5b80b2 url(/media/icons/tooltag-add_over.gif) top right no-repeat;
+}
+
+#dashboard .widget .toggled a:hover {
+	background:#5b80b2 url(/media/icons/tooltag-del_over.gif) top right no-repeat;
+}
+
+.proj_info {
+	background-color: white;
+	padding: 5px;
+	border: solid black 1px;
+}
+
+.smaller {
+	font-size: 11px;
+}
+
+.project_detail .manager_options  {
+	padding: 0px 0px 8px 2px;
 }

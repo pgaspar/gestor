@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+    {% include "side_bar.html" %}
+    
+ 
+    <div class="span-14 prepend-1 last">
+      
+      {% for object in latest %}
+        {% include "news.html" %}
+      {% endfor %}
+      
+    </div>
+ 
+{% endblock %}

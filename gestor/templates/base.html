@@ -4,75 +4,47 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" type="text/css" href="/admin/media/css/forms.css" />
-	<link rel="stylesheet" type="text/css" href="/admin/media/css/widgets.css" />
+	<link rel="stylesheet" type="text/css" href="/media/admin/css/forms.css" />
+	<link rel="stylesheet" type="text/css" href="/media/admin/css/widgets.css" />
 
-	<script type="text/javascript" src="/admin/jsi18n/"></script>
-	<script type="text/javascript" src="/admin/media/js/core.js"></script>
-	<script type="text/javascript" src="/admin/media/js/dateparsing.js"></script>
-	<script type="text/javascript" src="/admin/media/js/admin/RelatedObjectLookups.js"></script>
-	<script type="text/javascript" src="/admin/media/js/calendar.js"></script>
-	<script type="text/javascript" src="/admin/media/js/admin/DateTimeShortcuts.js"></script>
+	<script type="text/javascript" src="/dynamic-media/jsi18n/"></script>
+	<script type="text/javascript" src="/media/admin/js/core.js"></script>
+	<script type="text/javascript" src="/media/admin/js/dateparsing.js"></script>
+	<script type="text/javascript" src="/media/admin/js/admin/RelatedObjectLookups.js"></script>
+	<script type="text/javascript" src="/media/admin/js/calendar.js"></script>
+	<script type="text/javascript" src="/media/admin/js/admin/DateTimeShortcuts.js"></script>
 	
 	{% block feeds %}
 		<link rel="alternate" type="application/rss+xml" title="User Feeds" href="/gestor/feeds/ActionItems/{{user.username}}" />
 	{%endblock feeds%}
 
-	<script src="/media/js/prototype.js"></script>
-	<script src="/media/js/gestor.js"></script>
-	<link rel="stylesheet" href="/media/css/common.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	<link rel="stylesheet" href="/media/css/master.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<script src="{{MEDIA_URL}}js/prototype.js"></script>
+	<script src="{{MEDIA_URL}}js/tooltip.js"></script>
+	<script src="{{MEDIA_URL}}js/gestor.js"></script>
+	<link rel="stylesheet" href="{{MEDIA_URL}}css/common.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="{{MEDIA_URL}}css/master.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	
+	<link rel="shortcut icon" href="{{MEDIA_URL}}images/favicon.ico">
+	<link rel="icon" type="image/png" href="{{MEDIA_URL}}images/favicon.png">
+
 	<title>Gestor jeKnowledge</title>
 </head>
 <body>
 	<div id="container">
 		
 		<div id="header">
-			<h1><a href="/gestor/"><img src="/media/images/logo.gif" alt="jeKnowledge"></a></h1>			
+			
+			<a href="/gestor/" style="float: left;"><img src="{{MEDIA_URL}}images/logo.gif" alt="jeKnowledge"></a>
+			
+			{% if request.user.is_authenticated %}
+			<div style="float: right; padding-right: 50px; padding-top: 40px;">
+			<form action="/gestor/search/" method="post"><input type="text" name="find" value="Search..." id="id_find" onclick="this.clear();"/> <input type="submit" value="Find" /></form>
+			</div>
+			{% endif %}
+			
 		</div>
 		
-		<div id="sidebar">
-			{% if not user.is_anonymous %}
-				<div id="menu">
-					{% block menu %}
-						{% load todo %}
-
-						<h3>Todo  List</h3>
-							{{request.user.username|todo|safe}}
-							<p class="icons">
-								<a href="/gestor/feeds/ActionItems/{{request.user.username}}/"><img src="/media//icons/rss.png" alt="RSS"></a>
-								<a href="/gestor/ical/ActionItems/{{request.user.username}}/"><img src="/media//icons/calendar.png" alt="iCal"></a>
-							</p>
-						<h3>Projects</h3>
-						<ul id="project_list">
-							{% load projecting %}
-							
-							{% for project in request.user.projects_working|workspace %}
-								{% ifequal project.manager request.user %}
-									<li class="owner">
-								{% else %}
-									<li>
-								{% endifequal %}
-									<a href="{{project.get_absolute_url}}">{{project.name}}</a></li>
-							{% endfor %}
-							
-						</ul>
-							
-						<h3>Account</h3>
-						<ul>
-							{% if request.user.is_staff  %}
-								<li><a href="/admin">Administration</a></li>
-							{% endif %}
-							<li><a href="/users/find">Find Users</a></li>
-							<li><a href="/users/{{request.user.username}}">My Profile</a></li>
-							<li><a href="/users/{{request.user.username}}/curriculum/edit">My Curriculum</a></li>
-							<li><a href="/accounts/password_change">Change Password</a></li>
-							<li><a href="/accounts/logout">Logout</a></li>
-						</ul>
-					{% endblock %}
-				</div>
-			{% endif %}
-		</div>
+		{% include "sidebar_gestor.html" %}
 		
 		<div id="main">
 			<div id="messages">

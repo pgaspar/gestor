@@ -13,58 +13,79 @@
 
 
 			<h2>Personal info</h2>
+			
+			{% if profile.photo %}
+				{% if not profile.photo_is_default %}
+					<a href="{{profile.photo.url}}" target='_blank'><img class="photo" src="{{profile.photo.thumbnail}}" alt={{u.get_full_name}} /></a>
+				{% else %}
+					<img class="photo" src="{{profile.photo.thumbnail}}" alt={{u.get_full_name}} />
+				{% endif %}
+			{% endif %}
+			
 			<div class="personal-info">
 				<p><b class="label adr">Address:</b> <span class="street-address">{{cv.address|linebreaksbr}}</span></p>
 				<p><b class="label">Phone:</b> <span class="tel">{{cv.phone}}</span></p>
 				<p><b class="label">E-mail:</b> <a href="mailto:{{u.email}}" class="email">{{u.email}}</a></p>
-				<p><b class="label">Homepage:</b> <a href="{{cv.homepage}}" class="url">{{cv.homepage}}</a></p>
+				{% if cv.homepage %}<p><b class="label">Homepage:</b> <span class="url">{{cv.homepage|urlize }}</span></p>{% endif %}
 			</div>
 		</div>
+		
+		<div class="clear" />
+		
 		<h2>Course info</h2>
 		<div class="cv-course education vevent">
 			<p><b class="label">Course:</b> <span class="summary">{{cv.course}}</span></p>
 			<p><b class="label">Course Year:</b><span class="summary"> {{cv.course_year|ordinal}} year</span></p>
 		</div>
 		
+		{% if profile %}
+		<h2>Career info</h2>
+		<div class="career-info">
+			<p><b class="label">Organization:</b> {{profile.organization}}</p>
+			{% if profile.title %}<p><b class="label">Position:</b> {{profile.title}}</p>{% endif %}
+			{% if profile.description %}{{profile.description|force_escape|textile}}{% endif %}
+		</div>
+		{% endif %}
+		
 		{% if cv.complements %}
 		<h2>Complements</h2>
 		<div class="cv-complements">
-			<p>{{cv.complements|textile}}</p>
+			<p>{{cv.complements|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		
 		{% if cv.proficient_areas %}
 		<h2>Proficient Areas</h2>
 		<div class="cv-proficient_areas">
-			<p class="summary">{{cv.proficient_areas|textile}}</p>
+			<p class="summary">{{cv.proficient_areas|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		
 		{% if cv.foreign_langs %}
 		<h2>Foreign Languages</h2>
 		<div class="cv-foreign_langs">
-			<p>{{cv.foreign_langs|textile}}</p>
+			<p>{{cv.foreign_langs|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		
 		{% if cv.computer_skills %}
 		<h2>Computer Skills</h2>
 		<div class="cv-computer_skills">
-			<p>{{cv.computer_skills|textile}}</p>
+			<p>{{cv.computer_skills|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		
 		{% if cv.other_skills %}
 		<h2>Other Skills</h2>
 		<div class="cv-other_skills">
-			<p>{{cv.other_skills|textile}}</p>
+			<p>{{cv.other_skills|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		
 		{% if cv.interests %}
 		<h2>Interests</h2>
 		<div class="cv-interests">
-			<p>{{cv.interests|textile}}</p>
+			<p>{{cv.interests|force_escape|textile}}</p>
 		</div>
 		{% endif %}
 		

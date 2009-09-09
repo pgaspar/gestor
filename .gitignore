@@ -1,2 +1,10 @@
 *.pyc
-jksite.sqlite3
+*.pid
+*.sock
+*.project
+*.pydev
+*.pydevproject
+.tmp_*
+*.DS_Store
+build
+src

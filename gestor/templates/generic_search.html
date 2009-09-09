@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+	<h1>Search</h1>
+
+	<div class="search_form">
+		<fieldset>
+			<form action="" method="post">
+				<ul>{{ form.as_ul }}</ul>
+				<div class="clear"><input type="submit" value="Find" /></div>
+			</form>
+		</fieldset>
+	</div>
+	
+	<h2>Results</h2>
+	{% if results %}
+	
+		{% if res_user %}
+		<h3>Users</h3>
+		<table>
+			<tr><th>Name</th></tr>
+			{% for r in res_user %}
+				<tr><td><a href="{{ r.get_absolute_url }}">{{ r.get_full_name }}</a></td></tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+		
+		{% if res_cv %}
+		<h3>Curriculum Vitae</h3>
+		<table>
+			{% if perms.cvmanager.can_view_cv_details %}
+				<tr><th>Name</th><th>Year</th><th>Course</th><th>Email</th><th>Phone</th></tr>
+				{% for r in res_cv %}
+					<tr><td><a href="{{ r.get_absolute_url }}">{{ r.owner.get_full_name }}</a></td><td>{{ r.course_year }}</td><td>{{ r.course }}</td><td>{{ r.owner.email }}</td><td>{{ r.phone }}</td></tr>
+				{% endfor %}
+			{% else %}
+				<tr><th>Name</th><th>Year</th><th>Course</th></tr>
+				{% for r in res_cv %}
+					<tr><td><a href="{{ r.get_public_url }}">{{ r.owner.get_full_name }}</a></td><td>{{ r.course_year }}</td><td>{{ r.course }}</td></tr>
+				{% endfor %}
+			{% endif %}
+		</table>
+		{% endif %}
+		
+		{% if perms.accounts.can_search_everything %}
+		
+		{% if res_proj %}
+		<h3>Projects</h3>
+		<table>
+			<tr><th>Name</th><th>Manager</th><th>Description</th></tr>
+			{% for r in res_proj %}
+				<tr><td><a href="{{ r.get_absolute_url }}">{{ r.name }}</a></td><td><a href="{{ r.manager.get_absolute_url }}">{{ r.manager.get_full_name }}</a></td><td>{{ r.description|truncatewords:"8" }}</td></tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+		
+		{% if res_actionitem %}
+		<h3>Action Items</h3>
+		<table>
+			<tr><th>Title</th><th>Project</th><th>Author</th><th>Done</th></tr>
+			{% for r in res_actionitem %}
+				<tr><td><a href="{{ r.get_absolute_url }}">{{ r.title|truncatewords:8 }}</a></td><td><a href="{{ r.project.get_absolute_url }}">{{ r.project.name }}</a></td><td><a href="{{ r.author.get_absolute_url }}">{{ r.author.get_full_name }}</a></td><td>{{ r.done }}</td></tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+		
+		{% if res_actionnote %}
+		<h3>Action Notes</h3>
+		<table>
+			<tr><th>Action Item</th><th>Project</th><th>Author</th><th>Description</th></tr>
+			{% for r in res_actionnote %}
+				<tr><td><a href="{{ r.actionitem.get_absolute_url }}">{{ r.actionitem.title|truncatewords:8 }}</a></td><td><a href="{{ r.actionitem.project.get_absolute_url }}">{{ r.actionitem.project.name }}</a></td><td><a href="{{ r.author.get_absolute_url }}">{{ r.author.get_full_name }}</a></td><td>{{ r.description|truncatewords:"8" }}</td></tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+		
+		{% if res_note %}
+		<h3>Notes</h3>
+		<table>
+			<tr><th>Title</th><th>Project</th><th>Author</th><th>Description</th></tr>
+			{% for r in res_note %}
+				<tr><td><a href="{{ r.get_absolute_url }}">{{ r.title|truncatewords:8 }}</a></td><td><a href="{{ r.project.get_absolute_url }}">{{ r.project.name }}</a></td><td><a href="{{ r.author.get_absolute_url }}">{{ r.author.get_full_name }}</a></td><td>{{ r.description|truncatewords:"8" }}</td></tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+		
+		{% if res_file %}
+		<h3>Files</h3>
+		<table>
+			<tr><th>Name</th><th>Project</th><th>Author</th></tr>
+			{% for r in res_file %}
+				<tr><td><a href="{{ r.get_absolute_url }}">{{ r.title|truncatewords:8 }}</a></td><td><a href="{{ r.project.get_absolute_url }}">{{ r.project.name }}</a></td><td><a href="{{ r.author.get_absolute_url }}">{{ r.author.get_full_name }}</a></td></tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+		
+		{% endif %}
+		
+		<div style="height: 40px;" />
+		
+	{% else %}
+		<div>No results found</div>
+	{% endif %}
+
+{% endblock %}

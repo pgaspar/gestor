@@ -2,6 +2,7 @@
 {% load humanize %}
 {% load datecolor %}
 {% load markup %}
+{% load proj_utils %}
 
 {% block content %}
 	<div class="project_detail">
@@ -14,31 +15,49 @@
 				<b>Finished</b> (from {{object.start_date|naturalday}} to {{object.end_date|naturalday}})
 			{% endif %}
 		</div>
+		<div class="progress_box">
+			<div class="progress_bar" style="width: {% widthratio object.ratio 1 400 %}px;">
+				{{ object.percentage }}
+			</div>
+		</div>
 		
-		{% ifequal object.manager request.user %}
+		{% if perms.gestor.change_project or request.user|ismanager:object %}
 			<div class="description clear text">
-				<div id="editable_description">{{object.description|textile}}</div>
+				<div id="editable_description">{{object.description|force_escape|textile}}</div>
+				<div id="editable_description_editor" style="display: none;">
+					<textarea id="editable_description_edit" 
+						name="editable_description" rows="4" cols="60">{{object.description}}</textarea>
+					<br />
+					<input id="editable_description_save" type="button" value="SAVE" />
+					<input id="editable_description_cancel" type="button" value="CANCEL" />
+				</div>
 			</div>
 		{% else %}
-			<div class="description clear text">{{object.description|textile}}</div>
-		{% endifequal %}
+			<div class="description clear text">{{object.description|force_escape|textile}}</div>
+		{% endif %}
 		
 		<div>
 			<p><span class="label">Manager: </span> <span class="manager"><a href="{{object.manager.get_absolute_url}}">{{object.manager.get_full_name}}</a></span></p>
 		</div>
 		
-		{% ifequal object.manager request.user %}
+		{% if perms.gestor.change_project or request.user|ismanager:object %}
 		<div>
 			<hr />
 			<p><span class="label">Management Area:</span></p>
-			{% if object.active %}
-				<p><img src="/media/icons/box.png" alt=""> <a href="/gestor/project/{{object.id}}/close">Close this Project</a></p>
-			{% else %}
-				<p><img src="/media/icons/briefcase.png" alt=""> <a href="/gestor/project/{{object.id}}/re-open">Re-open this Project</a></p>
-			{% endif %}
+			
+			<div class="manager_options smaller">
+			
+				<a href="/gestor/project/{{object.id}}/edit/"><img src="/media/icons/pencil.png" width="13px" alt=""> Edit this Project</a><br />
+				{% if object.active %}
+					<a href="/gestor/project/{{object.id}}/close"><img src="/media/icons/box.png" width="13px" alt="">  Close this Project</a>
+				{% else %}
+					<a href="/gestor/project/{{object.id}}/re-open"><img src="/media/icons/briefcase.png" width="13px" alt=""> Re-open this Project</a>
+				{% endif %}
+				
+			</div>
 			<hr />
 		</div>
-		{% endifequal %}
+		{% endif %}
 		
 		<div class="four_col">
 			<p><span class="label">Team: </span></p> <ul class="members">
@@ -49,12 +68,14 @@
 		</div>
 		<div class="four_col">
 			<p><span class="label">Action Items: </span></p> <ul class="action-items">
-				{% for item in actionitems %}
-					<li class="{{item|colorstatus}}"><a href="{{item.get_absolute_url}}">{{item.title}}</a></li>
+				{% for item, dist in actionitems %}
+					<li class="{{item|colorstatus}}" title="Dues: {%if dist%}{{dist}} days{%else%}Never{%endif%}. Priority: {{item.get_priority_display}}">
+						<a href="{{item.get_absolute_url}}">{{item.title}}</a>
+					</li>
 				{% endfor %}
 			</ul>
-			<img src="/media/icons/cog_add.png" alt=""> <a href="/gestor/action/in/{{object.id}}">New ActionItem</a><br />
-			<img src="/media/icons/cog_go.png" alt=""> <a href="#" id="toggle-history">Toggle History</a>
+			<img src="{{MEDIA_URL}}icons/cog_add.png" alt=""> <a href="/gestor/action/in/{{object.id}}">New ActionItem</a><br />
+			<img src="{{MEDIA_URL}}icons/cog_go.png" alt=""> <a href="#" id="toggle-history">Toggle History</a>
 			
 		</div>
 		<div class="four_col">
@@ -63,15 +84,18 @@
 					<li><a href="{{note.get_absolute_url}}">{{note.title}}</a></li>
 				{% endfor %}
 			</ul>
-			<img src="/media/icons/note_add.png" alt=""> <a href="/gestor/note/in/{{object.id}}">New Note</a>
+			<img src="{{MEDIA_URL}}icons/note_add.png" alt=""> <a href="/gestor/note/in/{{object.id}}">New Note</a>
 		</div>
 		<div class="four_col">
-			<p><span class="label">Files: </span></p> <ul class="files">
+			<p><span class="label">Files: </span></p> <ul>
 				{% for file in files %}
-					<li><a href="{{file.get_absolute_url}}">{{file.title}}</a></li>
+					<li style="list-style: none">
+						<a href="{{file.content.url}}" alt='Download File' title='Download File'><img src="{{MEDIA_URL}}icons/page_save.png" /></a>&nbsp;&nbsp;
+						<a href="{{file.get_absolute_url}}">{{file.title}}</a>
+					</li>
 				{% endfor %}
 			</ul>
-			<img src="/media/icons/page_add.png" alt=""> <a href="/gestor/file/in/{{object.id}}">New File</a>
+			<img src="{{MEDIA_URL}}icons/page_add.png" alt=""> <a href="/gestor/file/in/{{object.id}}">New File</a>
 		</div>
 		<div class="clear"></div>
 		

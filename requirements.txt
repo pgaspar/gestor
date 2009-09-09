@@ -1,0 +1,6 @@
+django >= 1.0
+vobject
+textile
+simplejson
+-e svn+http://django-evolution.googlecode.com/svn/trunk/
+-e hg+https://sorl-thumbnail.googlecode.com/hg/#egg=sorl-thumbnail

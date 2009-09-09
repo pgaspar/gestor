@@ -1,2 +1,2 @@
 {% load humanize %}
-{{ obj.title }} (Dues: {{object.due_date|naturalday}})
+{{ obj.title }} (Dues: {{object.due_date|naturalday|default_if_none:"Never"}})
