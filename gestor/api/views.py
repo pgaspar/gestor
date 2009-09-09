@@ -14,7 +14,6 @@ from gestor.api.lib.views_utils import *
 def projects(request, extension):
     """
     Show all the projects of the authenticated user
-    / projects / all    
     """
     projects = request.user.projects_working.all()
     structure = { 'projects' : generate_projects_simple_structure(projects) }
@@ -23,8 +22,7 @@ def projects(request, extension):
 @basicauth()
 def projects_show(request, project_id, extension):
     """
-    Show the project with the specified ID
-    / projects / 123 / show    
+    Show the project with the specified ID   
     """
     project = request.user.projects_working.filter( id = project_id )
     if not project:
@@ -45,7 +43,6 @@ def projects_show(request, project_id, extension):
 def action_items(request, extension):
     """
     Show all the action items of the authenticated user
-    / action_items / all    
     """
 
     if request.method == "POST":
@@ -59,7 +56,6 @@ def action_items(request, extension):
 def action_items_create(request, extension):
     """
     Create a new action item
-    / action_items / create    
     """
     arguments = get_arguments(request, extension)
 
@@ -86,7 +82,6 @@ def action_items_create(request, extension):
 def action_items_todo(request, extension):
     """
     Show all the action items not done of the authenticated user
-    / action_items / todo    
     """
     action_items = request.user.actionitem_todo.filter(done = False)
     structure = generate_action_items_structure(action_items)
@@ -105,7 +100,6 @@ def action_item(request, item_id, extension):
 def action_items_show(request, item_id, extension):
     """
     Shows an existing action item
-    / action_items / 123 / show    
     """
     action_item = ActionItem.objects.filter( id = item_id )
     if not action_item:
@@ -121,8 +115,7 @@ def action_items_show(request, item_id, extension):
 @basicauth()
 def action_items_update(request, item_id, extension):
     """
-    Updates an existing action item
-    / action_items / 123 / update    
+    Updates an existing action item   
     """
     
     action_item = ActionItem.objects.filter( id = item_id )

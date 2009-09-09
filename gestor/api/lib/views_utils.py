@@ -8,7 +8,7 @@ from django.http import HttpResponse
 # HELPERS
 #===============================================================================
 
-def generate_structured_response(structure, extension):
+def generate_structured_response(structure, extension, status=200):
 	"Generate the HTTP response for the given content and extension"
 	
 	# Default mimetype
@@ -26,31 +26,33 @@ def generate_structured_response(structure, extension):
 	else:
 		return generate_error("Invalid extension: '" + extension + "'")
 		
-	response = HttpResponse(result, mimetype = mimetype)
+	response = HttpResponse(result, mimetype = mimetype, status = status)
 	return response
 
-def generate_error(error_messsage = 'Unknown error', extension = 'xml'):
+def generate_error(error_messsage = 'Unknown error', extension = 'xml', status=400):
 	"Generate a response with a given error message"
 	error = {'error' : {'message' : error_messsage}}
-	return generate_structured_response(error, extension)
+	return generate_structured_response(error, extension, status = status)
 
 def generate_authorization_error(extension = 'xml'):
 	"Generate a response with a Not Authorized error."
 	error = {'error' : {'message' : 'Not authorized.'}}
-	return generate_structured_response(error, extension)
+	return generate_structured_response(error, extension, status=401)
 
-def generate_confirmation(message = 'OK', extension = 'xml'):
+def generate_confirmation(message = 'OK', extension = 'xml', status=200):
 	"Generate a response with a confirmation message"
 	confirm = {'ok' : {'message' : message}}
-	return generate_structured_response(confirm, extension)
+	return generate_structured_response(confirm, extension, status = status)
 
 def get_arguments(request, extension):
 	if request.method == 'POST':
 		return request.POST
 	elif request.method == 'GET':
 		return request.GET
+	elif request.method == "PUT":
+		return request._raw_post_data
 	else:
-		return generate_error("Request has to be either GET or POST.", extension)
+		return generate_error("Request has to be GET , PUT or POST.", extension)
 
 def check_permissions( project, user, extension ):
 	try:
@@ -181,6 +183,6 @@ def update_action_item(action_item, arguments, extension):
 		if action_item_targets:
 			action_item.targets = action_item_targets
 	except Exception, error:
-		return generate_error("IntegrityError: " + str(error), extension)
+		return generate_error("IntegrityError: " + str(error), extension, status = 400)
 
 	return None 
