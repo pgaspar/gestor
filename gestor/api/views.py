@@ -77,7 +77,7 @@ def action_items_create(request, extension):
     error = update_action_item(new_action_item, arguments, extension)
 
     if not error:
-        return generate_confirmation("Action item created.", extension)
+        return generate_confirmation("Action item created.", extension, status = 201)
     else:
         return error
 
@@ -147,7 +147,6 @@ def action_items_update(request, item_id, extension):
 def action_items_delete(request, item_id, extension):
     """
     Updates an existing action item
-    / action_items / 123 / delete    
     """
     action_item = ActionItem.objects.filter( id = item_id )
     if not action_item:
