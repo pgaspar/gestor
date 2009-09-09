@@ -2,15 +2,27 @@
 
 {% block content %}
 
-    {% include "side_bar.html" %}
-    
+	{% include "side_bar.html" %}
+	
  
-    <div class="span-14 prepend-1 last">
-      
-      {% for object in latest %}
-        {% include "news.html" %}
-      {% endfor %}
-      
-    </div>
+	<div class="span-14 prepend-1 last">
+	  
+	  {% for object in object_list %}
+		{% include "news.html" %}
+	  {% endfor %}
+	  
+	{% if is_paginated %}
+	<span class="step-links">
+		{% if page_obj.has_previous %}
+			<span style="float: left;"><a href="?page={{ page_obj.previous_page_number }}"><< Mais recentes</a></span>
+		{% endif %}
+
+		{% if page_obj.has_next %}
+			<span style="float: right;"><a href="?page={% ifequal page_obj.next_page_number paginator.num_pages %}last{% else %}{{ page_obj.next_page_number }}{% endifequal %}">Mais antigos >></a></span>
+		{% endif %}
+	</span>
+	{% endif %}
+	
+	</div>
  
 {% endblock %}

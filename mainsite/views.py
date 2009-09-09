@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseForbidden
 from django.core.exceptions import PermissionDenied
 
-from django.views.generic.list_detail import object_detail
+from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.date_based import archive_index
 
 # News Views
@@ -47,8 +47,10 @@ def news_detail(request, **kwargs):
 		
 def news_index(request, **kwargs):
 	if (request.user.has_perm('mainsite.change_news')):
-		kwargs['queryset'] = News.objects.all()
+		kwargs['queryset'] = News.objects.all().order_by('-date')
 	else:
-		kwargs['queryset'] = News.objects.filter(is_published=True)
+		kwargs['queryset'] = News.objects.filter(is_published=True).order_by('-date')
 	
-	return archive_index(request, **kwargs)
+	kwargs.pop('date_field')
+	kwargs['paginate_by'] = 3
+	return object_list(request, **kwargs)
