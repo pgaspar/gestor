@@ -43,8 +43,10 @@
 		
 		{% if private %}{{ event.privateContent|textile }}{% else %}{{ event.content|textile }}{% endif %}
 		
+		<div style="float: left">
+		
 		{% if not private and event.privateContent %}
-
+		
 		{% if not event.password or perms.formacao.can_change_event %}
 		<a href="{{ event.get_private_url }}"><img src="{{MEDIA_URL}}icons/key.gif" alt="Zona privada" title="Zona privada" /></a>
 		{% else %}
@@ -57,10 +59,20 @@
 			<img src="{{MEDIA_URL}}icons/action_delete.png" onclick="hidePwdForm();" onmouseover="this.style.cursor='pointer';" alt="Cancelar" title="Cancelar" />
 		</form>
 		{% endif %}
-
+		
 		{% else %}{% if event.privateContent %}
 		<a href="{{ event.get_absolute_url }}"><img src="{{MEDIA_URL}}icons/home.png" alt="Zona aberta" title="Zona aberta" /></a>
 		{% endif %}{% endif %}
+		</div>
+		
+		<div style="float: right">
+		<script language="javascript" type="text/javascript" charset="utf-8">
+			SHARETHIS.addEntry({
+				title:'jeKnowlegde - Formação - {{event.name}}',
+				url:build_base_url() + '{{event.get_absolute_url}}',
+			}, {button:true} );
+		</script>
+		</div>
 	</div>
 
 

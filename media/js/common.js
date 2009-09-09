@@ -1,0 +1,1 @@
+function build_base_url(){ return window.location['protocol'] + '//' + window.location['host'] }
