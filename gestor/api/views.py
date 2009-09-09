@@ -26,7 +26,7 @@ def projects_show(request, project_id, extension):
     """
     project = request.user.projects_working.filter( id = project_id )
     if not project:
-        return generate_error("Unknown project with id '" + project_id + "'", extension)
+        return generate_error("Unknown project with id '%d'." % item_id, extension)
     
     # Check permissions
     not_authorized = check_permissions( project[0], request.user, extension )
@@ -103,7 +103,7 @@ def action_items_show(request, item_id, extension):
     """
     action_item = ActionItem.objects.filter( id = item_id )
     if not action_item:
-        return generate_error("Unknown action item with id '" + item_id + "'.", extension)
+        return generate_error("Unknown action item with id '%d'." % item_id, extension)
     
     # Check permissions
     not_authorized = check_permissions( action_item[0].project, request.user, extension )
@@ -120,7 +120,7 @@ def action_items_update(request, item_id, extension):
     
     action_item = ActionItem.objects.filter( id = item_id )
     if not action_item:
-        return generate_error("Unknown action item with id '" + item_id + "'.", extension)
+        return generate_error("Unknown action item with id '%d'." % item_id, extension)
     action_item = action_item[0] # Get the object from the queryset
     
     # Check permissions
@@ -143,7 +143,7 @@ def action_items_delete(request, item_id, extension):
     """
     action_item = ActionItem.objects.filter( id = item_id )
     if not action_item:
-        return generate_error("Unknown action item with id '" + item_id + "'.", extension)
+        return generate_error("Unknown action item with id '%d'." % item_id, extension)
     action_item = action_item[0] # Get the object from the queryset
     
     # Check permissions
