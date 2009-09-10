@@ -59,14 +59,14 @@
 		</div>
 		{% endif %}
 		
-		<div class="four_col">
+		<div class="three_col">
 			<p><span class="label">Team: </span></p> <ul class="members">
 				{% for user in object.team.all %}
 					<li><a href="{{user.get_absolute_url}}">{{user.get_full_name}}</a></li>
 				{% endfor %}
 			</ul>
 		</div>
-		<div class="four_col">
+		<div class="three_col">
 			<p><span class="label">Action Items: </span></p> <ul class="action-items">
 				{% for item, dist in actionitems %}
 					<li class="{{item|colorstatus}}" title="Dues: {%if dist%}{{dist}} days{%else%}Never{%endif%}. Priority: {{item.get_priority_display}}">
@@ -78,24 +78,13 @@
 			<img src="{{MEDIA_URL}}icons/cog_go.png" alt=""> <a href="#" id="toggle-history">Toggle History</a>
 			
 		</div>
-		<div class="four_col">
+		<div class="three_col">
 			<p><span class="label">Notes: </span></p> <ul class="notes">
 				{% for note in notes %}
 					<li><a href="{{note.get_absolute_url}}">{{note.title}}</a></li>
 				{% endfor %}
 			</ul>
 			<img src="{{MEDIA_URL}}icons/note_add.png" alt=""> <a href="/gestor/note/in/{{object.id}}">New Note</a>
-		</div>
-		<div class="four_col">
-			<p><span class="label">Files: </span></p> <ul>
-				{% for file in files %}
-					<li style="list-style: none">
-						<a href="{{file.content.url}}" alt='Download File' title='Download File'><img src="{{MEDIA_URL}}icons/page_save.png" /></a>&nbsp;&nbsp;
-						<a href="{{file.get_absolute_url}}">{{file.title}}</a>
-					</li>
-				{% endfor %}
-			</ul>
-			<img src="{{MEDIA_URL}}icons/page_add.png" alt=""> <a href="/gestor/file/in/{{object.id}}">New File</a>
 		</div>
 		<div class="clear"></div>
 		

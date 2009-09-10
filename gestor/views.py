@@ -6,7 +6,7 @@ from django.views.generic.create_update import *
 
 from django.contrib.syndication.views import feed
 
-from gestor.models import Project, ActionItem, Note, ActionNote, File
+from gestor.models import Project, ActionItem, Note, ActionNote
 from cvmanager.models import CurriculumVitae
 from accounts.models import UserProfile
 from django.contrib.auth.models import User
@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 
 from django.forms import *
-from gestor.forms import NoteForm, ActionForm, FileForm, ActionNoteForm, ProjectForm, SearchForm
+from gestor.forms import NoteForm, ActionForm, ActionNoteForm, ProjectForm, SearchForm
 
 from django.db.models import Q
 from django.core.mail import send_mail
@@ -244,7 +244,6 @@ def project_detail(request,object_id):
 	return render(request,'project_detail.html',{
 		'object':p,
 		'notes': p.note_set.order_by("-set_date"),
-		'files': p.file_set.order_by("-set_date"),
 		'actionitems': [ [item, dist(item.due_date)] for item in p.actionitem_set.all() ]
 		})
 
@@ -314,29 +313,7 @@ def actionnote_create(request,object_id):
 @login_required
 def actionnote_edit(request,object_id):
 	return edit_view(request,object_id,ActionNoteForm,"note_edit.html")
-
-
-# File Views
-
-@login_required
-def file_detail(request,object_id):
-	p = get_object_or_404(File,id=object_id)
-	p.project.check_user(request.user)
-	return render(request,'file_detail.html',{'object':p})
-
-@login_required
-def file_delete(request,object_id):
-	return delete_view(request,object_id,File)
-
-@login_required
-def file_create(request,object_id):
-	return create_view(request,object_id,FileForm,"file_edit.html")
-
-
-@login_required
-def file_edit(request,object_id):
-	return edit_view(request,object_id,FileForm,"file_edit.html")
-
+	
 
 # ActionItem Views
 
@@ -455,8 +432,6 @@ def search_everything(request):
 			res['Note'] = Note.objects.filter(
 									   Q(title__icontains=search_term) \
 									 | Q(description__icontains=search_term) )
-			
-			res['File'] = File.objects.filter( Q(title__icontains=search_term) )
 		
 		else:
 			return render(request,'generic_search.html',{'form':form,'results': False})
@@ -470,5 +445,4 @@ def search_everything(request):
 												  'res_proj': res['Proj'],
 												  'res_actionitem': res['ActionItem'],
 												  'res_actionnote': res['ActionNote'],
-												  'res_file': res['File'],
 												  'res_note': res['Note'] })

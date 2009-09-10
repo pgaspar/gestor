@@ -111,19 +111,3 @@ class ActionNote(models.Model):
 
 	def get_absolute_url(self):
 		return "/gestor/actionnote/%s/" % self.id
-
-class File(models.Model):
-	project = models.ForeignKey(Project)
-	title = models.CharField(max_length=100, default=None)
-	content = models.FileField(upload_to="files")
-	author = models.ForeignKey(User)
-	set_date = models.DateField(auto_now=True)
-	
-	class Meta:
-		ordering = ["-set_date"]
-
-	def __unicode__(self):
-		return u"%s" % self.title
-
-	def get_absolute_url(self):
-		return "/gestor/file/%s/" % self.id

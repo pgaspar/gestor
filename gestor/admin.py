@@ -1,4 +1,4 @@
-from gestor.models import Project, ActionItem, Note, File, ActionNote
+from gestor.models import Project, ActionItem, Note, ActionNote
 from django.contrib import admin
 
 class ProjectAdmin(admin.ModelAdmin):	
@@ -35,13 +35,4 @@ class ActionNoteAdmin(admin.ModelAdmin):
 
 
 try: admin.site.register(ActionNote,ActionNoteAdmin)
-except: pass
-
-class FileAdmin(admin.ModelAdmin):	
-	list_display = ('title','project','author',)
-	list_filter = ('project','author',)
-	search_fields = ['title','project']
-
-
-try: admin.site.register(File,FileAdmin)
 except: pass

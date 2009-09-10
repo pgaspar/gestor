@@ -41,11 +41,6 @@ urlpatterns = patterns('',
 	(r'^actionnote/(?P<object_id>\d+)/edit/$', 'gestor.views.actionnote_edit',),
 	(r'^actionnote/(?P<object_id>\d+)/delete/$', 'gestor.views.actionnote_delete',),
 	
-	(r'^file/(?P<object_id>\d+)/$', 'gestor.views.file_detail', ),
-	(r'^file/in/(?P<object_id>\d+)/$', 'gestor.views.file_create', ),
-	(r'^file/(?P<object_id>\d+)/edit/$', 'gestor.views.file_edit',),
-	(r'^file/(?P<object_id>\d+)/delete/$', 'gestor.views.file_delete',),
-	
 	(r'^search/$', 'gestor.views.search_everything',),
 
 )
