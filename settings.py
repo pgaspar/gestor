@@ -112,6 +112,7 @@ INSTALLED_APPS = (
 	'mainsite',
     'formacao',
 	'sorl.thumbnail',
+	'activitystream',
 )
 
 DATE_FORMAT = "d/F/Y"
