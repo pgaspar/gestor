@@ -16,7 +16,7 @@ from django.core.exceptions import PermissionDenied
 from django.forms import *
 from gestor.forms import NoteForm, ActionForm, ActionNoteForm, ProjectForm, SearchForm
 
-from django.db.models import Q
+from gestor.search_utils import *
 from django.core.mail import send_mail
 
 from settings import *
@@ -396,43 +396,16 @@ def search_everything(request):
 		if form.is_valid():
 			search_term = form.cleaned_data['find'].rstrip()
 			
-			res['Cv'] = CurriculumVitae.objects.select_related("owner").filter(
-									   Q(owner__first_name__icontains=search_term) \
-									 | Q(owner__last_name__icontains=search_term) \
-									 | Q(course__icontains=search_term) \
-									 | Q(complements__icontains=search_term)    \
-									 | Q(proficient_areas__icontains=search_term) \
-									 | Q(foreign_langs__icontains=search_term) \
-									 | Q(computer_skills__icontains=search_term) \
-									 | Q(other_skills__icontains=search_term) \
-									 | Q(interests__icontains=search_term) )
-
-			res['User'] = list( set( list( User.objects.filter(
-									   Q(first_name__icontains=search_term) \
-									 | Q(last_name__icontains=search_term) \
-									 | Q(username__icontains=search_term) ) ) \
-						+ [ p.user for p in UserProfile.objects.filter(
-									   Q(organization__icontains=search_term) \
-									 | Q(title__icontains=search_term) \
-									 | Q(description__icontains=search_term) ) ] ) )
-									 
+			res['Cv'] = res['User'] = res['Proj'] = res['ActionItem']\
+			 		  = res['ActionNote'] = res['Note'] = None
 			
-			res['Proj'] = Project.objects.filter(
-									   Q(name__icontains=search_term) \
-									 | Q(description__icontains=search_term) )
+			for word in search_term.split(' '):
+				for key in res.keys():
+					if res[key] != None: res[key] = res[key] & search(key, word)
+					else: res[key] = search(key, word)
 			
-			res['ActionItem'] = ActionItem.objects.filter(
-									   Q(title__icontains=search_term) \
-									 | Q(description__icontains=search_term) )
+			for key in res.keys(): res[key] = list(res[key])
 			
-			res['ActionNote'] = ActionNote.objects.filter(
-									   Q(actionitem__title__icontains=search_term) \
-									 | Q(description__icontains=search_term) )
-			
-			res['Note'] = Note.objects.filter(
-									   Q(title__icontains=search_term) \
-									 | Q(description__icontains=search_term) )
-		
 		else:
 			return render(request,'generic_search.html',{'form':form,'results': False})
 	else:
