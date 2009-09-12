@@ -1,5 +1,5 @@
 from mainsite.models import News
-from mainsite.forms import NewsForm
+from mainsite.forms import NewsForm, SearchNewsForm
 
 from django.contrib.auth.decorators import login_required
 from common.utils import render
@@ -10,6 +10,8 @@ from django.core.exceptions import PermissionDenied
 
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.date_based import archive_index
+
+from django.db.models import Q
 
 # News Views
 
@@ -54,3 +56,35 @@ def news_index(request, **kwargs):
 	kwargs.pop('date_field')
 	kwargs['paginate_by'] = 3
 	return object_list(request, **kwargs)
+
+def search_news(request):
+	
+	# Compare function used to sort the results array.
+	def cmp_news(x, y):
+		if x.date < y.date: return 1
+		elif x.date == y.date: return 0
+		else: return -1
+	
+	res = None
+	search_term = ''
+	
+	if request.method == 'POST':
+		form = SearchNewsForm(request.POST)
+		
+		if form.is_valid():
+			search_term = form.cleaned_data['find'].rstrip()
+			
+			if request.user.has_perm('mainsite.change_news'):
+				queryset = News.objects.all()
+			else: queryset = News.objects.filter(is_published=True)
+			
+			for word in search_term.split(' '):
+				if res == None: res = set(queryset.filter(Q(title__icontains=word)\
+														| Q(body__icontains=word)))
+				else: res = res & set(queryset.filter(Q(title__icontains=word)\
+													| Q(body__icontains=word)))
+			res = sorted(list(res), cmp_news)
+	else:
+		form = SearchNewsForm()
+	
+	return render(request,'news_search.html',{'search_term': search_term, 'results': res})

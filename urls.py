@@ -50,10 +50,9 @@ urlpatterns = patterns('',
 	
 	(r'^noticias/(?P<object_id>\d+)/$', 'mainsite.views.news_detail', {'template_name': 'news_detail.html'}),
 	
-	
 	(r'^noticias/create/$', 'mainsite.views.create_news'),
 
-	
+	(r'^noticias/pesquisar/$', 'mainsite.views.search_news'),
 	
 	# New site (hard-coded, no more flat pages)
 	(r'^$', 'mainsite.views.news_index', dict( info_dict, template_name='index.html' )),

@@ -9,3 +9,6 @@ class NewsForm(ModelForm):
 	
 	class Meta:
 		model = News
+
+class SearchNewsForm(Form):
+	find = CharField(label="Pesquisar:")
