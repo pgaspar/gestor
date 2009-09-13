@@ -217,3 +217,7 @@ div.article-footer {
 div.find_form {
 	margin-top: 12px;
 }
+
+input.submit-image {
+	vertical-align: text-bottom;
+}

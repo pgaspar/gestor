@@ -7,7 +7,7 @@
   <div class="find_form">
   <form action="/noticias/pesquisar/" method="post">
 	<input type="text" name="find" value='{{search_term|default:"Pesquisar..." }}' id="id_find" onclick="if (this.value == 'Pesquisar...') { this.clear(); }"/>
-	<input type="submit" value="Ok" />
+	<input type="image" class="submit-image" src="{{MEDIA_URL}}icons/search.png" alt="Submit Form" />
   </form>
   </div>
 
