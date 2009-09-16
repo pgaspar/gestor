@@ -1,5 +1,4 @@
-try: import json
-except: import simplejson as json
+from django.utils import simplejson as json
 
 import datetime
 from types import DictType, ListType
