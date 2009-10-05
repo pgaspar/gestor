@@ -1,0 +1,17 @@
+{% extends "../../gestor/templates/base.html" %}
+
+{% load utils %}
+
+{% block content %}
+	<div id="activity-stream">
+		<h1>Activity Stream</h1>
+	
+		<ul class="activities">
+			<li class="activity {{ object|activity_class }}">
+				<span class="activity-message">{{ object.generate_text|safe }}</span>
+				<span class="activity-date">({{ object.date|timeuntil }} ago)</span>
+			</li>
+		</ul>
+		
+	</div>
+{% endblock %}

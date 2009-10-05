@@ -1,0 +1,32 @@
+{% extends "../../gestor/templates/base.html" %}
+
+{% load utils %}
+
+{% block content %}
+	<div id="activity-stream">
+		<h1>Activity Stream</h1>
+	
+		<div style="float:right">
+			<a href="/gestor/feeds/stream/"><img src="{{MEDIA_URL}}/icons/rss.png" alt="RSS feed"/></a>
+		</div>
+	
+		<div>
+			<form action="" method="post">
+			<label for="mssage">Post a message:</label> {{ form.message }}
+			<input type="submit" value="Post" />
+			</form>
+		</div>
+	
+		<ul class="activities">
+			{% for activity in activities %}
+				<li class="activity {{ activity|activity_class }}">
+					<span class="activity-message">{{ activity.generate_text|safe }}</span>
+					<span class="activity-date">({{ activity.date|timeuntil }} ago)</span>
+				</li>
+			{% endfor %}
+		</ul>
+		
+		{% if not all %}<a href="/gestor/stream/all"><img src="{{ MEDIA_URL }}/icons/add.png" /> All activities</a>{% endif %}
+		
+	</div>
+{% endblock %}
