@@ -11,6 +11,9 @@ class ActivityStreamFeed(Feed):
 
     title_template = 'feed_title.html'
     description_template = "feed_description.html"
-
+	
+    def item_pubdate(self, item):
+        return item.date
+	
     def items(self):
         return Activity.objects.all()[:20]
