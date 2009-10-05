@@ -9,6 +9,7 @@ from django.contrib.syndication.views import feed
 from gestor.models import Project, ActionItem, Note, ActionNote
 from cvmanager.models import CurriculumVitae
 from accounts.models import UserProfile
+from activitystream.models import Activity
 from django.contrib.auth.models import User
 
 from django.core.exceptions import PermissionDenied
@@ -212,6 +213,7 @@ def project_dashboard(request):
 
 	late_projects = Project.objects.filter(active=True, end_date__lt=date.today())
 	
+	activities = Activity.objects.all()[0:50]
 	
 	class MockUserWithCount(object):
 		def __init__(self,user,count):
@@ -233,7 +235,8 @@ def project_dashboard(request):
 				'jk_proj_list':jk_proj,
 				'late_projects':late_projects,
 				'late_people':late_people,
-				'late_tasks':late_tasks
+				'late_tasks':late_tasks,
+				'activities':activities
 			})
 
 @login_required
@@ -419,3 +422,14 @@ def search_everything(request):
 												  'res_actionitem': res['ActionItem'],
 												  'res_actionnote': res['ActionNote'],
 												  'res_note': res['Note'] })
+
+def create_activity_message(request):
+	if request.method == 'POST':
+		form = ActivityMessageForm(request.POST)
+		if form.is_valid():
+			Activity(message = form.message)
+		else:
+			return project_dashboard(request)
+	else:
+		return project_dashboard(request)
+

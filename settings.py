@@ -73,6 +73,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.doc.XViewMiddleware',
 	#'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 	#'middleware.requirelogin.RequireLoginMiddleware',
+    "middleware.threadlocals.ThreadLocals",
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -113,6 +114,7 @@ INSTALLED_APPS = (
     'formacao',
     'ecosystem',
 	'sorl.thumbnail',
+	'activitystream',
 )
 
 DATE_FORMAT = "d/F/Y"

@@ -1,12 +1,15 @@
 from django.conf.urls.defaults import *
 from gestor.models import Project, Note, ActionItem
+from activitystream.models import Activity
 
 from gestor.forms import NoteForm, ActionForm
 
 from gestor.feeds import ActionItemFeed
+from activitystream.feeds import ActivityStreamFeed
 
 feeds = {
     'ActionItems': ActionItemFeed,
+    'stream': ActivityStreamFeed,
 }
 
 
@@ -40,7 +43,9 @@ urlpatterns = patterns('',
 	(r'^actionnote/in/(?P<object_id>\d+)/$', 'gestor.views.actionnote_create', ),
 	(r'^actionnote/(?P<object_id>\d+)/edit/$', 'gestor.views.actionnote_edit',),
 	(r'^actionnote/(?P<object_id>\d+)/delete/$', 'gestor.views.actionnote_delete',),
-	
 	(r'^search/$', 'gestor.views.search_everything',),
+
+    (r'^stream/(?P<all>all/?)?$', 'activitystream.views.activity_stream',),
+    (r'^stream/(?P<stream_id>\d+)/', 'activitystream.views.activity_stream_detail'),
 
 )

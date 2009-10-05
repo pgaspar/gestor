@@ -4,6 +4,8 @@ from datetime import datetime
 
 from django.core.exceptions import PermissionDenied
 
+from activitystream.models import Activity
+
 class ProjectManager(models.Manager):
 	def get_query_set(self):
 		return super(ProjectManager,self).get_query_set().filter(active=True)
@@ -60,6 +62,29 @@ class Project(models.Model):
 			
 	def percentage(self):
 		return str(int(round(self.ratio() * 100))) + "%"
+	
+	def createActivity(self, action):
+		activity = Activity( message_type = Activity.MSG_GESTOR_PROJECT, 
+							 action_type = action, 
+							 object_id = self.id,
+							 message = self.name )
+		activity.save()
+	
+	def save(self):
+		new_object = not self.id
+		
+		super(Project, self).save() # Call the "real" save() method
+		
+		if new_object:
+			action = Activity.ACTION_CREATE
+		else:
+			action = self.active and Activity.ACTION_EDIT or Activity.ACTION_CLOSE
+		self.createActivity(action)
+						     
+	    
+	def delete(self):
+		super(Project, self).delete() # Call the "real" delete() method
+		self.createActivity(Activity.ACTION_DELETE)
 
 class ActionItem(models.Model):
 	project = models.ForeignKey(Project)
@@ -80,6 +105,30 @@ class ActionItem(models.Model):
 	
 	def get_absolute_url(self):
 		return "/gestor/action/%s/" % self.id 
+	
+	def createActivity(self, action):
+		activity = Activity( message_type = Activity.MSG_GESTOR_ACTION_ITEM, 
+							 action_type = action, 
+							 object_id = self.id,
+							 message = self.title )
+		activity.save()
+	
+	def save(self):
+		new_object = not self.id
+		
+		super(ActionItem, self).save() # Call the "real" save() method
+		
+		if new_object:
+			action = Activity.ACTION_CREATE
+		else:
+			action = not self.done and Activity.ACTION_EDIT or Activity.ACTION_CLOSE
+		self.createActivity(action)
+						     
+	    
+	def delete(self):
+		super(ActionItem, self).delete() # Call the "real" delete() method
+		self.createActivity(Activity.ACTION_DELETE)	
+	
 
 class Note(models.Model):
 	project = models.ForeignKey(Project)
@@ -96,7 +145,29 @@ class Note(models.Model):
 	
 	def get_absolute_url(self):
 		return "/gestor/note/%s/" % self.id
+	
+	def createActivity(self, action):
+		activity = Activity( message_type = Activity.MSG_GESTOR_NOTE, 
+							 action_type = action, 
+							 object_id = self.id,
+							 message = self.project.name )
+		activity.save()
 		
+	def save(self):
+		new_object = not self.id
+		
+		super(Note, self).save() # Call the "real" save() method
+		
+		if new_object:
+			action = Activity.ACTION_CREATE
+		else:
+			action = Activity.ACTION_EDIT
+		self.createActivity(action)
+						     
+	def delete(self):
+		super(Note, self).delete() # Call the "real" delete() method
+		self.createActivity(Activity.ACTION_DELETE)		
+			
 class ActionNote(models.Model):
 	actionitem = models.ForeignKey(ActionItem)
 	description = models.TextField(blank=True, null=True)
@@ -111,3 +182,26 @@ class ActionNote(models.Model):
 
 	def get_absolute_url(self):
 		return "/gestor/actionnote/%s/" % self.id
+
+	def createActivity(self, action):
+		activity = Activity( message_type = Activity.MSG_GESTOR_ACTION_NOTE, 
+							 action_type = action, 
+							 object_id = self.id,
+							 message = self.actionitem.title )
+		activity.save()
+		
+	def save(self):
+		new_object = not self.id
+		
+		super(ActionNote, self).save() # Call the "real" save() method
+		
+		if new_object:
+			action = Activity.ACTION_CREATE
+		else:
+			action = Activity.ACTION_EDIT
+		self.createActivity(action)
+						     
+	def delete(self):
+		super(ActionNote, self).delete() # Call the "real" delete() method
+		self.createActivity(Activity.ACTION_DELETE)		
+		
