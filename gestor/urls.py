@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import *
 from gestor.models import Project, Note, ActionItem
+from activitystream.models import Activity
 
 from gestor.forms import NoteForm, ActionForm
 
@@ -40,7 +41,6 @@ urlpatterns = patterns('',
 	(r'^actionnote/in/(?P<object_id>\d+)/$', 'gestor.views.actionnote_create', ),
 	(r'^actionnote/(?P<object_id>\d+)/edit/$', 'gestor.views.actionnote_edit',),
 	(r'^actionnote/(?P<object_id>\d+)/delete/$', 'gestor.views.actionnote_delete',),
-	
 	(r'^search/$', 'gestor.views.search_everything',),
 
 )
