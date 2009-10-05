@@ -21,7 +21,7 @@
 			{% for activity in activities %}
 				<li class="activity {{ activity|activity_class }}">
 					<span class="activity-message">{{ activity.generate_text|safe }}</span>
-					<span class="activity-date">({{ activity.date|timeuntil }} ago)</span>
+					<span class="activity-date">({{ activity.date|timesince }} ago)</span>
 				</li>
 			{% endfor %}
 		</ul>
