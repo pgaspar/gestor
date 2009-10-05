@@ -35,13 +35,15 @@ class Activity(models.Model):
     class Meta:
         ordering = ["-date"]
     
+    def get_absolute_url(self):
+        return u"/gestor/stream/%d/" % self.id
+    
     def save(self):
     	if not self.id:
     		self.date = datetime.now()
         self.user = get_current_user()
     	super(Activity, self).save()
 
-    
     def generate_text(self):
         "Generate the text to be shown on the interface"
         

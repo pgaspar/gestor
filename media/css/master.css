@@ -342,3 +342,40 @@ li.yellow {
 .project_detail .manager_options  {
 	padding: 0px 0px 8px 2px;
 }
+
+/* Activity Stream */
+
+#activity-stream div.message-form {
+	float: left;
+}
+
+li.activity {
+	font-size: 14px;
+	margin: 6px 0px;
+}
+
+li.activity-project {
+	list-style: inside url(/media/icons/box.png);
+}
+
+li.activity-actionitem {
+	list-style: inside url(/media/icons/flag_green.png);
+}
+
+li.activity-note {
+	list-style: inside url(/media/icons/note.png);
+}
+
+li.activity-user {
+	list-style: inside url(/media/icons/user.png);
+}
+
+span.activity-message {
+	
+}
+
+span.activity-date {
+	font-size: 10px;
+	padding-left: 8px;
+	color: #888;
+}

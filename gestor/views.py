@@ -449,3 +449,14 @@ def search_everything(request):
 												  'res_actionitem': res['ActionItem'],
 												  'res_actionnote': res['ActionNote'],
 												  'res_note': res['Note'] })
+
+def create_activity_message(request):
+	if request.method == 'POST':
+		form = ActivityMessageForm(request.POST)
+		if form.is_valid():
+			Activity(message = form.message)
+		else:
+			return project_dashboard(request)
+	else:
+		return project_dashboard(request)
+
