@@ -112,7 +112,6 @@ INSTALLED_APPS = (
 	'cvmanager',
 	'mainsite',
     'formacao',
-    'ecosystem',
 	'sorl.thumbnail',
 	'activitystream',
 )
