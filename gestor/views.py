@@ -213,7 +213,7 @@ def project_dashboard(request):
 
 	late_projects = Project.objects.filter(active=True, end_date__lt=date.today())
 	
-	activities = Activity.objects.order_by('-date')[0:50]
+	activities = Activity.objects.all()[0:50]
 	
 	class MockUserWithCount(object):
 		def __init__(self,user,count):

@@ -48,4 +48,7 @@ class RequireLoginMiddleware(object):
                 return login(request)
             else:
                 return HttpResponseRedirect('%s?next=%s' % (self.require_login_path, request.path))
+
+        
+        
                 
