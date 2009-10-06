@@ -3,10 +3,10 @@ from mainsite.forms import NewsForm, SearchNewsForm
 
 from django.contrib.auth.decorators import login_required
 from common.utils import render
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import get_object_or_404
+from common.views import PermissionDenied
 
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseForbidden
-from django.core.exceptions import PermissionDenied
 
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.date_based import archive_index
@@ -33,7 +33,7 @@ def create_news(request):
 		return render(request,"news_edit.html",{'form':form})
 
 	else:
-		raise PermissionDenied()
+		return PermissionDenied(request)
 
 def archive(request):
 	date_list = News.objects.filter(is_published=True).dates('date', 'year')[::-1]

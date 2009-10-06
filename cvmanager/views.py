@@ -1,22 +1,20 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from accounts.models import UserProfile
-from django.template.context import RequestContext
 from cvmanager.models import CurriculumVitae
 
 from django.contrib.auth.decorators import login_required
 from django.views.generic.create_update import *
-from django.forms import *
 
+from django.forms import *
 from cvmanager.forms import CvForm
-from django.core.exceptions import PermissionDenied
+
+from common.utils import render
+from common.views import PermissionDenied
 
 from django.views.generic.create_update import create_object, update_object
 
 import datetime
-
-def render(request,template,context={}):
-	return render_to_response(template,context,context_instance=RequestContext(request))
 
 # Curriculum Views
 
@@ -31,7 +29,7 @@ def curriculum(request,username):
 		
 		return render(request,'curriculum.html',{'u':u, 'cv':c, 'profile':profile})
 	else:
-		raise PermissionDenied()
+		return PermissionDenied(request)
 
 def public_curriculum(request, username):
 	# This page will be visible to the outside world (logged out users)

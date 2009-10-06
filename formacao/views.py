@@ -2,8 +2,6 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import Http404, HttpResponseRedirect
 from common.utils import render
 
-from django.core.exceptions import PermissionDenied
-
 from formacao.models import Event
 
 def view_content_with_slug(request, slug):

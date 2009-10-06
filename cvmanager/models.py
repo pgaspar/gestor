@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.exceptions import PermissionDenied
 
 from cvmanager.utils import COURSES_CHOICES
 import datetime
@@ -36,13 +35,14 @@ class CurriculumVitae(models.Model):
 	def get_public_url(self):
 		return "/%s/" % self.owner.username
 	
-	def check_user(self,user):
+	def check_user(self, user):
 		if not user.has_perm('cvmanager.can_view_cv') or not user is self.owner:
-			raise PermissionDenied()
-	
-	def check_owner(self,user):
-		if not user is self.owner:
-			raise PermissionDenied()
+			return False
+		else: return True
+			
+	def check_owner(self, user):
+		if not user is self.owner: return False
+		else: return True
 
 	class Meta:
 		permissions = ( ('can_view_cv','Can view CVs'), 

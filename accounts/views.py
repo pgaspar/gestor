@@ -1,19 +1,15 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
 
 from accounts.models import UserProfile
 from accounts.forms import UserProfileForm, UserForm
 
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 
 from gestor.utils import dist, work_together, mergeLists
-
-
-def render(request,template,context={}):
-	return render_to_response(template,context,context_instance=RequestContext(request))
+from common.utils import render
+from common.views import PermissionDenied
 
 # Redirects
 
@@ -28,7 +24,7 @@ def profile(request,username):
 	u = get_object_or_404(User, username = username)
 	
 	if not (request.user == u or request.user.has_perm('accounts.view_profiles') or work_together(u, request.user)):
-		raise PermissionDenied()
+		return PermissionDenied(request)
 	
 	current_projects = mergeLists(u.projects_working.filter(active=True), u.projects_managed.filter(active=True))
 	past_projects = mergeLists(u.projects_working.filter(active=False), u.projects_managed.filter(active=False))

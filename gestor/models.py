@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 
-from django.core.exceptions import PermissionDenied
-
 from activitystream.models import Activity
 
 class ProjectManager(models.Manager):
@@ -43,11 +41,13 @@ class Project(models.Model):
 		
 	def check_user(self,user):
 		if not ( user.has_perm('gestor.view_project') or self.has_user(user) or (user.has_perm('gestor.view_intern_projects') and self.isIntern()) ):
-			raise PermissionDenied()
+			return False
+		else: return True
 	
 	def check_manager(self, user, perm):
 		if user != self.manager and not user.has_perm('gestor.' + perm + '_project'):
-			raise PermissionDenied()
+			return False
+		else: return True
 	
 	def isIntern(self):
 		return self.name.split('-')[0].lower() == 'jk'

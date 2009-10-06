@@ -53,9 +53,7 @@ def get_arguments(request, extension):
 		return generate_error("Request has to be either GET or POST.", extension)
 
 def check_permissions( project, user, extension ):
-	try:
-		project.check_user( user )
-	except Exception:
+	if not project.check_user( user ):
 		return generate_authorization_error( extension )
 	return None
 

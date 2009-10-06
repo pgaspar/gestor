@@ -12,8 +12,6 @@ from accounts.models import UserProfile
 from activitystream.models import Activity
 from django.contrib.auth.models import User
 
-from django.core.exceptions import PermissionDenied
-
 from django.forms import *
 from gestor.forms import NoteForm, ActionForm, ActionNoteForm, ProjectForm, SearchForm
 
@@ -22,6 +20,7 @@ from django.core.mail import send_mail
 
 from settings import *
 from common.utils import render
+from common.views import PermissionDenied
 from gestor.utils import dist, mergeLists
 
 from datetime import date
@@ -38,7 +37,7 @@ def create_view(request,object_id,form_class,template_name):
 		obj = get_object_or_404(Project,id=object_id)
 	
 	if not (request.user.has_perm('gestor.add_' + model._meta.module_name) or obj.has_user(request.user)):
-		raise PermissionDenied()
+		return PermissionDenied(request)
 	
 	if request.method == 'POST':
 		form = form_class(request.POST, request.FILES)
@@ -80,7 +79,7 @@ def edit_view(request,object_id,form_class,template_name):
 	else: proj = obj.project
 
 	if not (request.user.has_perm('gestor.change_' + model._meta.module_name) or proj.has_user(request.user)):
-		raise PermissionDenied()
+		return PermissionDenied(request)
 
 	if request.method == 'POST':
 		form = form_class(request.POST, request.FILES, instance=obj)
@@ -125,7 +124,7 @@ def delete_view(request,object_id,model):
 	else: proj = obj.project
 
 	if not (request.user.has_perm('gestor.delete_' + model._meta.module_name) or proj.has_user(request.user)):
-		raise PermissionDenied()
+		return PermissionDenied(request)
 	
 	obj.delete()
 	request.user.message_set.create(message='The %s was deleted' % model._meta.verbose_name )
@@ -142,7 +141,7 @@ def delete_view(request,object_id,model):
 def project_edit(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
 
-	p.check_manager(request.user, 'change')
+	if not p.check_manager(request.user, 'change'): return PermissionDenied(request)
 
 	if request.method == 'POST':
 		form = ProjectForm(request.POST, instance = p)
@@ -178,14 +177,14 @@ def project_create(request):
 		return render(request,"project_edit.html",{'form':form})
 		
 	else:
-		raise PermissionDenied()
+		return PermissionDenied(request)
 
 @login_required
 def project_fastedit(request, object_id):
 	if request.method == 'POST':
 		p = get_object_or_404(Project,id=object_id)
 		
-		p.check_manager(request.user, 'change')
+		if not p.check_manager(request.user, 'change'): return PermissionDenied(request)
 		
 		p.description = request.POST['content']
 		p.save()
@@ -242,7 +241,7 @@ def project_dashboard(request):
 @login_required
 def project_detail(request,object_id):
 	p = get_object_or_404(Project,id=object_id)
-	p.check_user(request.user)
+	if not p.check_user(request.user): return PermissionDenied(request)
 	
 	return render(request,'project_detail.html',{
 		'object':p,
@@ -253,7 +252,7 @@ def project_detail(request,object_id):
 @login_required
 def project_reopen(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
-	p.check_manager(request.user, 'change')
+	if not p.check_manager(request.user, 'change'): return PermissionDenied(request)
 
 	p.active = True
 	p.save()
@@ -263,7 +262,7 @@ def project_reopen(request, object_id):
 @login_required
 def project_close(request, object_id):
 	p = get_object_or_404(Project,id=object_id)
-	p.check_manager(request.user, 'change')
+	if not p.check_manager(request.user, 'change'): return PermissionDenied(request)
 	
 	p.active = False
 	p.save()
@@ -279,7 +278,7 @@ def project_close(request, object_id):
 @login_required
 def note_detail(request,object_id):
 	p = get_object_or_404(Note,id=object_id)
-	p.project.check_user(request.user)
+	if not p.project.check_user(request.user): return PermissionDenied(request)
 	return render(request,'note_detail.html',{'object':p})
 	
 @login_required
@@ -301,7 +300,7 @@ def note_edit(request,object_id):
 @login_required
 def actionnote_detail(request,object_id):
 	p = get_object_or_404(ActionNote,id=object_id)
-	p.actionitem.project.check_user(request.user)
+	if not p.actionitem.project.check_user(request.user): return PermissionDenied(request)
 	return render(request,'actionnote_detail.html',{'object':p})
 
 @login_required
@@ -323,7 +322,7 @@ def actionnote_edit(request,object_id):
 @login_required
 def action_detail(request,object_id):
 	p = get_object_or_404(ActionItem,id=object_id)
-	p.project.check_user(request.user)
+	if not p.project.check_user(request.user): return PermissionDenied(request)
 	add_note_form = ActionNoteForm(initial={'author':request.user.id,'actionitem':object_id })
 	return render(request,'action_detail.html',{
 										'object':p,
@@ -349,7 +348,7 @@ def action_finish(request, object_id):
 	obj = get_object_or_404(ActionItem,id=object_id)
 
 	if not (request.user.has_perm('gestor.change_actionitem') or obj.project.has_user(request.user)):
-		raise PermissionDenied()
+		return PermissionDenied(request)
 	
 	obj.done = True
 	obj.save()
