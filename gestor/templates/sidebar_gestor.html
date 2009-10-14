@@ -39,7 +39,7 @@
 			<h3>Account</h3>
 			<ul>
 				{% if request.user.is_staff  %}<li><a href="/admin">Administration</a></li>{% endif %}
-				{% if request.user.is_staff  %}<li><a href="/gestor/stream/">Activity Stream <img src="{{MEDIA_URL}}icons/new.png" /></a></li>{% endif %}
+				{% if request.user.is_staff  %}<li><a href="/gestor/dashboard/">Dashboard</a></li>{% endif %}
 				{% if perms.mainsite.add_news %}<li><a href="/noticias/create/">Create a News Post</a></li>{% endif %}
 				
 				<li><a href="/accounts/profile">My Profile</a></li>

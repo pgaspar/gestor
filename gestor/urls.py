@@ -14,7 +14,10 @@ feeds = {
 
 
 urlpatterns = patterns('',
-    (r'^$', 'gestor.views.project_dashboard',),
+    (r'^$', 'gestor.views.main_page'),
+	
+	(r'^dashboard/$', 'gestor.views.project_dashboard'),
+	
 	(r'^project/(?P<object_id>\d+)/$', 'gestor.views.project_detail', ),
 	(r'^project/(?P<object_id>\d+)/close/$', 'gestor.views.project_close', ),
 	(r'^project/(?P<object_id>\d+)/re-open/$', 'gestor.views.project_reopen', ),

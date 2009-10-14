@@ -3,13 +3,16 @@ from activitystream.forms import ActivityMessageForm
 
 from settings import *
 from common.utils import render
+from common.views import PermissionDenied
 from django.shortcuts import get_object_or_404
 
 def activity_stream(request, all):
     
+    if not request.user.has_perm('activitystream.view_everything'): return PermissionDenied(request)
+
     NUM_OF_ACTIVITIES = 20
     
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.has_perm('activitystream.add_activity'):
         
         form = ActivityMessageForm(request.POST)
         if form.is_valid():
@@ -17,7 +20,7 @@ def activity_stream(request, all):
             activity = Activity(message_type = Activity.MSG_USER, message = message)
             activity.save()
     else:
-        form = ActivityMessageForm()    
+        form = ActivityMessageForm()
     
     if all:
         activities = Activity.objects.all()

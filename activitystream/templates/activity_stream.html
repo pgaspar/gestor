@@ -9,14 +9,16 @@
 		<div style="float:right">
 			<a href="/gestor/feeds/stream/"><img src="{{MEDIA_URL}}/icons/rss.png" alt="RSS feed"/></a>
 		</div>
-	
+		
+		{% if perms.activitystream.add_activity %}
 		<div>
 			<form action="" method="post">
 			<label for="mssage">Post a message:</label> {{ form.message }}
 			<input type="submit" value="Post" />
 			</form>
 		</div>
-	
+		{% endif %}
+		
 		<ul class="activities">
 			{% for activity in activities %}
 				<li class="activity {{ activity|activity_class }}">

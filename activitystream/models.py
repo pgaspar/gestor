@@ -34,6 +34,7 @@ class Activity(models.Model):
 	
     class Meta:
         ordering = ["-date"]
+        permissions = [ ('view_everything','Can view everything in the Stream'), ]
     
     def get_absolute_url(self):
         return u"/gestor/stream/%d/" % self.id
@@ -132,7 +133,5 @@ class Activity(models.Model):
         else:
             str = ''
         return str
-            
-            
             
             
