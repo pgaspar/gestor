@@ -9,3 +9,4 @@
 build
 src
 settings-deployment.py
+settingsEmail.py
