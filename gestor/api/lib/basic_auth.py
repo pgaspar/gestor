@@ -39,9 +39,7 @@ def view_or_basicauth(view, request, test_func, realm = "", *args, **kwargs):
                     if user.is_active:
                         login(request, user)
                         request.user = user
-                        print "here first"
                         set_current_user(request)
-                        print "here second"
                         return view(request, *args, **kwargs)
 
     # Either they did not provide an authorization header or

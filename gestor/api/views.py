@@ -134,8 +134,6 @@ def action_items_update(request, item_id, extension):
     
     # Fill the action item with the arguments specified
     arguments = get_arguments(request, extension)
-    print request.user
-    print "ping"
     error = update_action_item(action_item, arguments, extension)
 
     if not error:
