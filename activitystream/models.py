@@ -102,8 +102,8 @@ class Activity(models.Model):
         else: 
             return None
             
-    def get_related_model(self):      
-        from gestor.models import * 
+    def get_related_model(self):
+         
         if self.message_type == self.MSG_GESTOR_PROJECT:
             model = Project
         elif self.message_type == self.MSG_GESTOR_ACTION_ITEM:
