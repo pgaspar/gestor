@@ -1,6 +1,9 @@
 # Django settings for jksite project.
 import os
 
+try: from settingsEmail import *
+except: pass
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -126,9 +129,3 @@ FIXTURE_DIRS = os.path.join(ROOT_PATH, 'fixtures')
 DEFAULT_AVATAR = u'photos/default.png'
 
 THUMBNAIL_SUBDIR = '_thumbs'
-
-# SMTP
-EMAIL_HOST = 'mail.wservices.ch'
-EMAIL_HOST_USER = 'gestor@jeknowledge.com'
-EMAIL_HOST_PASSWORD = 'bxe52ows'
-DEFAULT_FROM_EMAIL = 'gestor@jeknowledge.com'
