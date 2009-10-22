@@ -1,11 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.conf import settings
 
 from datetime import datetime
 
 from middleware.threadlocals import get_current_user
-
-from gestor.models import *
 
 class Activity(models.Model):
 
@@ -103,7 +102,8 @@ class Activity(models.Model):
             return None
             
     def get_related_model(self):
-         
+        from gestor.models import *
+        
         if self.message_type == self.MSG_GESTOR_PROJECT:
             model = Project
         elif self.message_type == self.MSG_GESTOR_ACTION_ITEM:
