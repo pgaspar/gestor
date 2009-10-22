@@ -42,6 +42,7 @@ class Activity(models.Model):
     def save(self):
     	if not self.id:
     		self.date = datetime.now()
+        print get_current_user()
         self.user = get_current_user()
     	super(Activity, self).save()
 

@@ -8,6 +8,9 @@ _thread_locals = local()
 def get_current_user():
     return getattr(_thread_locals, 'user', None)
 
+def set_current_user(request):
+    _thread_locals.user = getattr(request, 'user', None)
+
 class ThreadLocals(object):
     """Middleware that gets various objects from the
     request object and saves them in thread local storage."""

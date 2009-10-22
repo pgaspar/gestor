@@ -101,11 +101,10 @@ def action_item(request, item_id, extension):
     else:
         return action_items_show(request, item_id, extension)
 
-@basicauth()
 def action_items_show(request, item_id, extension):
     """
     Shows an existing action item
-    / action_items / 123 / show    
+    GET / action_items / 123
     """
     action_item = ActionItem.objects.filter( id = item_id )
     if not action_item:
@@ -118,11 +117,10 @@ def action_items_show(request, item_id, extension):
     structure = generate_action_items_structure(action_item)
     return generate_structured_response(structure, extension)
     
-@basicauth()
 def action_items_update(request, item_id, extension):
     """
     Updates an existing action item
-    / action_items / 123 / update    
+    PUT / action_items / 123
     """
     
     action_item = ActionItem.objects.filter( id = item_id )
@@ -136,6 +134,8 @@ def action_items_update(request, item_id, extension):
     
     # Fill the action item with the arguments specified
     arguments = get_arguments(request, extension)
+    print request.user
+    print "ping"
     error = update_action_item(action_item, arguments, extension)
 
     if not error:
@@ -143,11 +143,10 @@ def action_items_update(request, item_id, extension):
     else:
         return error    
     
-@basicauth()
 def action_items_delete(request, item_id, extension):
     """
     Updates an existing action item
-    / action_items / 123 / delete    
+    DELETE / action_items / 123
     """
     action_item = ActionItem.objects.filter( id = item_id )
     if not action_item:

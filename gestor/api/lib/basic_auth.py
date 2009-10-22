@@ -7,6 +7,8 @@ import base64
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 
+from middleware.threadlocals import set_current_user
+
 DEFAULT_REALM = "Gestor API"
 
 #############################################################################
@@ -37,6 +39,9 @@ def view_or_basicauth(view, request, test_func, realm = "", *args, **kwargs):
                     if user.is_active:
                         login(request, user)
                         request.user = user
+                        print "here first"
+                        set_current_user(request)
+                        print "here second"
                         return view(request, *args, **kwargs)
 
     # Either they did not provide an authorization header or

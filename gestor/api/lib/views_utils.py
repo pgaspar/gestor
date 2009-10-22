@@ -49,8 +49,15 @@ def get_arguments(request, extension):
 		return request.POST
 	elif request.method == 'GET':
 		return request.GET
+	elif request.method == 'PUT':
+		request.method = "POST"
+		arguments = request.POST
+		request.method = "PUT"
+		return arguments
+	elif request.method == 'DELETE':
+		return request.DELETE
 	else:
-		return generate_error("Request has to be either GET or POST.", extension)
+		return generate_error("Request has to be GET, POST, PUT or DELETE.", extension)
 
 def check_permissions( project, user, extension ):
 	if not project.check_user( user ):
