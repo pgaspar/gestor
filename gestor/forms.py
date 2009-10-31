@@ -37,6 +37,8 @@ class ProjectForm(ModelForm):
 	start_date = DateTimeField(widget=AdminDateWidget())
 	end_date = DateTimeField(widget=AdminDateWidget())
 	
+	team = ModelMultipleChoiceField(queryset=User.objects.all().order_by('username'))
+	
 	class Meta:
 		model = Project
 		
