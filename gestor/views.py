@@ -207,7 +207,7 @@ def project_list(request):
 	return render(request,'project_list.html',{'object_list':p})
 	
 @login_required
-def project_dashboard(request):
+def project_dashboard(request):	
 	my_proj = mergeLists(
 						request.user.projects_working.filter(active=True).order_by("end_date"), 						
 						request.user.projects_managed.filter(active=True).order_by("end_date")

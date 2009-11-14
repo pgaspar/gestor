@@ -14,7 +14,9 @@
 		</div>
 		
 		<div id="col">
-			{% include "widgets/jk_projs.html" %}
+			{% if perms.gestor.view_intern_projects %}
+				{% include "widgets/jk_projs.html" %}
+			{% endif %}
 			
 			{% if perms.gestor.view_late_projects %}
 				{% include "widgets/late_projects.html" %}
