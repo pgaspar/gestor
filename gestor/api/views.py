@@ -94,6 +94,10 @@ def action_items_todo(request, extension):
 
 @basicauth()
 def action_item(request, item_id, extension):
+    
+    if '_method' in request.REQUEST and request.REQUEST['_method'] in ["GET","POST","PUT","DELETE"]:
+       request.method = request.REQUEST['_method']
+    
     if request.method == "PUT":
         return action_items_update(request, item_id, extension)
     elif request.method == "DELETE":

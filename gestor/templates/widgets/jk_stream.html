@@ -1,0 +1,19 @@
+{% load dashboard %}
+
+
+<div id="jk_activity" class="widget">
+
+<h1>Activity Stream</h1>
+
+{% if activities %}
+<ul class="jk_activities">
+	{% for activity in activities %}
+		<li>{{ activity.generate_text|safe }} - {{ activity.date|timesince }} ago</li>
+	{% endfor %}
+</ul>
+
+{% else %}
+	<span class="warning">No activities :O</span>
+{% endif %}
+
+</div>
