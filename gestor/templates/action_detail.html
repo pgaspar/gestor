@@ -3,6 +3,8 @@
 {% load datecolor %}
 {% load markup %}
 
+{% block title %}{{ object.title }} - {{object.project.name}}{% endblock title %}
+
 {% block content %}
 	<div class="note_detail">
 		<h1>{{ object.title }}</h1>

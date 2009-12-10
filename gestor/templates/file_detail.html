@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load humanize %}
 
+{% block title %}{{ object.title }} - {{object.project.name}}{% endblock title %}
 
 {% block content %}
 	<div class="file_detail">

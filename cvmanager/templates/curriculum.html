@@ -2,6 +2,9 @@
 {% load humanize %}
 {% load markup %}
 
+{% block title %}CV of {{u.get_full_name}}{% endblock title %}
+
+
 {% block content %}
 	<div class="hresume">
 		<div class="contact vcard">
