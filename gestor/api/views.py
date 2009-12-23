@@ -16,7 +16,7 @@ def projects(request, extension):
     Show all the projects of the authenticated user
     / projects / all    
     """
-    projects = request.user.projects_working.all()
+    projects = request.user.projects_working.filter( active = True )
     structure = { 'projects' : generate_projects_simple_structure(projects) }
     return generate_structured_response(structure, extension)
 
@@ -26,7 +26,7 @@ def projects_show(request, project_id, extension):
     Show the project with the specified ID
     / projects / 123 / show    
     """
-    project = request.user.projects_working.filter( id = project_id )
+    project = request.user.projects_working.filter( id = project_id, active = True )
     if not project:
         return generate_error("Unknown project with id '" + project_id + "'", extension)
     
