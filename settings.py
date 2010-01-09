@@ -118,6 +118,7 @@ INSTALLED_APPS = (
 	'sorl.thumbnail',
 	'activitystream',
     'ecosystem',
+	'wiki',
 )
 
 DATE_FORMAT = "d/F/Y"
