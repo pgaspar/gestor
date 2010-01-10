@@ -117,7 +117,6 @@ INSTALLED_APPS = (
     'formacao',
 	'sorl.thumbnail',
 	'activitystream',
-    'ecosystem',
 	'wiki',
 )
 

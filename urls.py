@@ -30,7 +30,6 @@ urlpatterns = patterns('',
 	(r'^gestor/', include('gestor.urls')),
 	(r'^accounts/', include('accounts.urls')),
 	(r'^formacao/', include('formacao.urls')),
-	(r'^ecosystem/', include('ecosystem.urls')),
 	(r'^wiki/', include('wiki.urls')),
 
 	(r'^users/(?P<username>([A-z]|[0-9]|[_])+)/$', 'accounts.views.profile'),
