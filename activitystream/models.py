@@ -6,6 +6,8 @@ from datetime import datetime
 
 from middleware.threadlocals import get_current_user
 
+from gestor.models import *
+
 class Activity(models.Model):
 
 	message = models.CharField(max_length = 200, null=True, blank=True, default = None)
@@ -103,8 +105,6 @@ class Activity(models.Model):
 			return None
 			
 	def get_related_model(self):
-		from gestor.models import *
-		
 		if self.message_type == self.MSG_GESTOR_PROJECT:
 			model = Project
 		elif self.message_type == self.MSG_GESTOR_ACTION_ITEM:

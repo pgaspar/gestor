@@ -64,19 +64,16 @@ SECRET_KEY = '(n%11p2k8lh(lwhq2(obb_gxj!6n2w0$rn91w1f5$5h77j(7tw'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
+  'django.template.loaders.filesystem.load_template_source',
+  'django.template.loaders.app_directories.load_template_source',
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.doc.XViewMiddleware',
-	#'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-	#'middleware.requirelogin.RequireLoginMiddleware',
-    "middleware.threadlocals.ThreadLocals",
+  'django.middleware.common.CommonMiddleware',
+  'django.contrib.sessions.middleware.SessionMiddleware',
+  'django.contrib.auth.middleware.AuthenticationMiddleware',
+  'django.middleware.doc.XViewMiddleware',
+  "middleware.threadlocals.ThreadLocals",
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -101,20 +98,20 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
+	'django.contrib.auth',
+	'django.contrib.contenttypes',
+	'django.contrib.sessions',
+	'django.contrib.sites',
 	'django.contrib.admin',
 	'django.contrib.humanize',
 	'django.contrib.markup',
-    'django_evolution',
+	'django_evolution',
 	#'extensions',
 	'accounts',
 	'gestor',
 	'cvmanager',
 	'mainsite',
-    'formacao',
+	'formacao',
 	'sorl.thumbnail',
 	'activitystream',
 )
