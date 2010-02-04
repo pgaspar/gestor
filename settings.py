@@ -1,9 +1,6 @@
 # Django settings for jksite project.
 import os
 
-try: from settingsEmail import *
-except: pass
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -125,3 +122,6 @@ FIXTURE_DIRS = os.path.join(ROOT_PATH, 'fixtures')
 DEFAULT_AVATAR = u'photos/default.png'
 
 THUMBNAIL_SUBDIR = '_thumbs'
+
+# Email Console Backend
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
