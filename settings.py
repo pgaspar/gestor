@@ -117,7 +117,7 @@ INSTALLED_APPS = (
     'formacao',
 	'sorl.thumbnail',
 	'activitystream',
-	'wiki',
+	#'wiki',
 )
 
 DATE_FORMAT = "d/F/Y"
