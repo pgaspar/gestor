@@ -123,5 +123,6 @@ DEFAULT_AVATAR = u'photos/default.png'
 
 THUMBNAIL_SUBDIR = '_thumbs'
 
-# Email Console Backend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Email to Console - run this to start the email reader: python -m smtpd -n -c DebuggingServer localhost:1025
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
