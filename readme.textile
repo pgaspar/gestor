@@ -1,6 +1,6 @@
 h1. jeKnowledge's Information System
 
-"jeKnowledge.com":http://jeknowledge.com
+"jeKnowledge.pt":http://jeknowledge.pt
 
 h2. Requirements
 
@@ -10,6 +10,6 @@ h2. Credits
 
 "Alcides Fonseca":http://alcidesfonseca.com/
 
-"Pedro Gaspar":http://pgaspar.ideias3.com/
+"Pedro Gaspar":http://pedrogaspar.com/
 
 "Sérgio Santos":http://sergiosantos.info/
