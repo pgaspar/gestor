@@ -35,6 +35,20 @@ class Activity(models.Model):
 		ordering = ["-date"]
 		permissions = [ ('view_everything','Can view everything in the Stream'), ]
 		verbose_name_plural = "activities"
+		
+	def __init__(self,*args,**kwargs):
+	  super(Activity, self).__init__(*args,**kwargs)
+
+	  module = __import__('gestor.models', globals(), locals(), ['Project', 'ActionItem', 'Note', 'ActionNote'], -1)
+
+	  self.model_cache = {
+	    self.MSG_GESTOR_PROJECT: module.Project,
+	    self.MSG_GESTOR_ACTION_ITEM: module.ActionItem,
+	    self.MSG_GESTOR_NOTE: module.Note,
+	    self.MSG_GESTOR_ACTION_NOTE: module.ActionNote,
+	  }
+
+	  self.content_model = self.model_cache.get(self.message_type,None)
 	
 	def get_absolute_url(self):
 		return u"/gestor/stream/%d/" % self.id
@@ -103,19 +117,7 @@ class Activity(models.Model):
 			return None
 			
 	def get_related_model(self):
-		from gestor.models import *
-		
-		if self.message_type == self.MSG_GESTOR_PROJECT:
-			model = Project
-		elif self.message_type == self.MSG_GESTOR_ACTION_ITEM:
-			model = ActionItem
-		elif self.message_type == self.MSG_GESTOR_NOTE:
-			model = Note
-		elif self.message_type == self.MSG_GESTOR_ACTION_NOTE:
-			model = ActionNote
-		else:
-			return None
-		return model
+	  return self.content_model
 		
 	def get_user_string(self):	  
 		if self.user:
