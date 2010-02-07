@@ -3,3 +3,13 @@ vobject
 textile
 -e svn+http://django-evolution.googlecode.com/svn/trunk/
 -e hg+https://sorl-thumbnail.googlecode.com/hg/#egg=sorl-thumbnail
+
+django-notification
+django-tagging
+google-diff-match-patch
+atomformat
+markdown
+docutils
+creole
+django-notification
+template_utils

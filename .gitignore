@@ -12,4 +12,7 @@ settings-deployment.py
 settingsEmail.py
 jksite.sqlite3
 RUN
+<<<<<<< HEAD
 Thumbs.db
+=======
+>>>>>>> wiki
