@@ -117,7 +117,10 @@ INSTALLED_APPS = (
     'formacao',
 	'sorl.thumbnail',
 	'activitystream',
-	#'wiki',
+	'wiki',
+	'tagging',
+	'notification',
+	'template_utils',
 )
 
 DATE_FORMAT = "d/F/Y"
@@ -129,3 +132,11 @@ FIXTURE_DIRS = os.path.join(ROOT_PATH, 'fixtures')
 DEFAULT_AVATAR = u'photos/default.png'
 
 THUMBNAIL_SUBDIR = '_thumbs'
+
+# Wiki Settings
+STATIC_MEDIA_PATH = os.path.join(ROOT_PATH, 'wiki/media')
+WIKI_REQUIRES_LOGIN = True
+
+WIKI_MARKUP_CHOICES = (
+    ('textile', u'Textile'),
+)
