@@ -41,6 +41,7 @@ if notification and not settings.WIKI_NOTIFICATIONS: notification = None
 
 # default querysets
 ALL_ARTICLES = Article.non_removed_objects.all()
+RLY_ALL_ARTICLES = Article.objects.all()
 ALL_CHANGES = ChangeSet.objects.all()
 
 
@@ -180,7 +181,7 @@ def article_list(request,
 def view_article(request, title,
                  ArticleClass=Article, # to create an unsaved instance
                  group_slug=None, bridge=None,
-                 article_qs=ALL_ARTICLES,
+                 article_qs=RLY_ALL_ARTICLES,
                  template_name='view.html',
                  template_dir='wiki',
                  extra_context=None,
