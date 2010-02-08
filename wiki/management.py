@@ -4,7 +4,11 @@ from django.utils.translation import ugettext_noop as _
 
 try:
     from notification import models as notification
-
+	
+	# Notification-Disable Patch
+	from django.conf import settings
+	if not settings.WIKI_NOTIFICATIONS: raise ImportError
+	
     def create_notice_types(app, created_models, verbosity, **kwargs):
         notification.create_notice_type("wiki_article_edited",
                                         _("Article Edited"),

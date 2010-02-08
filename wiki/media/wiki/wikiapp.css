@@ -85,7 +85,7 @@ ul.errorlist {
 }
 
 ul.errorlist li:before {
-    content: "<!> ";
+    content: " - ";
 }
 
 ul.errorlist li {

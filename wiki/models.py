@@ -24,6 +24,10 @@ try:
 except ImportError:
     notification = None
 
+# Notification-Disable Patch
+from django.conf import settings
+if notification and not settings.WIKI_NOTIFICATIONS: notification = None
+
 # We dont need to create a new one everytime
 dmp = diff_match_patch()
 

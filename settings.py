@@ -113,7 +113,6 @@ INSTALLED_APPS = (
 	'activitystream',
 	'wiki',
 	'tagging',
-	'notification',
 	'template_utils',
 )
 
@@ -134,7 +133,4 @@ EMAIL_PORT = 1025
 # Wiki Settings
 STATIC_MEDIA_PATH = os.path.join(ROOT_PATH, 'wiki/media')
 WIKI_REQUIRES_LOGIN = True
-
-WIKI_MARKUP_CHOICES = (
-    ('textile', u'Textile'),
-)
+WIKI_NOTIFICATIONS = False	# Patch to avoid notification bugs

@@ -10,9 +10,9 @@ from django.utils.translation import ugettext_lazy as _
 from wiki.models import Article
 
 try:
-    WIKI_WORD_RE = settings.WIKI_WORD_RE
+	WIKI_WORD_RE = settings.WIKI_WORD_RE
 except AttributeError:
-    WIKI_WORD_RE = r'(?:[A-Z]+[a-z]+){2,}'
+	WIKI_WORD_RE = r'(?:[A-Z]+[a-z]+){2,}'
 
 
 wikiword_pattern = re.compile('^' + WIKI_WORD_RE + '$')
@@ -21,92 +21,92 @@ wikiword_pattern = re.compile('^' + WIKI_WORD_RE + '$')
 class ArticleForm(forms.ModelForm):
 
 
-    content = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': '20'}))
+	content = forms.CharField(
+		widget=forms.Textarea(attrs={'rows': '20'}))
 
-    summary = forms.CharField(
-        required=False, max_length=150,
-        widget=forms.Textarea(attrs={'rows': '5'}))
+	summary = forms.CharField(
+		required=False, max_length=150,
+		widget=forms.Textarea(attrs={'rows': '5'}))
 
-    comment = forms.CharField(required=False, max_length=50)
-    user_ip = forms.CharField(widget=forms.HiddenInput)
+	comment = forms.CharField(required=False, max_length=50)
+	user_ip = forms.CharField(widget=forms.HiddenInput)
 
-    content_type = forms.ModelChoiceField(
-        queryset=ContentType.objects.all(),
-        required=False,
-        widget=forms.HiddenInput)
-    object_id = forms.IntegerField(required=False,
-                                   widget=forms.HiddenInput)
+	content_type = forms.ModelChoiceField(
+		queryset=ContentType.objects.all(),
+		required=False,
+		widget=forms.HiddenInput)
+	object_id = forms.IntegerField(required=False,
+								   widget=forms.HiddenInput)
 
-    action = forms.CharField(widget=forms.HiddenInput)
+	action = forms.CharField(widget=forms.HiddenInput)
 
-    class Meta:
-        model = Article
-        exclude = ('creator', 'creator_ip', 'removed',
-                   'group', 'created_at', 'last_update')
+	class Meta:
+		model = Article
+		exclude = ('creator', 'creator_ip', 'removed',
+				   'group', 'created_at', 'last_update')
 
-    def clean_title(self):
-        """ Page title must be a WikiWord.
-        """
-        title = self.cleaned_data['title']
-        if not wikiword_pattern.match(title):
-            raise forms.ValidationError(_('Must be a WikiWord.'))
+	def clean_title(self):
+		""" Page title must be a WikiWord.
+		"""
+		title = self.cleaned_data['title']
+		if not wikiword_pattern.match(title):
+			raise forms.ValidationError(_('Must be a WikiWord.'))
 
-        return title
+		return title
 
-    def clean(self):
-        super(ArticleForm, self).clean()
-        kw = {}
+	def clean(self):
+		super(ArticleForm, self).clean()
+		kw = {}
 
-        if self.cleaned_data['action'] == 'create':
-            try:
-                kw['title'] = self.cleaned_data['title']
-                kw['content_type'] = self.cleaned_data['content_type']
-                kw['object_id'] = self.cleaned_data['object_id']
-            except KeyError:
-                pass # some error in this fields
-            else:
-                if Article.objects.filter(**kw).count():
-                    raise forms.ValidationError(
-                        _("An article with this title already exists."))
+		if self.cleaned_data['action'] == 'create':
+			try:
+				kw['title'] = self.cleaned_data['title']
+				kw['content_type'] = self.cleaned_data['content_type']
+				kw['object_id'] = self.cleaned_data['object_id']
+			except KeyError:
+				pass # some error in this fields
+			else:
+				if Article.objects.filter(**kw).count():
+					raise forms.ValidationError(
+						_("An article with this title already exists."))
 
-        return self.cleaned_data
+		return self.cleaned_data
 
-    def save(self):
-        # 0 - Extra data
-        editor_ip = self.cleaned_data['user_ip']
-        comment = self.cleaned_data['comment']
+	def save(self):
+		# 0 - Extra data
+		editor_ip = self.cleaned_data['user_ip']
+		comment = self.cleaned_data['comment']
 
-        # 1 - Get the old stuff before saving
-        if self.instance.id is None:
-            old_title = old_content = old_markup = ''
-            new = True
-        else:
-            old_title = self.instance.title
-            old_content = self.instance.content
-            old_markup = self.instance.markup
-            new = False
+		# 1 - Get the old stuff before saving
+		if self.instance.id is None:
+			old_title = old_content = old_markup = ''
+			new = True
+		else:
+			old_title = self.instance.title
+			old_content = self.instance.content
+			old_markup = self.instance.markup
+			new = False
 
-        # 2 - Save the Article
-        article = super(ArticleForm, self).save()
+		# 2 - Save the Article
+		article = super(ArticleForm, self).save()
 
-        # 3 - Set creator and group
-        editor = getattr(self, 'editor', None)
-        group = getattr(self, 'group', None)
-        if new:
-            article.creator_ip = editor_ip
-            if editor is not None:
-                article.creator = editor
-                article.group = group
-            article.save()
+		# 3 - Set creator and group
+		editor = getattr(self, 'editor', None)
+		group = getattr(self, 'group', None)
+		if new:
+			article.creator_ip = editor_ip
+			if editor is not None:
+				article.creator = editor
+				article.group = group
+			article.save()
 
-        # 4 - Create new revision
-        changeset = article.new_revision(
-            old_content, old_title, old_markup,
-            comment, editor_ip, editor)
+		# 4 - Create new revision
+		changeset = article.new_revision(
+			old_content, old_title, old_markup,
+			comment, editor_ip, editor)
 
-        return article, changeset
+		return article, changeset
 
 
 class SearchForm(forms.Form):
-    search_term = forms.CharField(required=True)
+	search_term = forms.CharField(required=True)

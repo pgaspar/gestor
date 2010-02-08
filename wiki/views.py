@@ -36,6 +36,9 @@ try:
 except ImportError:
     notification = None
 
+# Notification-Disable Patch
+if notification and not settings.WIKI_NOTIFICATIONS: notification = None
+
 # default querysets
 ALL_ARTICLES = Article.non_removed_objects.all()
 ALL_CHANGES = ChangeSet.objects.all()
@@ -269,7 +272,7 @@ def edit_article(request, title,
         form = ArticleFormClass(request.POST, instance=article)
 
         if form.is_valid():
-
+            print 'valid'
             if request.user.is_authenticated():
                 form.editor = request.user
                 if article is None:
