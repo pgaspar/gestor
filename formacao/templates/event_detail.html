@@ -2,8 +2,8 @@
 {% load markup %}
 
 {% block gmaps %}
-<script src="{{MEDIA_URL}}js/formacao.js"></script>
-<script src="{{MEDIA_URL}}js/prototype.js"></script>
+<script src="{{MEDIA_URL}}js/formacao.js" type="text/javascript"></script>
+<script src="{{MEDIA_URL}}js/prototype.js" type="text/javascript"></script>
 {% endblock %}
 
 {% block title %}- {{event.name}}{% endblock %}
@@ -12,8 +12,8 @@
 
 	<div id="side" class="clear span-8">
 		<p>O email <a href="mailto:formacao@jeknowledge.com">formacao@jeknowledge.com</a> está disponível para o pedido de informações ou envio de novas sugestões.</p>
-		<img src="{{MEDIA_URL}}images/lady.jpg" class="illustration"/><br/>
-		<p>{{ event.details|textile }}</p>
+		<img src="{{MEDIA_URL}}images/lady.jpg" class="illustration" alt="Estátua branca em céu azul" /><br /><br />
+		{{ event.details|textile }}
 		
 		<hr />
 		
@@ -68,7 +68,7 @@
 		</div>
 		
 		<div style="float: right">
-		<script language="javascript" type="text/javascript" charset="utf-8">
+		<script type="text/javascript">
 			SHARETHIS.addEntry({
 				title:'jeKnowlegde - Formação - {{event.name}}',
 				url:build_base_url() + '{{event.get_absolute_url}}',
