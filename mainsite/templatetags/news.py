@@ -13,7 +13,7 @@ def latest_news(number = 5):
 		html += "<li class='archive'><a href='%s'>%s</a></li>\n" %(obj.get_absolute_url(), obj.title)
 	
 	if number and News.objects.filter(is_published=True).count() > number:
-		html += "<li><a href='/noticias/arquivo/' alt='Arquivo' title='Arquivo'>...</a></li>"
+		html += "<li><a href='/noticias/arquivo/' title='Arquivo'>...</a></li>"
 	
 	html += "</ul>"
 	return html
@@ -29,7 +29,7 @@ def load_archive(number = 0):
 		html += "<li><a href='/noticias/arquivo/%s'>%s</a></li>\n" %(obj.strftime('%Y/%m/'), " ".join( map( translate, obj.strftime('%B %Y').split() ) ))
 	
 	if number and News.objects.filter(is_published=True).count() > number:
-		html += "<li><a href='/noticias/arquivo/' alt='Arquivo' title='Arquivo'>...</a></li>"
+		html += "<li><a href='/noticias/arquivo/' title='Arquivo'>...</a></li>"
 	
 	html += "</ul>"
 	return html
