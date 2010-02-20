@@ -1,9 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-PT" lang="pt-PT">
+<!DOCTYPE html>
+<html lang="pt">
 <head>
 
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8">
   <meta content="Boks - 0.1.8" name="generator" />
 
   <meta name="description" content="A Júnior Empresa de Engenharia da Universidade de Coimbra" />
@@ -23,7 +22,8 @@
   <!--[if IE]><link rel="stylesheet" href="{{MEDIA_URL}}css/mainsite/ie.css" type="text/css" media="screen, projection" /><![endif]-->
   <link rel="stylesheet" href="{{MEDIA_URL}}css/mainsite/custom.css" type="text/css" media="screen, projection" />
   
-  <link rel="shortcut icon" href="{{MEDIA_URL}}images/favicon.png" type="image/png" />
+  <link rel="icon" href="{{MEDIA_URL}}images/favicon.png" type="image/png" />
+  <link rel="archives" href="/noticias/arquivo/" />
 
   {% block feeds %}
   	<link rel="alternate" type="application/rss+xml" title="Notícias jeKnowledge" href="http://feeds2.feedburner.com/jeknowledge" />
@@ -43,7 +43,7 @@
 
   <div class="clear prepend-2 span-23 append-2 last" id="content">
 
-	<div class="clear span-23 last" id="menu">
+	<div class="clear span-23 last nav" id="menu">
 	  <ul id="menu_list">
 		<li class="menu-option option-orange"><a href="/sobre/">Sobre</a></li>
 		<li class="menu-option option-pink"><a href="/servicos/">Serviços</a></li>

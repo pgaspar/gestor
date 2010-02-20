@@ -14,11 +14,11 @@
 	{% if is_paginated %}
 	<span class="step-links">
 		{% if page_obj.has_previous %}
-			<span style="float: left;"><a href="?page={{ page_obj.previous_page_number }}"><< Mais recentes</a></span>
+			<span style="float: left;"><a rel="prev" href="?page={{ page_obj.previous_page_number }}"><< Mais recentes</a></span>
 		{% endif %}
 
 		{% if page_obj.has_next %}
-			<span style="float: right;"><a href="?page={% ifequal page_obj.next_page_number paginator.num_pages %}last{% else %}{{ page_obj.next_page_number }}{% endifequal %}">Mais antigos >></a></span>
+			<span style="float: right;"><a rel="next" href="?page={% ifequal page_obj.next_page_number paginator.num_pages %}last{% else %}{{ page_obj.next_page_number }}{% endifequal %}">Mais antigos >></a></span>
 		{% endif %}
 	</span>
 	{% endif %}
