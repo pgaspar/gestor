@@ -111,9 +111,9 @@ INSTALLED_APPS = (
 	'formacao',
 	'sorl.thumbnail',
 	'activitystream',
-	'wiki',
-	'tagging',
-	'template_utils',
+	#'wiki',
+	#'tagging',
+	#'template_utils',
 )
 
 DATE_FORMAT = "d/F/Y"
@@ -129,8 +129,3 @@ THUMBNAIL_SUBDIR = '_thumbs'
 # Email to Console - run this to start the email reader: python -m smtpd -n -c DebuggingServer localhost:1025
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
-
-# Wiki Settings
-STATIC_MEDIA_PATH = os.path.join(ROOT_PATH, 'wiki/media')
-WIKI_REQUIRES_LOGIN = True
-WIKI_NOTIFICATIONS = False	# Patch to avoid notification bugs

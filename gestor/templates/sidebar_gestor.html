@@ -34,12 +34,18 @@
 					<span class="smaller"><a href="/gestor/project/create/"><img src="/media/icons/add.png" alt="add" /> Create a Project</a></span>
 				{% endif %}
 			</ul>
-
-
+			
+			
+			<h3>Links</h3>
+			
+			<ul>
+				<li><a href="http://wiki.jeknowledge.pt/">Wiki <img src="{{MEDIA_URL}}icons/new.png" /></a></li>
+			</ul>
+			
 			<h3>Account</h3>
+			
 			<ul>
 				{% if request.user.is_staff  %}
-					<li><a href="/wiki/">Wiki <img src="{{MEDIA_URL}}icons/new.png" /></a></li>
 					<li><a href="/admin">Administration</a></li>
 				{% endif %}
 				{% if perms.mainsite.add_news %}<li><a href="/noticias/create/">Create a News Post</a></li>{% endif %}
