@@ -22,7 +22,13 @@
 	</div>
 	
 	<div style="float: right;">
-		<p>{{object.date|date:"d/m/y"}} <img src="{{MEDIA_URL}}icons/dot.png" alt="" class="decor" /> {% if object.has_author %} {{ object.author.get_full_name }}{% else %} jeKnowledge{% endif %}</p>
+		<p>
+			{% if request.user.is_staff %}
+				{% if perms.mainsite.add_news %}<a href="{{object.get_admin_change_url}}">Editar</a> <img src="{{MEDIA_URL}}icons/dot.png" alt="" class="decor" /> {% endif %}
+			{% endif %}
+			{{object.date|date:"d/m/y"}} <img src="{{MEDIA_URL}}icons/dot.png" alt="" class="decor" /> 
+			{% if object.has_author %} {{ object.author.get_full_name }}{% else %} jeKnowledge{% endif %}
+		</p>
 	</div>
 	
 	<div class="clear"></div>

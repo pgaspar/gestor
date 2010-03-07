@@ -23,6 +23,9 @@ class News(models.Model):
 		
 	def get_absolute_url(self):
 		return u"/noticias/%s/" % self.id
+	
+	def get_admin_change_url(self):
+		return u"/admin/mainsite/news/%s/" % self.id
 		
 	def has_author(self):
 		try: self.author
