@@ -68,11 +68,11 @@ def search_news(request):
 	res = None
 	search_term = ''
 	
-	if request.method == 'POST':
-		form = SearchNewsForm(request.POST)
+	if request.method == 'GET' and request.GET.has_key('q'):
+		form = SearchNewsForm(request.GET)
 		
 		if form.is_valid():
-			search_term = form.cleaned_data['find'].rstrip()
+			search_term = form.cleaned_data['q'].rstrip()
 			
 			if request.user.has_perm('mainsite.change_news'):
 				queryset = News.objects.all()

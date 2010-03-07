@@ -13,4 +13,4 @@ class NewsForm(ModelForm):
 		model = News
 
 class SearchNewsForm(Form):
-	find = CharField(label="Pesquisar:")
+	q = CharField(label="Pesquisar:")

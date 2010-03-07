@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+   <ShortName>jeknowledge.pt</ShortName>
+   <Description>Motor de busca de notícias jeknowledge.pt</Description>
+   <Tags>júnior FCTUC Coimbra empresa empreendedorismo engenharia jeknowledge</Tags>
+   <Contact>geral@jeknowledge.com</Contact>
+   <Image height="16" width="16" type="image/png">http://jeknowledge.pt/media/images/favicon.png</Image>
+   <Url type="text/html" method="get" 
+        template="http://jeknowledge.pt/noticias/pesquisar/?q={searchTerms}"/>
+ </OpenSearchDescription>

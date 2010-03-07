@@ -219,5 +219,12 @@ div.find_form {
 }
 
 input.submit-image {
-	vertical-align: text-bottom;
+	background: url('/media/icons/search.png') no-repeat;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+	
+	border: none;
+	
+	vertical-align: text-top;
 }
