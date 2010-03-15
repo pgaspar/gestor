@@ -123,6 +123,7 @@ li.menu-option {
 	padding: 28px 16px 4px 16px;
 	margin: 0px 53px 4px 0px;
 	border: 0px;
+	cursor: pointer;
 }
 
 li.menu-option a {
