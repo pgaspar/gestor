@@ -70,7 +70,7 @@ MIDDLEWARE_CLASSES = (
   'django.contrib.sessions.middleware.SessionMiddleware',
   'django.contrib.auth.middleware.AuthenticationMiddleware',
   'django.middleware.doc.XViewMiddleware',
-  "middleware.threadlocals.ThreadLocals",
+  "middleware.threadlocals.ThreadLocals",	#remove?
 )
 
 AUTHENTICATION_BACKENDS = (
