@@ -28,7 +28,7 @@ class News(models.Model):
 		return u"/admin/mainsite/news/%s/" % self.id
 		
 	def has_author(self):
-		try: self.author
+		try: self.author.id
 		except: return False
 		
 		return True
