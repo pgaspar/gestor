@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+
+  <meta charset="utf-8">
+
+  <meta name="description" content="A Júnior Empresa de Engenharia da Universidade de Coimbra" />
+  <meta name="keywords" content="júnior,FCTUC,Coimbra,empresa,empreendorismo,engenharia,jeknowledge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="author" content="jeKnowledge" />
+
+  <title>jeKnowledge - SplashPage</title>
+
+  <link rel="stylesheet" href="{{MEDIA_URL}}css/splash.css" type="text/css" media="screen, projection" />
+  <link rel="shortcut icon" href="{{MEDIA_URL}}images/splash/favicon.png" type="image/png" />
+
+</head>
+
+<body>
+	
+	<div id="title">	
+		<a href="/gestor/main/"><img id="logo" src="{{MEDIA_URL}}images/splash/title_logo.png" alt="jeKnowledge's logo" /></a>
+	</div>
+	
+	<div id="glass">
+		<img id="lupa" src="{{MEDIA_URL}}images/splash/lupa.png" />
+	</div>
+	
+	<form method="post" action="/gestor/search/">
+		<div id="input-box">
+			<input name="find" type="text" />
+			<input type="image" src="{{MEDIA_URL}}images/splash/lupa_small.png" name="lupa-submit" id="lupa_small" />
+		</div>
+	</form>
+	
+	<div class="social">
+		<a href="http://twitter.com/jeknowledge" target="_blank">
+			<img src="{{MEDIA_URL}}images/splash/twitter.png" alt="Twitter" title="Twitter - @jeknowledge" class="media_icon"/>
+		</a>
+		<a href="http://facebook.com/pages/jeKnowledge/90394098566" target="_blank">
+			<img src="{{MEDIA_URL}}images/splash/facebook.png" alt="RSS feed" title="Facebook fan page" class="media_icon"/>
+		</a>
+		<a href="http://flickr.com/jeknowledge" target="_blank">
+			<img src="{{MEDIA_URL}}images/splash/flickr.png" alt="RSS feed" title="Flickr photostream" class="media_icon"/>
+		</a>
+		<a href="http://www.linkedin.com/companies/jeknowledge" target="_blank">
+			<img src="{{MEDIA_URL}}images/splash/linked-in.png" alt="Linked-In" title="Linked-In" class="media_icon"/>
+		</a>
+		<a href="http://wiki.jeknowledge.pt/" target="_blank">
+			<img src="{{MEDIA_URL}}images/splash/dokuwiki.png" alt="Wiki jeKnowledge" title="Wiki jeKnowledge" class="media_icon"/>
+		</a>
+		<a href="http://ineo.pt/" target="_blank">
+			<img src="{{MEDIA_URL}}images/splash/ineo.png" alt="ineo" title="ineo" class="media_icon"/>
+		</a>
+	</div>
+
+<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-4699263-4");
+	pageTracker._trackPageview();
+	} catch(err) {}
+</script>
+
+</body>
+</html>

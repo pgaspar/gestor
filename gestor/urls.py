@@ -14,7 +14,8 @@ feeds = {
 
 
 urlpatterns = patterns('',
-    (r'^$', 'gestor.views.main_page'),
+	(r'^$', 'django.views.generic.simple.direct_to_template', {'template':'splashpage.html'}),
+	(r'^main/$', 'gestor.views.main_page'),
 	
 	(r'^dashboard/$', 'gestor.views.project_dashboard'),
 	
