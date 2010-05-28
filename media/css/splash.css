@@ -5,6 +5,10 @@ html, body {
 	background-color: #005c89;
 }
 
+a, a:visited, a:hover {
+	color: white;
+}
+
 body {
 	font-family: verdana, sans-serif;
 	color: #FFF;
@@ -15,40 +19,21 @@ body {
 div#title {
 	margin: 0px center;
 	width: 100%;
-	position: relative;
-	z-index: 20;
-}
-
-div#glass {
-	z-index: 1;
-	position: relative;
 }
 
 img#logo {
 	margin-top: 120px;
 	margin-bottom: 30px;
-	z-index: 20;
 	border: none;
 }
 
-img#lupa {
-	position: absolute;
-	width: 300px;
-	overflow: visible;
-	top: -150px;
-	left: 600px;
-	z-index: 1;
-}
-
-div.social {
+#social {
 	margin-top: 100px;
 }
 
-div.social img.media_icon {
+#social img.media_icon {
 	margin-left: 10px;
 	margin-right: 10px;
-	z-index: 20;
-	position: relative;
 	width: 60px;
 	border: none;
 }
@@ -58,8 +43,6 @@ div.clear {
 }
 
 div#input-box {
-	z-index: 20;
-	position: relative;
 	border: solid #999 1px;
 	width: 600px;
 	margin: auto;
@@ -71,9 +54,33 @@ div#input-box {
 	top: 5px;
 }
 
-input[type=text] {
+input[name=find] {
 	width: 560px;
 	height: 40px;
 	font-size: 26px;
 	border:none;
+}
+
+#auth {
+	float:right;
+	margin-right: 10px;
+	font-size: 13px;
+}
+
+#auth li {
+	list-style:none;
+	display: inline;
+}
+
+#auth ul { margin: 0px; }
+
+#auth input[id^=id_] { width: 90px; }
+
+#auth { height: 13px; }
+
+#auth-form, #social, #auth {
+  opacity: 0;              /* CSS3 */
+  -moz-opacity: 0;         /* legacy Firefox */
+  -khtml-opacity: 0;       /* legacy Safari/Konqueror */
+  filter: alpha(opacity=0); /* MSIE */
 }

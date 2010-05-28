@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" onmousemove="fade();">
 <head>
 
   <meta charset="utf-8">
@@ -13,17 +13,32 @@
 
   <link rel="stylesheet" href="{{MEDIA_URL}}css/splash.css" type="text/css" media="screen, projection" />
   <link rel="shortcut icon" href="{{MEDIA_URL}}images/splash/favicon.png" type="image/png" />
-
+  <script src="{{MEDIA_URL}}js/prototype.js"></script>
+  <script src="{{MEDIA_URL}}js/splashpage.js"></script>
 </head>
 
 <body>
-	
-	<div id="title">	
-		<a href="/gestor/main/"><img id="logo" src="{{MEDIA_URL}}images/splash/title_logo.png" alt="jeKnowledge's logo" /></a>
+	<div id="auth">
+		{% if user.is_authenticated %}
+			<span style="color: #DDD">Welcome, {{ user.first_name }}</span> | {% if user.is_staff %}<a href="/admin/">Administration</a> | {% endif %}<a href="/accounts/logout/">Logout</a>
+		{% else %}
+			<form id="auth-form" method="post" action="/accounts/login/" style="display: none;"> 
+				<ul>
+					<li><label for="id_username">Username:</label> <input id="id_username" type="text" name="username" maxlength="30" /></li> 
+					<li><label for="id_password">Password:</label> <input type="password" name="password" id="id_password" /></li> 
+					<li><input type="submit" value="Login" /></li>
+				</ul>
+				
+				<input type="hidden" name="next" value="/gestor/" /> 
+			</form>
+			
+			<a id="auth-link" href="javascript:show_auth();">Login</a>
+		{% endif %}
 	</div>
+	<div class="clear"></div>
 	
-	<div id="glass">
-		<img id="lupa" src="{{MEDIA_URL}}images/splash/lupa.png" />
+	<div id="title">
+		<a href="{% if user.is_authenticated %}/gestor/main/{% endif %}"><img id="logo" src="{{MEDIA_URL}}images/splash/title_logo.png" alt="jeKnowledge's logo" /></a>
 	</div>
 	
 	<form method="post" action="/gestor/search/">
@@ -33,7 +48,7 @@
 		</div>
 	</form>
 	
-	<div class="social">
+	<div id="social">
 		<a href="http://twitter.com/jeknowledge" target="_blank">
 			<img src="{{MEDIA_URL}}images/splash/twitter.png" alt="Twitter" title="Twitter - @jeknowledge" class="media_icon"/>
 		</a>
